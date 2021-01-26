@@ -1,18 +1,25 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace API.Entities
+namespace API.DTO
 {
-    public class Usuario
+    public class UsuarioDTO
     {
-        [Key]
-        public System.Int16 id_usuario { get; set; }
+        [Required]
         public string nombre { get; set; }
+        [Required]
         public string ape_paterno { get; set; }
+        [Required]
         public string ape_materno { get; set; }
-        public string dni { get; set; }
-        public string usuario { get; set; }
-        public string password { get; set; }
+        [Required]
         public string rol { get; set; }
+        [Required]
+        public string dni { get; set; }
+        [Required]
+        [EmailAddress]
         public string email { get; set; }
+        [Required]
+        public string usuario { get; set; }
+        [Required]
+        public string password { get; set; }
     }
 }
