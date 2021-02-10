@@ -1,6 +1,8 @@
+import { Usuario } from './../_models/usuario';
 import { AccountService } from './../_services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { error } from 'protractor';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,20 +11,21 @@ import { error } from 'protractor';
 })
 export class LoginComponent implements OnInit {
   model: any ={}
-  loggedIn: boolean;
 
-  constructor(private accountService: AccountService) { }
+  constructor(public accountService: AccountService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   login(){
     this.accountService.login(this.model).subscribe(response =>{
       console.log(response);
-      this.loggedIn = true;
     }, error=>{
       console.log(error);
     })
   }
 
+  logout(){
+    this.accountService.logout();
+  }
 }

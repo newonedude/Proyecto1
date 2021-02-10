@@ -1,0 +1,18 @@
+<div class="m-5">
+    <div *ngIf="!registerMode">
+        <div>
+            <h1>Mantenimiento de Usuarios</h1>
+            <button (click)="registerToggle()" type="button" class="btn btn-dark">Agregar</button>
+        </div>
+        <div class="pt-5">
+            <app-usuarios-table [usuariosPage]="usuarios"></app-usuarios-table>
+        </div>
+    </div>
+    <div *ngIf="registerMode">
+        <div>
+            <div>
+                <app-registrar-usuarios (cancelRegister)="cancelRegisterMode($event)"></app-registrar-usuarios>
+            </div>
+        </div>
+    </div>
+</div>
