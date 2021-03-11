@@ -1,4 +1,4 @@
-import { AccountService } from './../_services/account.service';
+import { AccountService } from './../../_services/account.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 interface Rol {
@@ -20,14 +20,14 @@ export class RegistrarUsuariosComponent implements OnInit {
     {value: 'Usuario IE'}
   ];
 
-  constructor( private accountService: AccountService) { }
+  constructor(private accountService:AccountService) { }
 
   ngOnInit(): void {
   }
 
   register(){
+    this.model.estado = true
     this.accountService.registrar(this.model).subscribe(response =>{
-      console.log(response);
       this.cancel();
     }, error=>{
       console.log(error);

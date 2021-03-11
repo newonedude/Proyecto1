@@ -17,3 +17,9 @@
 }
 
 html, body { height: 100%; }
+
+.mat-nav-list .mat-list-item:focus,
+.mat-action-list .mat-list-item:focus,
+.mat-list-option:focus {
+  background: #cfcdcd !important;
+}

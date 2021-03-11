@@ -1,0 +1,18 @@
+<div class="m-5">
+    <div *ngIf="!registerMode">
+        <div>
+            <h1>Mantenimiento de Matriculas</h1>
+            <button (click)="registerToggle()" type="button" class="btn btn-dark">Agregar</button>
+        </div>
+        <div class="pt-5">
+            <app-matriculas-table [usuariosPage]="usuarios" [seccionesPage]="secciones"></app-matriculas-table>
+        </div>
+    </div>
+    <div *ngIf="registerMode">
+        <div>
+            <div>
+                <app-registrar-matriculas></app-registrar-matriculas>
+            </div>
+        </div>
+    </div>
+</div>

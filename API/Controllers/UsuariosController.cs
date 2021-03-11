@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,40 +10,55 @@ using Microsoft.EntityFrameworkCore;
 using API.DTO;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace API.Controllers
 {
-    public class UsuariosController:APIBaseController
+    public class UsuariosController : APIBaseController
     {
-        private readonly DataContext _context;
+        private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
+        private readonly IMapper mapper;
 
-        public UsuariosController(DataContext context, ITokenService tokenService)
+        public UsuariosController(IUserRepository userRepository, ITokenService tokenService, IMapper mapper)
         {
-            _context = context;
+            this.mapper = mapper;
+            _userRepository = userRepository;
             _tokenService = tokenService;
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetUsuarios()
         {
-            return await _context.tb_usuario.ToListAsync();
+            var usuarios = await _userRepository.GetUsersAsync();
+
+            var usuariosToReturn = mapper.Map<IEnumerable<UsuarioDTO>>(usuarios);
+
+            return Ok(usuariosToReturn);
         }
 
-        [Authorize]
         [HttpGet("{id_usuario}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(System.Int16 id_usuario)
+        public async Task<ActionResult<Usuario>> GetUsuario(short id_usuario)
         {
-            return await _context.tb_usuario.FindAsync(id_usuario);
+            return await _userRepository.GetUsersByIdAsync(id_usuario);
+        }
+
+        [HttpGet("rol/{rol}")]
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetUsuariosRol(String rol)
+        {
+            var usuarios = await _userRepository.GetUsersByRoleAsync(rol);
+
+            var usuariosToReturn = mapper.Map<IEnumerable<UsuarioDTO>>(usuarios);
+
+            return Ok(usuariosToReturn);
         }
 
         [HttpPost("registrar")]
-        public async Task<ActionResult<UserTokenDTO>> RegistrarUsuario(UsuarioDTO usuariodto)
+        public async Task<ActionResult<UsuarioDTO>> RegistrarUsuario(UsuarioDTO usuariodto)
         {
-            if(await UsuarioExiste(usuariodto.dni)) return BadRequest("Usuario ya existe");
+            if (await UsuarioExiste(usuariodto.usuario)) return BadRequest("Usuario ya existe");
 
-            var user = new Usuario
+            var usuario = new Usuario
             {
                 nombre = usuariodto.nombre,
                 ape_paterno = usuariodto.ape_paterno,
@@ -51,36 +67,35 @@ namespace API.Controllers
                 email = usuariodto.email,
                 rol = usuariodto.rol,
                 usuario = usuariodto.usuario,
-                password = usuariodto.password
+                password = usuariodto.password,
+                estado = usuariodto.estado
             };
 
-            _context.tb_usuario.Add(user);
-            await _context.SaveChangesAsync();
+            var user = await _userRepository.Insertar(usuario);
+            var usuarioToReturn = mapper.Map<UsuarioDTO>(user);
 
-            return new UserTokenDTO{
-                usuario = user.usuario,
-                token = _tokenService.CreateToken(user)
-            };
+            return Ok(usuarioToReturn);
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<UserTokenDTO>> Login(LoginDTO loginDTO)
         {
-            var user = await _context.tb_usuario.SingleOrDefaultAsync(x=>x.usuario == loginDTO.usuario);
+            var user = await _userRepository.Log(loginDTO);
 
-            if(user==null) return Unauthorized("Usuario inválido");
+            if (user == null) return Unauthorized("Usuario inválido");
 
-            if(loginDTO.password != user.password) return Unauthorized("Contraseña inválida");
+            if (loginDTO.password != user.password) return Unauthorized("Contraseña inválida");
 
-            return new UserTokenDTO{
+            return new UserTokenDTO
+            {
                 usuario = user.usuario,
                 token = _tokenService.CreateToken(user)
             };
         }
 
-        private async Task<bool> UsuarioExiste(string dni)
+        private async Task<bool> UsuarioExiste(string usuario)
         {
-            return await _context.tb_usuario.AnyAsync(x => x.dni == dni.ToLower());
+            return await _userRepository.UsuarioExist(usuario);
         }
     }
 }

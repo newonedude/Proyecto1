@@ -1,0 +1,7 @@
+mat-selection-list {
+  position: relative;
+  margin-top: 2px;
+  height: 300px;
+  overflow-y: scroll;
+  outline: auto;
+}

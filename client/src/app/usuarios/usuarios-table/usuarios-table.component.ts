@@ -7,7 +7,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UsuariosTableComponent implements OnInit {
   @Input() usuariosPage: any;
-
   constructor() { }
 
   ngOnInit(): void {

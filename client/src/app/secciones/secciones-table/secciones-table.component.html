@@ -1,0 +1,20 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nivel</th>
+        <th scope="col">Grado</th>
+        <th scope="col">Sección</th>
+        <th scope="col">Año</th>
+        <th scope="col">Capacidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let seccion of seccionesPage">
+        <td>{{seccion.nivel}}</td>
+        <td>{{seccion.grado}}</td>
+        <td>{{seccion.seccion}}</td>
+        <td>{{seccion.anio}}</td>
+        <td>{{seccion.capacidad}}</td>
+      </tr>
+    </tbody>
+  </table>

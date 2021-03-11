@@ -1,3 +1,4 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
@@ -18,12 +19,24 @@ import { MatListModule } from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { UsuariosPageComponent } from './usuarios-page/usuarios-page.component';
-import { UsuariosTableComponent } from './usuarios-table/usuarios-table.component';
-import { RegistrarUsuariosComponent } from './registrar-usuarios/registrar-usuarios.component';
+import { UsuariosPageComponent } from './usuarios/usuarios-page/usuarios-page.component';
+import { UsuariosTableComponent } from './usuarios/usuarios-table/usuarios-table.component';
+import { RegistrarUsuariosComponent } from './usuarios/registrar-usuarios/registrar-usuarios.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { EstudiantesPageComponent } from './estudiantes/estudiantes-page/estudiantes-page.component';
+import { EstudiantesTableComponent } from './estudiantes/estudiantes-table/estudiantes-table.component';
+import { RegistrarEstudiantesComponent } from './estudiantes/registrar-estudiantes/registrar-estudiantes.component';
+import { DatePipe } from '@angular/common';
+import { UploadFileComponent } from './upload-file/upload-file.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { SeccionesPageComponent } from './secciones/secciones-page/secciones-page.component';
+import { SeccionesTableComponent } from './secciones/secciones-table/secciones-table.component';
+import { RegistrarSeccionesComponent } from './secciones/registrar-secciones/registrar-secciones.component';
+import { MatriculasPageComponent } from './matriculas/matriculas-page/matriculas-page.component';
+import { MatriculasTableComponent } from './matriculas/matriculas-table/matriculas-table.component';
+import { RegistrarMatriculasComponent } from './matriculas/registrar-matriculas/registrar-matriculas.component';
 
 @NgModule({
   declarations: [	
@@ -32,7 +45,17 @@ import {MatSelectModule} from '@angular/material/select';
       MainNavComponent,
       UsuariosPageComponent,
       UsuariosTableComponent,
-      RegistrarUsuariosComponent
+      RegistrarUsuariosComponent,
+      EstudiantesPageComponent,
+      EstudiantesTableComponent,
+      RegistrarEstudiantesComponent,
+      UploadFileComponent,
+      SeccionesPageComponent,
+      SeccionesTableComponent,
+      RegistrarSeccionesComponent,
+      MatriculasPageComponent,
+      MatriculasTableComponent,
+      RegistrarMatriculasComponent
    ],
   imports: [
     BrowserModule,
@@ -52,9 +75,13 @@ import {MatSelectModule} from '@angular/material/select';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressBarModule,
+    MatDatepickerModule
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

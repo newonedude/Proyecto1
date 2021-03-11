@@ -17,7 +17,7 @@ export class UsuariosPageComponent implements OnInit {
   }
 
   getUsuarios(){
-    this.http.get('https://localhost:5001/api/Usuarios').subscribe(usuarios => this.usuarios = usuarios);
+    this.http.get('https://localhost:5001/api/usuarios').subscribe(usuarios => this.usuarios = usuarios);
   }
 
   registerToggle(){
@@ -26,6 +26,9 @@ export class UsuariosPageComponent implements OnInit {
 
   cancelRegisterMode(event: boolean){
     this.registerMode=event;
+    if(event == false){
+      this.ngOnInit();
+    }
   }
 
 }
