@@ -22,11 +22,11 @@ export class MatriculasPageComponent implements OnInit {
   ngOnInit(): void {
     this.getMatriculas();
   }
-  
-  registerToggle(){
+
+  registerToggle() {
     this.registerMode = !this.registerMode;
   }
-  
+
   getMatriculas() {
     this.http.get('https://localhost:5001/api/matriculas').subscribe(response => {
       this.matriculas = response;
@@ -52,10 +52,29 @@ export class MatriculasPageComponent implements OnInit {
     this.getUsuarios();
   }
 
-  async getUsuarios(){
+  async getUsuarios() {
     for (const estudiante of this.estudiantes) {
       const resp = await this.usuarioService.obtenerUsuario(estudiante.id_usuario).toPromise()
       this.usuarios.push(resp)
+    }
+  }
+
+  cancelRegisterMode(event: boolean) {
+    this.secciones.length = 0;
+    this.estudiantes.length = 0;
+    this.usuarios.length = 0;
+    this.registerMode = event;
+    if (event == false) {
+      this.ngOnInit();
+    }
+  }
+
+  refreshPageMode(event: any) {
+    this.secciones.length = 0;
+    this.estudiantes.length = 0;
+    this.usuarios.length = 0;
+    if (event == true) {
+      this.ngOnInit();
     }
   }
 }

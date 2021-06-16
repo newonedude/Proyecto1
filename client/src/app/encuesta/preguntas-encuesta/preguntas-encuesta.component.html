@@ -1,0 +1,283 @@
+<div class="m-5" id="contenedor">
+    <div>
+        <h1>Cuestionario</h1>
+    </div>
+
+    <form #registerForm="ngForm">
+        <div class="form-group mt-4">
+            <label class="mr-3"><b>1.</b> Eres hombre o mujer? </label>
+            <mat-radio-group name="sexo" [(ngModel)]="encuestaExistente.sexo" required checked>
+                <mat-radio-button value="hombre" required>Hombre</mat-radio-button>
+                <mat-radio-button value="mujer" required>Mujer</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>2.</b> Cuál es tu edad actual? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="edad" [(ngModel)]="encuestaExistente.edad" required>
+                    <mat-option [value]="11">11</mat-option>
+                    <mat-option [value]="12">12</mat-option>
+                    <mat-option [value]="13">13</mat-option>
+                    <mat-option [value]="14">14</mat-option>
+                    <mat-option [value]="15">15</mat-option>
+                    <mat-option [value]="16">16</mat-option>
+                    <mat-option [value]="'Otros'">Otro</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>3.</b> Quién es tu apoderado? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="apoderado" [(ngModel)]="encuestaExistente.apoderado" required>
+                    <mat-option [value]="'Madre'">Madre</mat-option>
+                    <mat-option [value]="'Padre'">Padre</mat-option>
+                    <mat-option [value]="'Madre y Padre'">Madre y Padre</mat-option>
+                    <mat-option [value]="'Tío(a)'">Tío(a)</mat-option>
+                    <mat-option [value]="'Hermano(a)'">Hermano(a)</mat-option>
+                    <mat-option [value]="'Abuelo(a)'">Abuelo(a)</mat-option>
+                    <mat-option [value]="'Otro'">Otro</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>4.</b> Cuál es el nivel de educación de tu madre? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="nivel_edu_madre" [(ngModel)]="encuestaExistente.edu_madre">
+                    <mat-option [value]="'Primaria Completa'">Primaria Completa</mat-option>
+                    <mat-option [value]="'Primaria Incompleta'">Primaria Incompleta</mat-option>
+                    <mat-option [value]="'Secundaria Completa'">Secundaria Completa</mat-option>
+                    <mat-option [value]="'Secundaria Incompleta'">Secundaria Incompleta</mat-option>
+                    <mat-option [value]="'Superior Técnico Completo'">Superior Técnico Completo</mat-option>
+                    <mat-option [value]="'Superior Técnico Incompleto'">Superior Técnico Incompleto</mat-option>
+                    <mat-option [value]="'Superior Universitario Completo'">Superior Universitario Completo</mat-option>
+                    <mat-option [value]="'Superior Universitario Incompleto'">Superior Universitario Incompleto</mat-option>
+                    <mat-option [value]="'Ninguno'">Ninguno</mat-option>
+                    <mat-option [value]="'Desconozco'">Desconozco</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>5.</b> Cuál es el nivel de educación de tu padre? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="nivel_edu_padre" [(ngModel)]="encuestaExistente.edu_padre">
+                    <mat-option [value]="'Primaria Completa'">Primaria Completa</mat-option>
+                    <mat-option [value]="'Primaria Incompleta'">Primaria Incompleta</mat-option>
+                    <mat-option [value]="'Secundaria Completa'">Secundaria Completa</mat-option>
+                    <mat-option [value]="'Secundaria Incompleta'">Secundaria Incompleta</mat-option>
+                    <mat-option [value]="'Superior Técnico Completo'">Superior Técnico Completo</mat-option>
+                    <mat-option [value]="'Superior Técnico Incompleto'">Superior Técnico Incompleto</mat-option>
+                    <mat-option [value]="'Superior Universitario Completo'">Superior Universitario Completo</mat-option>
+                    <mat-option [value]="'Superior Universitario Incompleto'">Superior Universitario Incompleto</mat-option>
+                    <mat-option [value]="'Ninguno'">Ninguno</mat-option>
+                    <mat-option [value]="'Desconozco'">Desconozco</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group mt-4">
+            <label class="mr-3"><b>6.</b> Vives con tus dos padre? </label>
+            <mat-radio-group aria-label="Select an option" name="vive_con_padres"
+                [(ngModel)]="encuestaExistente.vive_con_padres" checked>
+                <mat-radio-button value="si">Sí</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>7.</b> Con cuantos familiares vives? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="familiares_vive" [(ngModel)]="encuestaExistente.tam_familia">
+                    <mat-option [value]="'0'">0</mat-option>
+                    <mat-option [value]="'1'">1</mat-option>
+                    <mat-option [value]="'2'">2</mat-option>
+                    <mat-option [value]="'3'">3</mat-option>
+                    <mat-option [value]="'4'">4</mat-option>
+                    <mat-option [value]="'5'">5</mat-option>
+                    <mat-option [value]="'6'">6</mat-option>
+                    <mat-option [value]="'7'">7</mat-option>
+                    <mat-option [value]="'8'">8</mat-option>
+                    <mat-option [value]="'9'">9</mat-option>
+                    <mat-option [value]="'10'">10</mat-option>
+                    <mat-option [value]="'más de 10'">Más de 10</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>8.</b> Con cuantos hermanos vives? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="hermanos_vive" [(ngModel)]="encuestaExistente.num_hermanos">
+                    <mat-option [value]="'0'">0</mat-option>
+                    <mat-option [value]="'1'">1</mat-option>
+                    <mat-option [value]="'2'">2</mat-option>
+                    <mat-option [value]="'3'">3</mat-option>
+                    <mat-option [value]="'4'">4</mat-option>
+                    <mat-option [value]="'5'">5</mat-option>
+                    <mat-option [value]="'más de 5'">Más de 5</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>9.</b> A qué se dedica tu apoderado? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="dedica_apoderado" [(ngModel)]="encuestaExistente.dedi_apoderado" checked>
+                    <mat-option value="En casa (cuidado del hogar)">En casa (cuidado del hogar)</mat-option>
+                    <mat-option
+                        value="Negocio propio (Puesto en mercado, Tienda, Venta ambulante, Emprendimiento, etc.)">
+                        Negocio propio (Puesto en mercado, Tienda, Venta ambulante, Emprendimiento, etc.)</mat-option>
+                    <mat-option value="Trabaja para una empresa">Trabaja para una empresa</mat-option>
+                    <mat-option value="Trabaja por horas (Albañil, Venta de productos por catálogo, etc.)">Trabaja por
+                        horas (Albañil, Venta de productos por catálogo, etc.)</mat-option>
+                    <mat-option value="Otro">Otro</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>10.</b> Cómo calificarías la relación que tienes con tus padres? </label>
+            <mat-radio-group aria-label="Select an option" name="relacion_con_padres"
+                [(ngModel)]="encuestaExistente.cal_rela_padres" checked>
+                <mat-radio-button [value]="3">Buena</mat-radio-button>
+                <mat-radio-button [value]="2">Regular</mat-radio-button>
+                <mat-radio-button [value]="1">Mala</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>11.</b> Tuviste alguna enfermedad o accidente que te impidiera realizar tus
+                actividades académicas de forma normal durante un tiempo prolongado? </label>
+            <mat-radio-group aria-label="Select an option" name="enfermedad_accidente"
+                [(ngModel)]="encuestaExistente.enfermedad" checked>
+                <mat-radio-button value="si">Sí</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>12.</b> Contaste con el apoyo de algún familiar para tus actividades académicas
+                (tareas, proyectos, recursos, etc.) durante el curso de Matemática? </label>
+            <mat-radio-group aria-label="Select an option" name="apoyo_familiar"
+                [(ngModel)]="encuestaExistente.apoyo_fam_curso" checked>
+                <mat-radio-button value="si">Sí</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>13.</b> Recibiste clases particulares de Matemática? </label>
+            <mat-radio-group aria-label="Select an option" name="clases_particulares"
+                [(ngModel)]="encuestaExistente.clases_particulares" checked>
+                <mat-radio-button value="si">Sí</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>14.</b> Contaste con acceso a internet en casa? </label>
+            <mat-radio-group aria-label="Select an option" name="acceso_internet" [(ngModel)]="encuestaExistente.internet" checked>
+                <mat-radio-button value="si">Sí</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>15.</b> Cuanto tiempo en promedio te demorabas en llegar al colegio? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="tiempo_demora_colegio" [(ngModel)]="encuestaExistente.dur_viaje_colegio">
+                    <mat-option [value]="'Entre 1 y 15 minutos'">Entre 1 y 15 minutos</mat-option>
+                    <mat-option [value]="'Entre 15 y 30 minutos'">Entre 15 y 30 minutos</mat-option>
+                    <mat-option [value]="'Más de 30 minutos'">Más de 30 minutos</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>16.</b> Con cuanta frecuencia realizaste actividades recreativas durante la época
+                escolar el año pasado? </label>
+            <mat-radio-group aria-label="Select an option" name="actividades_recreativas"
+                [(ngModel)]="encuestaExistente.frec_act_recreativas" checked>
+                <mat-radio-button value="Ocasionalmente">Ocasionalmente</mat-radio-button>
+                <mat-radio-button value="Regularmente">Regularmente</mat-radio-button>
+                <mat-radio-button value="Frecuentemente">Frecuentemente</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>17.</b> Cómo calificarías la relación con tus compañeros de clase (el año pasado)?
+            </label>
+            <mat-radio-group aria-label="Select an option" name="relacion_compañeros"
+                [(ngModel)]="encuestaExistente.cal_rela_companeros" checked>
+                <mat-radio-button [value]="3">Buena</mat-radio-button>
+                <mat-radio-button [value]="2">Regular</mat-radio-button>
+                <mat-radio-button [value]="1">Mala</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>18.</b> Cómo calificarías la relación con tu profesor de Matemática (el año pasado)?
+            </label>
+            <mat-radio-group aria-label="Select an option" name="relacion_profesor"
+                [(ngModel)]="encuestaExistente.cal_rela_docente" checked>
+                <mat-radio-button [value]="3">Buena</mat-radio-button>
+                <mat-radio-button [value]="2">Regular</mat-radio-button>
+                <mat-radio-button [value]="1">Mala</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>19.</b> Cuantas horas a la semana estudiaste el curso de Matemática? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="horas_estudio" [(ngModel)]="encuestaExistente.horas_estudio">
+                    <mat-option [value]="'Menos de 2 horas'">Menos de 2 horas</mat-option>
+                    <mat-option [value]="'Entre 2 y 5 horas'">Entre 2 y 5 horas</mat-option>
+                    <mat-option [value]="'Más de 5 horas'">Más de 5 horas</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>20.</b> Cómo calificarías los materiales educativos utilizados durante la clase?
+            </label>
+            <mat-radio-group aria-label="Select an option" name="materiales_educativos"
+                [(ngModel)]="encuestaExistente.cal_materiales" checked>
+                <mat-radio-button [value]="3">Bueno</mat-radio-button>
+                <mat-radio-button [value]="2">Regular</mat-radio-button>
+                <mat-radio-button [value]="1">Malo</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>21.</b> Cómo calificarías tu nivel de interés en el curso de Matemática? </label>
+            <mat-radio-group aria-label="Select an option" name="nivel_interes" [(ngModel)]="encuestaExistente.nivel_interes" checked>
+                <mat-radio-button [value]="1">Nada Interesado</mat-radio-button>
+                <mat-radio-button [value]="2">Medianamente Interesado</mat-radio-button>
+                <mat-radio-button [value]="3">Muy Interesado</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>22.</b> Cuál fue el motivo que más afectó tu nivel de interés? </label>
+            <mat-form-field appearance="outline">
+                <mat-label>-Seleccionar-</mat-label>
+                <mat-select name="motivo_interes" [(ngModel)]="encuestaExistente.mot_interes">
+                    <mat-option [value]="'El Profesor'">El Profesor</mat-option>
+                    <mat-option [value]="'El Curso'">El Curso</mat-option>
+                    <mat-option [value]="'Otros'">Otros</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>23.</b> Deseas cursar estudios superiores al terminar el colegio? </label>
+            <mat-radio-group aria-label="Select an option" name="cursar_estudios_superiores"
+                [(ngModel)]="encuestaExistente.cursar_carrera" checked>
+                <mat-radio-button value="si">Sí</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group">
+            <label class="mr-3"><b>24.</b> Cuentas con el apoyo de tu familia para cursar estudios superiores? </label>
+            <mat-radio-group aria-label="Select an option" name="apoyo_estudios_superiores"
+                [(ngModel)]="encuestaExistente.apoyo_fam_carrera" checked>
+                <mat-radio-button value="si">Sí</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-group mb-3" id="buttons">
+            <button type="submit" class="btn btn-dark mr-2" (click)="registrarEncuesta()">Hazme click para saber el futuro</button>
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+    </form>
+</div>

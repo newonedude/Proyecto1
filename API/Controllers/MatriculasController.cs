@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Data;
@@ -38,11 +39,56 @@ namespace API.Controllers
                 id_estudiante = matriculaDTO.id_estudiante,
                 id_seccion = matriculaDTO.id_seccion,
                 anio = matriculaDTO.anio,
-                fecha_matricula = matriculaDTO.fecha_matricula
+                fecha_matricula = matriculaDTO.fecha_matricula,
+                estado = matriculaDTO.estado,
+                encuesta_realizada = matriculaDTO.encuesta_realizada,
+                permiso_apoderado = matriculaDTO.permiso_apoderado
             };
 
             var mat = await _matriculaRepository.Insertar(matricula);
             var matriculaToReturn = mapper.Map<MatriculaDTO>(mat);
+
+            return Ok(matriculaToReturn);
+        }
+
+        [HttpGet("idestudiante/{id_estudiante}")]
+        public async Task<ActionResult<Matricula>> GetMatriculaByIdEstudiante(short id_estudiante)
+        {
+            return await _matriculaRepository.GetMatriculaByIdEstudianteAsync(id_estudiante);
+        }
+
+        [HttpGet("dniestudiante/{dni}")]
+        public async Task<ActionResult<Matricula>> GetMatriculaIdByDni(string dni)
+        {
+            var matricula = await _matriculaRepository.GetMatriculaByDNI(dni);
+
+            if(matricula == null) return NotFound("No existe Matricula");
+            return await _matriculaRepository.GetMatriculaByDNI(dni);
+        }
+
+        [HttpGet("idmatricula/{id_matricula}")]
+        public async Task<ActionResult<Matricula>> GetMatriculaById(short id_matricula)
+        {
+            return await _matriculaRepository.GetMatriculaById(id_matricula);
+        }
+
+        [HttpPut("actualizar")]
+        public async Task<ActionResult<MatriculaDTO>> Actualizar(MatriculaDTO matriculadto)
+        {
+            var mat = new Matricula
+            {
+                id_matricula = matriculadto.id_matricula,
+                id_estudiante = matriculadto.id_estudiante,
+                id_seccion = matriculadto.id_seccion,
+                anio = matriculadto.anio,
+                fecha_matricula = matriculadto.fecha_matricula,
+                estado = matriculadto.estado,
+                encuesta_realizada = matriculadto.encuesta_realizada,
+                permiso_apoderado = matriculadto.permiso_apoderado
+            };
+
+            var enrollment = await _matriculaRepository.Update(mat);
+            var matriculaToReturn = mapper.Map<MatriculaDTO>(enrollment);
 
             return Ok(matriculaToReturn);
         }

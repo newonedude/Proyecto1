@@ -1,19 +1,15 @@
-<div>
-  <div *ngIf="accountService.currentUser$|async">
-    <app-main-nav></app-main-nav>
-
-  </div>
-
+<div *ngIf="(accountService.currentUser$|async) && accountService.usuario.rol==='docente'">
+  <app-main-nav></app-main-nav>
+</div>
+<div *ngIf="(accountService.currentUser$|async) && accountService.usuario.rol==='estudiante'">
+  <app-pre-encuesta [usuario]="accountService.usuario"></app-pre-encuesta>
+</div>
+<div class="p2" *ngIf="(accountService.currentUser$|async)=== null">
   <div class="wrapper fadeInDown">
-    <div id="formContent" *ngIf="(accountService.currentUser$|async)=== null">
-      <!-- Tabs Titles -->
-
-      <!-- Icon -->
+    <div id="formContent">
       <div class="title">
         <p>Ingreso al Sistema</p>
       </div>
-
-      <!-- Login Form -->
       <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
         <input type="text" id="login" class="fadeIn second" name="usuario" placeholder="Usuario"
           [(ngModel)]="model.usuario">
@@ -21,8 +17,6 @@
           [(ngModel)]="model.password">
         <input type="submit" class="fadeIn fourth" value="Log In">
       </form>
-
-      <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password?</a>
       </div>

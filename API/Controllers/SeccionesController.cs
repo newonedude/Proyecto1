@@ -36,6 +36,12 @@ namespace API.Controllers
         {
             return await _seccionRepository.GetSeccionesByIdAsync(id_seccion);
         }
+
+        [HttpGet("details")]
+        public async Task<ActionResult<Seccion>> GetSeccionDetails(string nivel, string grado, string seccion, short anio)
+        {
+            return await _seccionRepository.GetSeccionByDetailAsync(nivel, grado, seccion, anio);
+        }
         
         [HttpPost("registrar")]
         public async Task<ActionResult<SeccionDTO>> RegistrarSeccion(SeccionDTO secciondto)
@@ -46,7 +52,8 @@ namespace API.Controllers
                 grado = secciondto.grado,
                 seccion = secciondto.seccion,
                 anio = secciondto.anio,
-                capacidad = secciondto.capacidad
+                capacidad = secciondto.capacidad,
+                estado = secciondto.estado
             };
 
             var secc = await _seccionRepository.Insertar(seccion);

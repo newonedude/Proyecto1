@@ -47,6 +47,20 @@ h2 {
   font-weight: 700;
 }
 
+.p2{
+  height: 100%;
+  width: 100%;
+  /*IMPORTANTE*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p1{
+  height: 100%;
+  width: 100%;
+}
+
 .wrapper {
   display: flex;
   align-items: center;
@@ -55,7 +69,6 @@ h2 {
   width: 100%;
   min-height: 100%;
   padding: 20px;
-  margin-top: 200px;
 }
 
 #formContent {
@@ -75,7 +88,7 @@ h2 {
 #formFooter {
   background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
-  padding: 25px;
+  padding: 20px;
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
@@ -160,6 +173,11 @@ input[type=text],  input[type=password]{
 }
 
 input[type=text]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }

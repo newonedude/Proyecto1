@@ -17,6 +17,12 @@ namespace API.Extensions
             services.AddScoped<ISeccionRepository, SeccionRepository>();
             services.AddScoped<IEstudianteRepository, EstudianteRepository>();
             services.AddScoped<IMatriculaRepository, MatriculaRepository>();
+            services.AddScoped<ICursoRepository, CursoRepository>();
+            services.AddScoped<IDetalleMatriculaRepository, DetalleMatriculaRepository>();
+            services.AddScoped<IAsesoriaRepository, AsesoriaRepository>();
+            services.AddScoped<IEncuestaRepository, EncuestaRepository>();
+            services.AddScoped<INotaRepository, NotaRepository>();
+            services.AddScoped<IAsignacionRepository, AsignacionRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {

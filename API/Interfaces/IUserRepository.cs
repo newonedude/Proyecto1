@@ -17,5 +17,6 @@ namespace API.Interfaces
         Task<Usuario> Insertar(Usuario usuario);
         Task<bool> UsuarioExist(string usuario);
         Task<Usuario> Log(LoginDTO logindto);
+        Task<Usuario> GetUserByDniAsync(string dni);
     }
 }

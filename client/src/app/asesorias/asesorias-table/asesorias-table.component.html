@@ -1,0 +1,22 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Docente</th>
+        <th scope="col">Grado y Sección</th>
+        <th scope="col">Estudiante</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let estudiante of estudiantesPage; let i=index">
+        <td>{{docentesPage[i].nombre}}</td>
+        <td>{{seccionesPage[i].seccion}}</td>
+        <td>{{estudiante.nombre}}</td>
+        <td>{{asesoriasPage[i].fecha2}}</td>
+        <td>{{asesoriasPage[i].hora}}</td>
+        <td>{{asesoriasPage[i].estado}}</td>
+      </tr>
+    </tbody>
+  </table>

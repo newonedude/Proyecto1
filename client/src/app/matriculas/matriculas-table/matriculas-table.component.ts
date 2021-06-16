@@ -8,7 +8,6 @@ import { transform } from 'typescript';
 })
 
 export class MatriculasTableComponent implements OnInit {
-  @Input() combinedArray: any;
   @Input() usuariosPage: any;
   @Input() seccionesPage: any;
 

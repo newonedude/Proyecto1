@@ -1,3 +1,4 @@
+using API.Data;
 using API.DTO;
 using API.Entities;
 using AutoMapper;
@@ -14,6 +15,10 @@ namespace API.Helpers
             CreateMap<Seccion, SeccionDTO>();
             CreateMap<DetalleMatricula, DetalleMatriculaDTO>();
             CreateMap<Curso, CursoDTO>();
+            CreateMap<Asesoria, AsesoriaDTO>();
+            CreateMap<Encuesta, EncuestaDTO>();
+            CreateMap<Nota, NotaDTO>();
+            CreateMap<Asignacion, AsignacionDTO>();
         }
     }
 }

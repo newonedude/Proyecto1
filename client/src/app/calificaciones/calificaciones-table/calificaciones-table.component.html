@@ -1,0 +1,32 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Alumno</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Nivel</th>
+        <th scope="col">Grado</th>
+        <th scope="col">Sección</th>
+        <th scope="col">Año</th>
+        <th scope="col">Curso</th>
+        <th scope="col">P1</th>
+        <th scope="col">P2</th>
+        <th scope="col">P3</th>
+        <th scope="col">CF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let calificacion of calificacionesPage">
+        <td>{{calificacion.nombre}}</td>
+        <td>{{calificacion.dni}}</td>
+        <td>{{calificacion.nivel}}</td>
+        <td>{{calificacion.grado}}</td>
+        <td>{{calificacion.seccion}}</td>
+        <td>{{calificacion.anio}}</td>
+        <td>{{calificacion.curso}}</td>
+        <td>{{calificacion.p1}}</td>
+        <td>{{calificacion.p2}}</td>
+        <td>{{calificacion.p3}}</td>
+        <td>{{calificacion.cf}}</td>
+      </tr>
+    </tbody>
+  </table>

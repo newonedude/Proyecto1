@@ -12,16 +12,17 @@ export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
   private currentUserSource = new ReplaySubject<Usuario>(1);
   currentUser$ = this.currentUserSource.asObservable();
+  usuario: any = {};
 
   constructor(private http: HttpClient) { }
 
-  login(model:any){
+  login(model:any):Observable<any>{
     return this.http.post(this.baseUrl+'usuarios/login', model).pipe(
       map((response:Usuario)=>{
-        const usuario = response;
-        if(usuario){
-          localStorage.setItem('usuario',JSON.stringify(usuario));
-          this.currentUserSource.next(usuario);
+        this.usuario = response;
+        if(this.usuario){
+          localStorage.setItem('usuario',JSON.stringify(this.usuario));
+          this.currentUserSource.next(this.usuario);
         }
       })
     )
@@ -50,5 +51,9 @@ export class AccountService {
 
   obtenerUsuarioRol(rol:string):Observable<any>{
     return this.http.get<any>(this.baseUrl+'usuarios/rol/'+rol)
+  }
+
+  obtenerUsuarioDni(dni:string):Observable<any>{
+    return this.http.get<any>(this.baseUrl+'usuarios/dni/'+dni)
   }
 }

@@ -1,8 +1,8 @@
 import { Usuario } from './../_models/usuario';
 import { AccountService } from './../_services/account.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { error } from 'protractor';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,22 +10,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  model: any ={}
+  model: any = {}
 
   constructor(public accountService: AccountService) { }
 
   ngOnInit(): void {
   }
 
-  login(){
-    this.accountService.login(this.model).subscribe(response =>{
-      console.log(response);
-    }, error=>{
-      console.log(error);
-    })
+  login() {
+    const resp = this.accountService.login(this.model).subscribe();
+
+    //this.accountService.login(this.model).subscribe(r => console.log(r))
   }
 
-  logout(){
+  logout() {
     this.accountService.logout();
   }
 }

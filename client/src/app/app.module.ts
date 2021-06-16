@@ -37,6 +37,19 @@ import { RegistrarSeccionesComponent } from './secciones/registrar-secciones/reg
 import { MatriculasPageComponent } from './matriculas/matriculas-page/matriculas-page.component';
 import { MatriculasTableComponent } from './matriculas/matriculas-table/matriculas-table.component';
 import { RegistrarMatriculasComponent } from './matriculas/registrar-matriculas/registrar-matriculas.component';
+import { UploadFileMatriculaComponent } from './matriculas/upload-file-matricula/upload-file-matricula.component';
+import { AsesoriasPageComponent } from './asesorias/asesorias-page/asesorias-page.component';
+import { AsesoriasTableComponent } from './asesorias/asesorias-table/asesorias-table.component';
+import { RegistrarAsesoriasComponent } from './asesorias/registrar-asesorias/registrar-asesorias.component';
+import { PreguntasEncuestaComponent } from './encuesta/preguntas-encuesta/preguntas-encuesta.component';
+import { LoginEncuestaComponent } from './encuesta/login-encuesta/login-encuesta.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { CalificacionesPageComponent } from './calificaciones/calificaciones-page/calificaciones-page.component';
+import { CalificacionesTableComponent } from './calificaciones/calificaciones-table/calificaciones-table.component';
+import { UploadFileCalificacionComponent } from './calificaciones/upload-file-calificacion/upload-file-calificacion.component';
+import { ModificarCalificacionComponent } from './calificaciones/modificar-calificacion/modificar-calificacion.component';
+import {NumberPickerModule} from 'ng-number-picker';
+import { PreEncuestaComponent } from './encuesta/pre-encuesta/pre-encuesta.component';
 
 @NgModule({
   declarations: [	
@@ -55,9 +68,21 @@ import { RegistrarMatriculasComponent } from './matriculas/registrar-matriculas/
       RegistrarSeccionesComponent,
       MatriculasPageComponent,
       MatriculasTableComponent,
-      RegistrarMatriculasComponent
+      RegistrarMatriculasComponent,
+      UploadFileMatriculaComponent,
+      AsesoriasPageComponent,
+      AsesoriasTableComponent,
+      RegistrarAsesoriasComponent,
+      PreguntasEncuestaComponent,
+      LoginEncuestaComponent,
+      CalificacionesPageComponent,
+      CalificacionesTableComponent,
+      UploadFileCalificacionComponent,
+      ModificarCalificacionComponent,
+      PreEncuestaComponent
    ],
   imports: [
+    NumberPickerModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -77,7 +102,8 @@ import { RegistrarMatriculasComponent } from './matriculas/registrar-matriculas/
     MatInputModule,
     MatSelectModule,
     MatProgressBarModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatRadioModule,
   ],
   providers: [
     DatePipe,

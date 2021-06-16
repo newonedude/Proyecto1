@@ -28,6 +28,12 @@ namespace API.Data
             return await context.tb_usuario.FindAsync(id_usuario);
         }
 
+        public async Task<Usuario> GetUserByDniAsync(string dni)
+        {
+            return await context.tb_usuario.Where(r => r.dni == dni)
+            .FirstOrDefaultAsync<Usuario>();
+        }
+
         public async Task<IEnumerable<Usuario>> GetUsersByRoleAsync(string rol)
         {
            return await context.tb_usuario.Where(e => e.rol == rol)

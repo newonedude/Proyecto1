@@ -1,0 +1,73 @@
+<div class="m-5">
+    <div>
+        <div>
+            <h1>Mantenimiento de Calificaciones</h1>
+            <div style="border: 1px solid grey; border-radius: 20px">
+                <div class="m-4">
+                    <h2>Filtros</h2>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nivel</mat-label>
+                                <mat-select name="nivel">
+                                    <mat-option value="primaria">Primaria</mat-option>
+                                    <mat-option value="secundaria">Secundaria</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Grado</mat-label>
+                                <mat-select name="grado">
+                                    <mat-option value="1">1ero</mat-option>
+                                    <mat-option value="2">2do</mat-option>
+                                    <mat-option value="2">3ero</mat-option>
+                                    <mat-option value="2">4to</mat-option>
+                                    <mat-option value="2">5to</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Sección</mat-label>
+                                <mat-select name="seccion">
+                                    <mat-option value="A">A</mat-option>
+                                    <mat-option value="B">B</mat-option>
+                                    <mat-option value="C">C</mat-option>
+                                    <mat-option value="D">D</mat-option>
+                                    <mat-option value="E">E</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Año</mat-label>
+                                <mat-select name="anio">
+                                    <mat-option value="2020">2020</mat-option>
+                                    <mat-option value="2019">2019</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Curso</mat-label>
+                                <mat-select name="curso">
+                                    <mat-option value="matemática">Matemática</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-dark">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="mt-4 mb-4">
+                <app-upload-file-calificacion (refreshPage)="refreshPageMode($event)"></app-upload-file-calificacion>
+            </div>
+            <div>
+                <app-calificaciones-table [calificacionesPage]="calificacionesTabla"></app-calificaciones-table>
+            </div>
+        </div>
+    </div>
+</div>

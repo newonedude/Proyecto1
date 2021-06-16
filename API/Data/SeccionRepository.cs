@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Entities;
 using API.Interfaces;
@@ -15,6 +16,12 @@ namespace API.Data
             this.context = context;
 
         }
+
+        public async Task<Seccion> GetSeccionByDetailAsync(string nivel, string grado, string seccion, short anio)
+        {
+            return await context.tb_seccion.Where(r => r.nivel == nivel && r.grado == grado && r.seccion == seccion && r.anio == anio).FirstOrDefaultAsync<Seccion>();
+        }
+
         public async Task<IEnumerable<Seccion>> GetSeccionesAsync()
         {
             return await context.tb_seccion.ToListAsync();

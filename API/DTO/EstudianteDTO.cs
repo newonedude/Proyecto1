@@ -17,5 +17,7 @@ namespace API.DTO
         public string dni_apod { get; set; }
         public string celular_apod { get; set; }
         public string email_apod { get; set; }
+        public bool? estado { get; set; }
+        
     }
 }

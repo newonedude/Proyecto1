@@ -10,5 +10,6 @@ namespace API.Interfaces
         Task<IEnumerable<Seccion>> GetSeccionesAsync();
         Task<Seccion> Insertar(Seccion seccion);
         Task<Seccion> GetSeccionesByIdAsync(short id_seccion);
+        Task<Seccion> GetSeccionByDetailAsync(string nivel, string grado, string seccion, short anio);
     }
 }

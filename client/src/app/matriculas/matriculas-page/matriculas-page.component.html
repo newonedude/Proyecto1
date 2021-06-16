@@ -2,7 +2,14 @@
     <div *ngIf="!registerMode">
         <div>
             <h1>Mantenimiento de Matriculas</h1>
-            <button (click)="registerToggle()" type="button" class="btn btn-dark">Agregar</button>
+            <div class="row">
+                <div class="col-md-5 form-group">
+                    <button (click)="registerToggle()" type="button" class="btn btn-dark">Agregar</button>
+                </div>
+                <div class="col-m-5 form-group">
+                    <app-upload-file-matricula (refreshPage)="refreshPageMode($event)"></app-upload-file-matricula>
+                </div>
+            </div>
         </div>
         <div class="pt-5">
             <app-matriculas-table [usuariosPage]="usuarios" [seccionesPage]="secciones"></app-matriculas-table>
@@ -11,7 +18,7 @@
     <div *ngIf="registerMode">
         <div>
             <div>
-                <app-registrar-matriculas></app-registrar-matriculas>
+                <app-registrar-matriculas (cancelRegister)="cancelRegisterMode($event)"></app-registrar-matriculas>
             </div>
         </div>
     </div>

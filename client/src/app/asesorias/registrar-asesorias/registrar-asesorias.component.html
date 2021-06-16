@@ -1,0 +1,55 @@
+<div class="m-5">
+    <div class="ml-2">
+        <h1>Registrar Asesoría</h1>
+    </div>
+    <form #registerForm="ngForm">
+        <div class="form-group mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de Asesoría</mat-label>
+                <input matInput type="date" name="fecha_matricula" [(ngModel)]="fecha1">
+            </mat-form-field>
+        </div>
+        <div class="form-group mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Hora</mat-label>
+                <mat-select name="hora" [(ngModel)]="hora2">
+                  <mat-option *ngFor="let hora of horas" [value]="hora.value">
+                    {{hora.value}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row ml-1">
+            <div class="form-group">
+                <p>Seleccionar Estudiante</p>
+                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedStudentOptions" [ngModelOptions]="{standalone: true}">
+                    <mat-list-option *ngFor="let usuario of usuarios" role="option" [value]="usuario">
+                        {{usuario.nombre}}
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+            <p class="m-2"></p>
+            <div class="form-group">
+                <p>Seleccionar Sección</p>
+                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedSectionOptions" [ngModelOptions]="{standalone: true}">
+                    <mat-list-option *ngFor="let seccion of secciones" role="option" [value]="seccion">
+                        {{seccion.seccion}}
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+            <p class="m-2"></p>
+            <div class="form-group">
+                <p>Seleccionar Docente</p>
+                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedTeacherOptions" [ngModelOptions]="{standalone: true}">
+                    <mat-list-option *ngFor="let docente of docentes" role="option" [value]="docente">
+                        {{docente.nombre}}
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+        </div>
+        <div class="form-group mt-3 ml-1">
+            <button type="submit" class="btn btn-dark mr-2" (click)="onclick()">Guardar</button>
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+    </form>
+</div>

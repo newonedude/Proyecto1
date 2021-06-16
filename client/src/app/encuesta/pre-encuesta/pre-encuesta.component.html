@@ -1,0 +1,22 @@
+<div *ngIf="!surveyMode">
+    <div class="m-5">
+        <h1>Bienvenido {{usuario.nombre}} {{usuario.ape_paterno}} {{usuario.ape_materno}}</h1>
+    </div>
+    <div class="m-5">
+        <button type="button" class="btn btn-dark">Solicitar acceso de Apoderado</button>
+    </div>
+    <div class="m-5">
+        <button type="button" class="btn btn-dark" (click)="goToSurvey()" [disabled]="estado1 == false">Responder
+            Cuestionario</button>
+        <div *ngIf="!estado1" class="mt-3">
+            <p>Antes de iniciar con el llenado de la encuesta debes solicitar el permiso de tu apoderado seleccionando
+                la
+                primera opción</p>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="surveyMode">
+    <app-preguntas-encuesta [idmatricula]="id_matricula" (finishSurvey)="finishSurvey($event)"
+        [encuestaExistente]="encuesta"></app-preguntas-encuesta>
+</div>

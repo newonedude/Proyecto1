@@ -1,10 +1,13 @@
+import { DetallematriculaService } from './../../_services/detallematricula.service';
+import { switchMap } from 'rxjs/operators';
+import { CursoService } from './../../_services/curso.service';
 import { MatriculaService } from './../../_services/matricula.service';
 import { EstudianteService } from './../../_services/estudiante.service';
 import { Matricula } from './../../_models/matricula';
 import { Seccion } from './../../_models/seccion';
 import { User } from './../../_models/user';
 import { SeccionService } from './../../_services/seccion.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
@@ -14,17 +17,27 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class RegistrarMatriculasComponent implements OnInit {
   usuarios: Array<User> = [];
+  docentes: Array<User> = [];
   secciones: Array<Seccion> = [];
   matricula: any = {};
   detalle_matricula: any = {};
   selectedStudentOptions: any = [];
   selectedSectionOptions: any = [];
 
-  constructor(private usuarioService: AccountService, private seccionService: SeccionService, private estudianteService: EstudianteService, private matriculaService: MatriculaService) { }
+  @Output() cancelRegister = new EventEmitter();
+
+  constructor(private usuarioService: AccountService, 
+    private seccionService: SeccionService, 
+    private estudianteService: EstudianteService, 
+    private matriculaService: MatriculaService,
+    private detMatriculaService: DetallematriculaService,
+    private cursoService: CursoService) { }
 
   ngOnInit(): void {
     this.getUsuariosByRole()
+    this.getDocentes()
     this.getSecciones()
+    this.getCursos()
   }
 
   getUsuariosByRole() {
@@ -40,6 +53,24 @@ export class RegistrarMatriculasComponent implements OnInit {
     )
   }
 
+  getCursos(){
+    this.cursoService.obtenerCursos().subscribe(r => 
+      this.detalle_matricula.id_curso = r[0].id_curso);
+  }
+
+  getDocentes(){
+    this.usuarioService.obtenerUsuarioRol('docente').subscribe(
+      r => {
+        r.forEach(docente => {
+          let custmobj = new User();
+          custmobj.id_usuario = docente.id_usuario;
+          custmobj.nombre = docente.nombre+" "+docente.ape_paterno+" "+docente.ape_materno
+          this.docentes.push(custmobj)
+        });
+      }
+    )
+  }
+
   getSecciones() {
     this.seccionService.obtenerSecciones().subscribe(
       r => {
@@ -50,13 +81,12 @@ export class RegistrarMatriculasComponent implements OnInit {
           customobj.anio = secc.anio;
           this.secciones.push(customobj)
         });
-        console.log(this.secciones)
       }
     )
   }
 
-  onNgModelChange(event) {
-    console.log('on ng model change', event);
+  cancel(){
+    this.cancelRegister.emit(false);
   }
 
   async onclick() {
@@ -67,7 +97,17 @@ export class RegistrarMatriculasComponent implements OnInit {
         this.matricula.anio = this.selectedSectionOptions[0].anio
         this.matricula.id_seccion = this.selectedSectionOptions[0].id;
       }
-      this.matriculaService.registrarMatricula(this.matricula).subscribe();
+
+      this.matriculaService.registrarMatricula(this.matricula).pipe(
+        switchMap(response =>{
+          this.detalle_matricula.id_matricula = response.id_matricula;
+          return this.detMatriculaService.registrarDetalleMatricula(this.detalle_matricula)
+        })
+      ).subscribe(
+        r => {
+          this.cancel();
+        }
+      );
     }
   }
 }

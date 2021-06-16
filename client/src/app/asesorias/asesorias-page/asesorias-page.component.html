@@ -1,0 +1,18 @@
+<div class="m-5">
+    <div *ngIf="!registerMode">
+        <div>
+            <h1>Mantenimiento de Asesorías</h1>
+            <button (click)="registerToggle()" type="button" class="btn btn-dark">Agregar</button>
+        </div>
+        <div class="pt-5">
+            <app-asesorias-table [docentesPage]="docentes" [seccionesPage]="secciones" [estudiantesPage]="estudiantes" [asesoriasPage]="asesorias"></app-asesorias-table>
+        </div>
+    </div>
+    <div *ngIf="registerMode">
+        <div>
+            <div>
+                <app-registrar-asesorias (cancelRegister)="cancelRegisterMode($event)"></app-registrar-asesorias>
+            </div>
+        </div>
+    </div>
+</div>

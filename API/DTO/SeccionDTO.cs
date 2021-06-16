@@ -10,5 +10,6 @@ namespace API.DTO
         public string seccion { get; set; }
         public short anio { get; set; }
         public short capacidad { get; set; }
+        public bool? estado { get; set; }
     }
 }

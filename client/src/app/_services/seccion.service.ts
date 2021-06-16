@@ -22,4 +22,8 @@ export class SeccionService {
   obtenerSecciones():Observable<any>{
     return this.http.get<any>(this.baseUrl+'secciones');
   }
+
+  obtenerSeccionesDetail(nivel:string, grado: string, seccion:string, anio:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+'secciones/details?nivel='+nivel+'&grado='+grado+'&seccion='+seccion+'&anio='+anio);
+  }
 }

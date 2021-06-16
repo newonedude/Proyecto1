@@ -1,0 +1,30 @@
+export class Encuesta {
+    id_encuesta:number
+    id_matricula:number
+    sexo:string
+    edad:number
+    edu_madre:string
+    edu_padre:string
+    tam_familia:string
+    num_hermanos:string
+    vive_con_padres:string
+    apoderado:string
+    dedi_apoderado:string
+    cal_materiales:number
+    cal_rela_companeros:number
+    cal_rela_docente:number
+    cal_rela_padres:number
+    clases_particulares:string
+    horas_estudio:string
+    apoyo_fam_curso:string
+    mot_interes:string
+    nivel_interes:number
+    internet:string
+    dur_viaje_colegio:string
+    enfermedad:string
+    frec_act_recreativas:string
+    cursar_carrera:string
+    apoyo_fam_carrera:string
+    fecha_registro:string
+    estado:boolean
+}

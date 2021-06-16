@@ -3,13 +3,14 @@ using API.Entities;
 
 namespace API.Data
 {
-    [Table("tb_nota")]
+    [Table("tb_notas")]
     public class Nota
     {
         public short id_matricula { get; set; }
-        public short id_curso { get; set; }
-        public short id_docente { get; set; }
-        public string tipo_prueba { get; set; }
-        public decimal calificacion { get; set; }
+        public short id_asignacion { get; set; }
+        public string p1 { get; set; }
+        public string p2 { get; set; }
+        public string p3 { get; set; }
+        public string cf { get; set; }
     }
 }

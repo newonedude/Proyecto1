@@ -1,3 +1,5 @@
+import { PreguntasEncuestaComponent } from './encuesta/preguntas-encuesta/preguntas-encuesta.component';
+import { AsesoriasPageComponent } from './asesorias/asesorias-page/asesorias-page.component';
 import { MatriculasPageComponent } from './matriculas/matriculas-page/matriculas-page.component';
 import { SeccionesPageComponent } from './secciones/secciones-page/secciones-page.component';
 import { EstudiantesPageComponent } from './estudiantes/estudiantes-page/estudiantes-page.component';
@@ -12,6 +14,8 @@ const routes: Routes = [
   {path:'estudiantes', component: EstudiantesPageComponent},
   {path:'secciones', component: SeccionesPageComponent},
   {path:'matriculas', component: MatriculasPageComponent},
+  {path:'asesorias', component: AsesoriasPageComponent},
+  {path:'encuesta-preguntas', component: PreguntasEncuestaComponent}
   //{path:'**', component: DashboardPageComponent, pathMatch:'full'}
 ];
 

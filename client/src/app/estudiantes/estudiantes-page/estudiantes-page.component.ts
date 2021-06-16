@@ -17,7 +17,8 @@ export class EstudiantesPageComponent implements OnInit {
   }
 
   getEstudiantes(){
-    this.http.get('https://localhost:5001/api/usuarios/rol/estudiante').subscribe(estudiantes => this.estudiantes = estudiantes);
+    this.http.get('https://localhost:5001/api/usuarios/rol/estudiante')
+    .subscribe(estudiantes => this.estudiantes = estudiantes);
   }
 
   registerToggle(){

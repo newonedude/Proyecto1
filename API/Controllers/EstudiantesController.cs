@@ -61,7 +61,8 @@ namespace API.Controllers
                 dni_apod = estudiantedto.dni_apod,
                 celular_apod = estudiantedto.celular_apod,
                 email_apod = estudiantedto.email_apod,
-                fecha_nacimiento = estudiantedto.fecha_nacimiento
+                fecha_nacimiento = estudiantedto.fecha_nacimiento,
+                estado = estudiantedto.estado
             };
 
             var student = await _estudianteRepository.Insertar(estudiante);

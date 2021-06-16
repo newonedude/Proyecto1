@@ -53,6 +53,11 @@ namespace API.Controllers
             return Ok(usuariosToReturn);
         }
 
+        [HttpGet("dni/{dni}")]
+        public async Task<ActionResult<Usuario>> GetUsuarioDni(string dni){
+            return await _userRepository.GetUserByDniAsync(dni);
+        }
+
         [HttpPost("registrar")]
         public async Task<ActionResult<UsuarioDTO>> RegistrarUsuario(UsuarioDTO usuariodto)
         {
@@ -88,8 +93,14 @@ namespace API.Controllers
 
             return new UserTokenDTO
             {
+                id_usuario = user.id_usuario,
+                dni = user.dni,
+                nombre = user.nombre,
+                ape_paterno = user.ape_paterno,
+                ape_materno = user.ape_materno,
                 usuario = user.usuario,
-                token = _tokenService.CreateToken(user)
+                token = _tokenService.CreateToken(user),
+                rol = user.rol
             };
         }
 
