@@ -1,2 +1,11 @@
-<input id="inputSubir" type="file" accept=".xlsx" class="btn" (change)="onFileChange($event)">
-<button type="file" class="btn btn-outline-dark ml-2" (click)="uploadfile()">Subir</button>
+<div class="row">
+    <div div class="col-md-6 form-group">
+        <input id="inputSubir" type="file" accept=".xlsx" class="btn" (change)="onFileChange($event)">
+    </div>
+    <div div class="col-md-2 form-group">
+        <button mat-button type="file" class="btn subir btn-light" (click)="uploadfile()">
+            <mat-label>Subir</mat-label>
+            <mat-icon matSuffix>publish</mat-icon>
+        </button>
+    </div>
+</div>

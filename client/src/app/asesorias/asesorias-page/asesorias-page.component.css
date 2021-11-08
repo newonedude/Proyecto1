@@ -1,0 +1,26 @@
+.msjEmpty {
+  font-size: 16px;
+  text-align: center;
+  background-color: rgba(238, 236, 236, 0.904);
+}
+
+.title {
+  font-size: 35px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.btn {
+  font-size: 18px;
+  background-color: #111;
+  color: white;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}

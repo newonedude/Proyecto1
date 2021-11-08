@@ -19,9 +19,6 @@ interface Rol {
 export class RegistrarEstudiantesComponent implements OnInit {
   model1: any={};
   model2: any={};
-  roles: Rol[] = [
-    {value: 'Estudiante'}
-  ];
   myDate = new Date();
   date:string;
 
@@ -35,12 +32,12 @@ export class RegistrarEstudiantesComponent implements OnInit {
   }
   
   register(){
-    this.model1.usuario = this.model1.dni
-    this.model1.password = this.model2.fecha_nacimiento
+    this.model1.rol = "estudiante"
     this.model1.estado = true
     this.accountService.registrar(this.model1).pipe(
       switchMap(response => {
         this.model2.id_usuario = response.id_usuario;
+        this.model2.estado = true
         return this.estudianteService.registrarEstudiante(this.model2)
       })
     ).subscribe(response =>{

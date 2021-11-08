@@ -1,7 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
 
+.mat-tooltip {
+  font-size: 13px;
+}
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: rgb(58, 56, 56);
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: rgb(58, 56, 56);
+  background-color: rgb(58, 56, 56);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: rgb(255, 37, 37, .26);
+}
+
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon- state-done,
+.mat-step-header .mat-step-icon-state-edit {
+  background-color: rgb(45, 45, 46)
+}
+
+.ngx-pagination {
+  padding-left: 0px !important;
+}
+
+.ngx-pagination .current,
+.btn-info {
+  background: #111 !important;
+}
+
+.ngx-pagination .current:hover {
+  background: #111 !important;
+}

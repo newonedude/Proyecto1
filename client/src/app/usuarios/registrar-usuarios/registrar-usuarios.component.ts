@@ -15,9 +15,9 @@ export class RegistrarUsuariosComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   
   roles: Rol[] = [
-    {value: 'Administrador'},
-    {value: 'Docente'},
-    {value: 'Usuario IE'}
+    {value: 'administrador'},
+    {value: 'docente'},
+    {value: 'usuario IE'}
   ];
 
   constructor(private accountService:AccountService) { }

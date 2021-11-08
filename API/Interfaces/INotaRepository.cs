@@ -11,5 +11,6 @@ namespace API.Interfaces
         Task<Nota> Insertar(Nota nota);
         Task<IEnumerable> GetCalificaciones();
         Task<Nota> Update(Nota nota);
+        Task<Nota> GetNotaByDNI(short idmatricula);
     }
 }

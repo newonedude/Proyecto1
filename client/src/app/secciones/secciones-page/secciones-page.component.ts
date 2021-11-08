@@ -1,3 +1,5 @@
+import { lastValueFrom } from 'rxjs';
+import { AccountService } from 'src/app/_services/account.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,28 +9,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./secciones-page.component.css']
 })
 export class SeccionesPageComponent implements OnInit {
-  secciones:any;
-  registerMode = false;
+  secciones: any = []
+  seccionesFull: any = []
+  registerMode = false
+  DOMready = false
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private usuariosService: AccountService) { }
 
   ngOnInit(): void {
     this.getSecciones();
   }
 
-  getSecciones(){
-    this.http.get('https://localhost:5001/api/secciones').subscribe(
-      response => this.secciones = response
-    )
+  async getSecciones() {
+    const resp = await lastValueFrom(this.http.get(this.usuariosService.baseUrl + 'secciones'));
+    this.secciones = resp
+    this.secciones.forEach((value, index) => {
+      this.secciones[index].anio = this.secciones[index].anio + ""
+    });
+
+    this.DOMready = true
   }
 
-  registerToggle(){
+  registerToggle() {
     this.registerMode = !this.registerMode;
   }
 
-  cancelRegisterMode(event: boolean){
-    this.registerMode=event;
-    if(event == false){
+  cancelRegisterMode(event: boolean) {
+    this.registerMode = event;
+    if (event == false) {
+      this.DOMready = false
       this.ngOnInit();
     }
   }

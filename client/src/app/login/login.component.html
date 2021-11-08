@@ -1,24 +1,26 @@
-<div *ngIf="(accountService.currentUser$|async) && accountService.usuario.rol==='docente'">
+<div *ngIf="(accountService.currentUser$|async) && accountService.usuario.data.rol==='docente'">
   <app-main-nav></app-main-nav>
 </div>
-<div *ngIf="(accountService.currentUser$|async) && accountService.usuario.rol==='estudiante'">
-  <app-pre-encuesta [usuario]="accountService.usuario"></app-pre-encuesta>
+<div *ngIf="(accountService.currentUser$|async) && accountService.usuario.data.rol==='estudiante'">
+  <app-pre-encuesta [usuario]="accountService.usuario.data" [autorizacion]="autorizacion"></app-pre-encuesta>
 </div>
 <div class="p2" *ngIf="(accountService.currentUser$|async)=== null">
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <div class="title">
-        <p>Ingreso al Sistema</p>
+        <p>¡Bienvenido!</p>
       </div>
       <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
         <input type="text" id="login" class="fadeIn second" name="usuario" placeholder="Usuario"
           [(ngModel)]="model.usuario">
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña"
           [(ngModel)]="model.password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
+        <div *ngIf="status != 200" class="error">
+          Los datos ingresados son incorrectos.
+        </div>
+        <input type="submit" class="fadeIn fourth mt-3" value="Login">
       </form>
       <div id="formFooter">
-        <a class="underlineHover" href="#">Forgot Password?</a>
       </div>
     </div>
   </div>

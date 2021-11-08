@@ -1,0 +1,32 @@
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parrafo {
+  height: auto;
+  width: 350px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.title {
+  text-align: center;
+}
+
+.icon {
+  margin: 0 auto;
+  width: 10%;
+}
+
+span {
+  font-weight: bold;
+  display: contents;
+}
+
+.icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

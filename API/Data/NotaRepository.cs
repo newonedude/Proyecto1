@@ -60,5 +60,15 @@ namespace API.Data
             await context.SaveChangesAsync();
             return nota;
         }
+
+        public async Task<Nota> GetNotaByDNI(short idmatricula)
+        {
+            var result = from a in context.tb_matricula
+                         join b in context.tb_notas on a.id_matricula equals b.id_matricula
+                         where a.id_matricula == idmatricula
+                         select b;
+
+            return await result.FirstAsync<Nota>();
+        }
     }
 }

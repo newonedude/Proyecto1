@@ -1,3 +1,5 @@
+import { NotaService } from './../../_services/nota.service';
+import { AsignacionService } from './../../_services/asignacion.service';
 import { DetallematriculaService } from './../../_services/detallematricula.service';
 import { switchMap } from 'rxjs/operators';
 import { CursoService } from './../../_services/curso.service';
@@ -23,19 +25,21 @@ export class RegistrarMatriculasComponent implements OnInit {
   detalle_matricula: any = {};
   selectedStudentOptions: any = [];
   selectedSectionOptions: any = [];
+  nota:any = {};
 
   @Output() cancelRegister = new EventEmitter();
 
-  constructor(private usuarioService: AccountService, 
-    private seccionService: SeccionService, 
-    private estudianteService: EstudianteService, 
+  constructor(private usuarioService: AccountService,
+    private seccionService: SeccionService,
+    private estudianteService: EstudianteService,
     private matriculaService: MatriculaService,
     private detMatriculaService: DetallematriculaService,
-    private cursoService: CursoService) { }
+    private cursoService: CursoService,
+    private asignacionService: AsignacionService,
+    private notasService: NotaService) { }
 
   ngOnInit(): void {
     this.getUsuariosByRole()
-    this.getDocentes()
     this.getSecciones()
     this.getCursos()
   }
@@ -53,22 +57,9 @@ export class RegistrarMatriculasComponent implements OnInit {
     )
   }
 
-  getCursos(){
-    this.cursoService.obtenerCursos().subscribe(r => 
+  getCursos() {
+    this.cursoService.obtenerCursos().subscribe(r =>
       this.detalle_matricula.id_curso = r[0].id_curso);
-  }
-
-  getDocentes(){
-    this.usuarioService.obtenerUsuarioRol('docente').subscribe(
-      r => {
-        r.forEach(docente => {
-          let custmobj = new User();
-          custmobj.id_usuario = docente.id_usuario;
-          custmobj.nombre = docente.nombre+" "+docente.ape_paterno+" "+docente.ape_materno
-          this.docentes.push(custmobj)
-        });
-      }
-    )
   }
 
   getSecciones() {
@@ -85,29 +76,37 @@ export class RegistrarMatriculasComponent implements OnInit {
     )
   }
 
-  cancel(){
+  cancel() {
     this.cancelRegister.emit(false);
   }
 
   async onclick() {
-    for(const user of this.selectedStudentOptions){
+    for (const user of this.selectedStudentOptions) {
+      const resp2 = await this.asignacionService.obtenerAsignacionByDetail(this.selectedSectionOptions[0].id, this.detalle_matricula.id_curso, this.selectedSectionOptions[0].anio, true).toPromise()
       const resp = await this.estudianteService.obtenerEstudianteByUserId(user.id_usuario).toPromise()
       this.matricula.id_estudiante = resp.id_estudiante
       if (this.selectedSectionOptions.length > 0) {
         this.matricula.anio = this.selectedSectionOptions[0].anio
         this.matricula.id_seccion = this.selectedSectionOptions[0].id;
+        this.matricula.estado = true;
       }
 
-      this.matriculaService.registrarMatricula(this.matricula).pipe(
-        switchMap(response =>{
-          this.detalle_matricula.id_matricula = response.id_matricula;
-          return this.detMatriculaService.registrarDetalleMatricula(this.detalle_matricula)
-        })
-      ).subscribe(
-        r => {
-          this.cancel();
-        }
-      );
+      const resp3 = await this.matriculaService.registrarMatricula(this.matricula).toPromise();
+      this.detalle_matricula.id_asignacion = resp2.id_asignacion;
+      this.detalle_matricula.id_matricula = resp3.id_matricula;
+      this.detalle_matricula.estado = true;
+
+      const resp4 = await this.detMatriculaService.registrarDetalleMatricula(this.detalle_matricula).toPromise();
+      this.nota.id_matricula = resp3.id_matricula
+      this.nota.id_asignacion = resp4.id_asignacion
+      this.nota.p1 = ""
+      this.nota.p2 = ""
+      this.nota.p3 = ""
+      this.nota.cf = ""
+      
+      await this.notasService.registrar(this.nota).toPromise()
+
+      this.cancel();
     }
   }
 }

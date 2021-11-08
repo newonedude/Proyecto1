@@ -1,7 +1,21 @@
 mat-selection-list {
-    position: relative;
-    margin-top: 2px;
-    height: 300px;
-    overflow-y: scroll;
-    outline: auto;
-  }
+  position: relative;
+  margin-top: 2px;
+  height: 300px;
+  overflow-y: scroll;
+  outline: auto;
+}
+
+.cancel {
+  margin-left: 10px;
+}
+
+.options {
+  margin-top: 10px;
+}
+
+h1 {
+  font-size: 35px;
+  line-height: 1.2;
+  font-weight: 700;
+}

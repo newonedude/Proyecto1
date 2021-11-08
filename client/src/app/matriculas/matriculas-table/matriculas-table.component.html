@@ -1,26 +1,83 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Apellido Paterno</th>
-      <th scope="col">Apellido Materno</th>
-      <th scope="col">DNI</th>
-      <th scope="col">Nivel</th>
-      <th scope="col">Grado</th>
-      <th scope="col">Sección</th>
-      <th scope="col">Año</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of usuariosPage; let i=index">
-      <td>{{item.nombre}}</td>
-      <td>{{item.ape_paterno}}</td>
-      <td>{{item.ape_materno}}</td>
-      <td>{{item.dni}}</td>
-      <td>{{seccionesPage[i].nivel}}</td>
-      <td>{{seccionesPage[i].grado}}</td>
-      <td>{{seccionesPage[i].seccion}}</td>
-      <td>{{seccionesPage[i].anio}}</td>
-    </tr>
-  </tbody>
-</table>
+<form novalidate #form="ngForm">
+  <div style="border: 1px solid #d1d1d1; border-radius: 5px" class="mb-4">
+    <div class="m-1">
+      <button class="collapsible">Filtros de Búsqueda</button>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" name="nombre" [(ngModel)]="nombre">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido P.</mat-label>
+              <input matInput type="text" name="ape_paterno" [(ngModel)]="ape_paterno">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido M.</mat-label>
+              <input matInput type="text" name="ape_materno" [(ngModel)]="ape_materno">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>DNI</mat-label>
+              <input matInput type="text" name="dni" [(ngModel)]="dni">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Nivel</mat-label>
+              <mat-select name="nivel" [(ngModel)]="nivel">
+                <mat-option value="Primaria">Primaria</mat-option>
+                <mat-option value="Secundaria">Secundaria</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="buscar">
+            <button mat-button type="reset" class="btn btn-light">
+              <mat-label>Limpiar Filtros</mat-label>
+              <mat-icon matSuffix>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagecontrol">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido Paterno</th>
+        <th scope="col">Apellido Materno</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Nivel</th>
+        <th scope="col">Grado</th>
+        <th scope="col">Sección</th>
+        <th scope="col">Año</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let item of matriculasPage | tableFilter: form.value | paginate: { itemsPerPage: 10, currentPage: page }">
+        <td>{{item.nombre}}</td>
+        <td>{{item.ape_paterno}}</td>
+        <td>{{item.ape_materno}}</td>
+        <td>{{item.dni}}</td>
+        <td>{{item.nivel}}</td>
+        <td>{{item.grado}}</td>
+        <td>{{item.seccion}}</td>
+        <td>{{item.anio}}</td>
+      </tr>
+    </tbody>
+  </table>
+</form>

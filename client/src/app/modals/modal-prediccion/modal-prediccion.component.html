@@ -1,0 +1,83 @@
+<div *ngIf="data.status == 200">
+    <h1 *ngIf="data.scored_label == 'Si' && data.scored_probabilities >= 70" mat-dialog-title class="title">
+        ¡Felicitaciones!
+    </h1>
+    <h1 *ngIf="data.scored_label == 'Si' && data.scored_probabilities < 70 && data.scored_probabilities >= 50"
+        mat-dialog-title class="title">¡Tienes Posibilidades!</h1>
+    <h1 *ngIf="data.scored_probabilities < 50" mat-dialog-title class="title">Nos faltan Datos
+    </h1>
+    <h1 *ngIf="data.scored_label == 'No' && data.scored_probabilities >= 70" mat-dialog-title class="title">¡No te
+        desanimes!</h1>
+    <h1 *ngIf="data.scored_label == 'No' && data.scored_probabilities < 70 && data.scored_probabilities >= 50"
+        mat-dialog-title class="title">¡Aún tienes posibilidades de aprobar!</h1>
+    <div>
+        <hr>
+    </div>
+    <div class="icon">
+        <mat-icon *ngIf="data.scored_label == 'Si' && data.scored_probabilities >= 70">supervisor_account</mat-icon>
+        <mat-icon
+            *ngIf="data.scored_label == 'Si' && data.scored_probabilities < 70 && data.scored_probabilities >= 50">
+            warning</mat-icon>
+        <mat-icon *ngIf="data.scored_label == 'Si' && data.scored_probabilities < 50">error</mat-icon>
+        <mat-icon *ngIf="data.scored_label == 'No'">error</mat-icon>
+    </div>
+    <br>
+    <p *ngIf="data.scored_label == 'Si' && data.scored_probabilities >= 70" class="row parrafo">
+        <span>{{data.nombre}}</span>, de acuerdo con tu récord histórico de notas y los factores extra académicos,
+        hay un <span>{{data.scored_probabilities}}%</span> de probabilidades de que <span>apruebes</span> el curso.
+        <br>
+        <br>
+        No pierdas de vista el objetivo de seguir aprendiendo y disfrutando de las matemáticas.
+    </p>
+    <p *ngIf="data.scored_label == 'Si' && data.scored_probabilities < 70 && data.scored_probabilities >= 50"
+        class="row parrafo">
+        <span>{{data.nombre}}</span>, de acuerdo con tu récord histórico de notas y los factores extra académicos,
+        hay un <span>{{data.scored_probabilities}}%</span> de probabilidades de que <span>apruebes</span> el curso.
+        <br>
+        <br>
+        Te recomendamos estar atento a la progresión de tus notas en el próximo trimestre y solicitar
+        <span>asesorías</span>
+        con tu docente.
+    </p>
+    <p *ngIf="data.scored_probabilities < 50" class="row parrafo">
+        <span>{{data.nombre}}</span>, actualmente no cuentas con suficiente información académica para poder realizar
+        una
+        predicción acertada.
+        <br>
+        <br>
+        Te recomendamos pedirle a tu docente que actualice tus notas del ciclo actual o, en caso aún te encuentres en el
+        primer trimestre, solicitar que registre tus notas del año anterior.
+    </p>
+    <p *ngIf="data.scored_label == 'No' && data.scored_probabilities >= 50" class="row parrafo">
+        <span>{{data.nombre}}</span>, de acuerdo con tu récord histórico de notas y los factores extra académicos,
+        hay un <span>{{data.scored_probabilities}}%</span> de probabilidades de que <span>desapruebes</span> el curso.
+        <br>
+        <br>
+        Aún tienes oportunidad de revertir este resultado. Te recomendamos solicitar <span>asesorías</span> de
+        reforzamiento
+        con tu docente.
+    </p>
+    <div mat-dialog-actions class="options">
+        <button mat-stroked-button (click)="onClick()">Aceptar</button>
+    </div>
+</div>
+
+<div *ngIf="data.status != 200">
+    <h1 mat-dialog-title class="title">Lo sentimos u.u</h1>
+    <div>
+        <hr>
+    </div>
+    <div class="icon">
+        <mat-icon>bug_report</mat-icon>
+    </div>
+    <br>
+    <p class="row parrafo">
+        En estos momentos tenemos problemas para realizar la predicción de tu rendimiento académico.
+        <br>
+        <br>
+        Te recomendamos que vuelvas a intentarlo dentro de unos minutos. Gracias.
+    </p>
+    <div mat-dialog-actions class="options">
+        <button mat-stroked-button (click)="onClick()">Cerrar</button>
+    </div>
+</div>

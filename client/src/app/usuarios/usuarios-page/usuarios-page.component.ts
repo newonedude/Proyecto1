@@ -1,3 +1,4 @@
+import { AccountService } from 'src/app/_services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -7,26 +8,32 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./usuarios-page.component.css']
 })
 export class UsuariosPageComponent implements OnInit {
-  usuarios: any;
-  registerMode = false;
+  usuarios: any = []
+  registerMode = false
+  DOMready = false
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private usuariosService: AccountService) { }
 
   ngOnInit(): void {
     this.getUsuarios();
   }
 
-  getUsuarios(){
-    this.http.get('https://localhost:5001/api/usuarios').subscribe(usuarios => this.usuarios = usuarios);
+  async getUsuarios() {
+    const resp = await this.http.get(this.usuariosService.baseUrl + 'usuarios').toPromise();
+    this.usuarios = resp
+
+    this.DOMready = true
   }
 
-  registerToggle(){
+  registerToggle() {
     this.registerMode = !this.registerMode;
   }
 
-  cancelRegisterMode(event: boolean){
-    this.registerMode=event;
-    if(event == false){
+  cancelRegisterMode(event: boolean) {
+    this.registerMode = event;
+    if (event == false) {
+      this.DOMready = false
       this.ngOnInit();
     }
   }

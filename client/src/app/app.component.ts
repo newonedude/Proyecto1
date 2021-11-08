@@ -10,14 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Lista de Usuarios';
 
-  constructor(private accountService:AccountService){}
+  constructor(private accountService: AccountService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.setCurrentUser();
   }
 
-  setCurrentUser(){
-    const usuario: Usuario = JSON.parse(localStorage.getItem('usuario'));
-    this.accountService.setCurrentUser(usuario);
+  setCurrentUser() {
+    //const usuario: Usuario = JSON.parse(localStorage.getItem('usuario'));
+    //this.accountService.setCurrentUser(usuario);
   }
 }

@@ -7,6 +7,8 @@ import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { SeccionService } from 'src/app/_services/seccion.service';
 import { DatePipe } from '@angular/common';
+import { CdkNoDataRow } from '@angular/cdk/table';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-asesorias-page',
@@ -14,11 +16,13 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./asesorias-page.component.css']
 })
 export class AsesoriasPageComponent implements OnInit {
-  asesorias: any;
-  docentes: Array<User> = [];
-  secciones: Array<Seccion> = [];
-  estudiantes: Array<User> = [];
+  asesorias: any = [];
+  docentes: any = [];
+  secciones: any = [];
+  estudiantes: any = [];
   registerMode = false;
+  asesoriasfull: any = [];
+  DOMready = false
 
   constructor(private http: HttpClient,
     private datePipe: DatePipe,
@@ -31,7 +35,7 @@ export class AsesoriasPageComponent implements OnInit {
   }
 
   getAsesorias() {
-    this.http.get('https://localhost:5001/api/asesorias').subscribe(
+    this.http.get(this.usuarioService.baseUrl + 'asesorias').subscribe(
       r => {
         this.asesorias = r;
         this.getInfo();
@@ -48,34 +52,20 @@ export class AsesoriasPageComponent implements OnInit {
     for (const asesoria of this.asesorias) {
       asesoria.fecha2 = this.datePipe.transform(asesoria.fecha, 'MMM d, y');
       asesoria.hora = this.datePipe.transform(asesoria.fecha, 'h:mm a');
-      this.usuarioService.obtenerUsuario(asesoria.id_docente).subscribe(
-        r => {
-          let obj = new User();
-          obj.id_usuario = r.id_usuario;
-          obj.nombre = r.nombre + " " + r.ape_paterno + " " + r.ape_materno
-          this.docentes.push(obj)
-        });
 
-      this.seccionService.obtenerSeccion(asesoria.id_seccion).subscribe(
-        r => {
-          let obj = new Seccion();
-          obj.id = r.id_seccion;
-          obj.seccion = r.grado + "° " + r.seccion + " " + r.nivel;
-          obj.anio = 0;
-          this.secciones.push(obj)
-        }
-      )
+      const resp = await lastValueFrom(this.usuarioService.obtenerUsuario(asesoria.id_docente));
+      this.docentes.push(resp)
 
-      const resp = await this.estudianteService.obtenerEstudiante(asesoria.id_estudiante).toPromise();
-      this.usuarioService.obtenerUsuario(resp.id_usuario).subscribe(
-        r => {
-          let obj = new User();
-          obj.id_usuario = r.id_usuario;
-          obj.nombre = r.nombre + " " + r.ape_paterno + " " + r.ape_materno
-          this.estudiantes.push(obj)
-        }
-      )
+      const resp2 = await lastValueFrom(this.seccionService.obtenerSeccion(asesoria.id_seccion));
+      this.secciones.push(resp2)
+
+      const resp3 = await lastValueFrom(this.estudianteService.obtenerEstudiante(asesoria.id_estudiante));
+      const resp4 = await lastValueFrom(this.usuarioService.obtenerUsuario(resp3.id_usuario));
+      this.estudiantes.push(resp4)
     }
+
+    this.reformAsesoria();
+    this.DOMready = true
   }
 
   cancelRegisterMode(event: boolean) {
@@ -84,8 +74,22 @@ export class AsesoriasPageComponent implements OnInit {
     this.estudiantes.length = 0;
     this.registerMode = event;
     if (event == false) {
+      this.DOMready = false
       this.ngOnInit();
     }
   }
 
+  reformAsesoria() {
+    for (let index = 0; index < this.asesorias.length; index++) {
+      const ase: any = {};
+      ase.docente = this.docentes[index].body.nombre + " " + this.docentes[index].body.ape_paterno + " " + this.docentes[index].body.ape_materno
+      ase.estudiante = this.estudiantes[index].body.nombre + " " + this.estudiantes[index].body.ape_paterno + " " + this.estudiantes[index].body.ape_materno
+      ase.seccion = this.secciones[index].grado + " " + this.secciones[index].seccion + " " + this.secciones[index].nivel
+      ase.fecha = this.asesorias[index].fecha2
+      ase.hora = this.asesorias[index].hora
+      ase.estado = this.asesorias[index].estado
+
+      this.asesoriasfull.push(ase);
+    }
+  }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTO;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,6 @@ namespace API.Data
         public SeccionRepository(DataContext context)
         {
             this.context = context;
-
         }
 
         public async Task<Seccion> GetSeccionByDetailAsync(string nivel, string grado, string seccion, short anio)
@@ -37,6 +37,15 @@ namespace API.Data
             context.tb_seccion.Add(seccion);
             await  context.SaveChangesAsync();
             return seccion;
+        }
+
+        public async Task<bool> SeccionExist(SeccionDTO asignacion)
+        {
+            return await context.tb_seccion.AnyAsync(x =>
+            x.nivel == asignacion.nivel
+            && x.grado == asignacion.grado
+            && x.seccion == asignacion.seccion
+            && x.anio == asignacion.anio);
         }
     }
 }

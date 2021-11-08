@@ -1,3 +1,4 @@
+import { AccountService } from 'src/app/_services/account.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -6,16 +7,17 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AsesoriaService {
-  baseUrl = 'https://localhost:5001/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private accountService: AccountService) {
+   }
 
   obtenerAsesorias():Observable<any>{
-    return this.http.get<any>(this.baseUrl+'asesorias');
+    return this.http.get<any>(this.accountService.baseUrl+'asesorias');
   }
 
   registrarAsesoria(model:any):Observable<any>{
-    return this.http.post<any>(this.baseUrl+'asesorias/registrar', model)
+    return this.http.post<any>(this.accountService.baseUrl+'asesorias/registrar', model)
   }
 
 }

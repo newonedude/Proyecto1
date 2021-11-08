@@ -1,3 +1,4 @@
+import { AsignacionService } from './../../_services/asignacion.service';
 import { switchMap } from 'rxjs/operators';
 import { DetallematriculaService } from './../../_services/detallematricula.service';
 import { CursoService } from './../../_services/curso.service';
@@ -26,6 +27,7 @@ export class UploadFileMatriculaComponent implements OnInit {
     private seccionService: SeccionService,
     private matriculaService: MatriculaService,
     private cursoService: CursoService,
+    private asignacionService: AsignacionService,
     private detalleMatriculaService: DetallematriculaService) { }
 
   ngOnInit(): void {
@@ -67,6 +69,7 @@ export class UploadFileMatriculaComponent implements OnInit {
 
   async registerToServices() {
     for (const registro of this.resArray) {
+      const resp6 = await this.cursoService.obtenerCursos().toPromise();
       const resp = await this.accountService.obtenerUsuarioDni(registro.dni).toPromise();
 
       const resp2 = await this.estudianteService.obtenerEstudianteByUserId(resp.id_usuario).toPromise();
@@ -76,15 +79,13 @@ export class UploadFileMatriculaComponent implements OnInit {
       const resp3 = await this.seccionService.obtenerSeccionesDetail(registro.nivel, registro.grado, registro.seccion, registro.anio).toPromise();
       this.matricula.id_seccion = resp3.id_seccion;
       this.matricula.anio = resp3.anio;
+      this.matricula.estado = true;
 
       const resp4 = await this.matriculaService.registrarMatricula(this.matricula).toPromise();
       this.detmatricula.id_matricula = resp4.id_matricula;
 
-      const resp5 = await this.accountService.obtenerUsuarioDni(registro.dni_docente).toPromise();
-      this.detmatricula.id_docente = resp5.id_usuario;
-
-      const resp6 = await this.cursoService.obtenerCursos().toPromise();
-      this.detmatricula.id_curso = resp6[0].id_curso;
+      const resp7 = await this.asignacionService.obtenerAsignacionByDetail(resp3.id_seccion, resp6[0].id_curso, resp3.anio, true).toPromise();
+      this.detmatricula.id_asignacion = resp7.id_asignacion
 
       await this.detalleMatriculaService.registrarDetalleMatricula(this.detmatricula).toPromise();
     }

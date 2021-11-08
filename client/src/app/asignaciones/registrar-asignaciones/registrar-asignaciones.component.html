@@ -1,0 +1,48 @@
+<div class="m-5">
+    <div>
+        <h1>Registrar Asignación</h1>
+    </div>
+    <form #registerForm="ngForm" (ngSubmit)="register()">
+        <div class="form-row ml-1">
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Docente</mat-label>
+                    <mat-select name="docente" [(ngModel)]="asignacion.id_docente">
+                        <mat-option *ngFor="let docente of docentes" [value]="docente.id_usuario">
+                            {{docente.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="ml-5"></div>
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Curso</mat-label>
+                    <mat-select name="curso" [(ngModel)]="asignacion.id_curso">
+                        <mat-option [value]="curso.id_curso">
+                            {{curso.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="ml-5"></div>
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Sección</mat-label>
+                    <mat-select name="seccion" [(ngModel)]="selectedSectionOption"
+                        [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let seccion of secciones" [value]="seccion" role="option">
+                            {{seccion.seccion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-group options">
+            <button mat-stroked-button type="submit" class="btn">Guardar <mat-icon>check
+                </mat-icon></button>
+            <button mat-stroked-button type="button" class="btn cancel" (click)="cancel()">Cancelar <mat-icon>close
+                </mat-icon></button>
+        </div>
+    </form>
+</div>

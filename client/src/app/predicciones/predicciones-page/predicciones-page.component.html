@@ -1,0 +1,14 @@
+<div *ngIf="DOMready == false" class="spinner-grow loading" role="status"></div>
+<div *ngIf="DOMready" class="m-5">
+    <div>
+        <div>
+            <h1 class="title">Resultado de Predicciones</h1>
+        </div>
+        <div>
+            <div class="mt-4 mb-4">
+                <app-predicciones-table [prediccionesPage]="prediccionesTabla"></app-predicciones-table>
+                <div class="msjEmpty" *ngIf="prediccionesTabla.length < 1">- No se encontraron resultados -</div>
+            </div>
+        </div>
+    </div>
+</div>

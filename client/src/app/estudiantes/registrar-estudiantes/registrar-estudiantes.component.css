@@ -1,0 +1,30 @@
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.btn-dark {
+  margin-right: 10px;
+}
+
+.cancel {
+  margin-left: 10px;
+}
+
+.options {
+  margin-top: 10px;
+}
+
+h1 {
+  font-size: 35px;
+  line-height: 1.2;
+  font-weight: 700;
+}

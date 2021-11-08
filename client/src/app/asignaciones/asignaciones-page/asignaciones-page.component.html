@@ -1,0 +1,27 @@
+<div *ngIf="DOMready == false" class="spinner-grow loading" role="status"></div>
+<div *ngIf="DOMready" class="m-5">
+    <div>
+        <div *ngIf="!registerMode">
+            <h1>Mantenimiento de Asignaciones</h1>
+            <div div class="mt-4 mb-4">
+                <button mat-stroked-button type="button" class="btn" (click)="registerToggle()">
+                    Nuevo Registro <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!registerMode">
+            <div>
+                <app-asignaciones-table [asignacionesPage]="asignacionesFull"></app-asignaciones-table>
+                <div class="msjEmpty" *ngIf="asignaciones.length < 1">- No se encontraron resultados -</div>
+            </div>
+        </div>
+        <div *ngIf="registerMode">
+            <div>
+                <div>
+                    <app-registrar-asignaciones (cancelRegister)="cancelRegisterMode($event)">
+                    </app-registrar-asignaciones>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,66 @@
+<form novalidate #form="ngForm">
+  <div style="border: 1px solid #d1d1d1; border-radius: 5px" class="mb-4">
+    <div class="m-1">
+      <button class="collapsible">Filtros de Búsqueda</button>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Docente</mat-label>
+              <input matInput type="text" name="docente" [(ngModel)]="docente">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Sección</mat-label>
+              <input matInput type="text" name="seccion" [(ngModel)]="seccion">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Estudiante</mat-label>
+              <input matInput type="text" name="estudiante" [(ngModel)]="estudiante">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha</mat-label>
+              <input matInput type="text" name="fecha" [(ngModel)]="fecha">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Hora</mat-label>
+              <mat-select name="hora" [(ngModel)]="hora">
+                <mat-option value="1:00 PM">1:00 PM</mat-option>
+                <mat-option value="2:00 PM">2:00 PM</mat-option>
+                <mat-option value="3:00 PM">3:00 PM</mat-option>
+                <mat-option value="4:00 PM">4:00 PM</mat-option>
+                <mat-option value="5:00 PM">5:00 PM</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="buscar">
+            <button mat-button type="reset" class="btn btn-light">
+              <mat-label>Limpiar Filtros</mat-label>
+              <mat-icon matSuffix>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="pagecontrol">
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+  </pagination-controls>
+</div>
 <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">Docente</th>
-        <th scope="col">Grado y Sección</th>
+        <th scope="col">Sección</th>
         <th scope="col">Estudiante</th>
         <th scope="col">Fecha</th>
         <th scope="col">Hora</th>
@@ -10,13 +68,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let estudiante of estudiantesPage; let i=index">
-        <td>{{docentesPage[i].nombre}}</td>
-        <td>{{seccionesPage[i].seccion}}</td>
-        <td>{{estudiante.nombre}}</td>
-        <td>{{asesoriasPage[i].fecha2}}</td>
-        <td>{{asesoriasPage[i].hora}}</td>
-        <td>{{asesoriasPage[i].estado}}</td>
+      <tr *ngFor="let asesoria of asesoriasPage | tableFilter: form.value | paginate: { itemsPerPage: 10, currentPage: page }">
+        <td>{{asesoria.docente}}</td>
+        <td>{{asesoria.seccion}}</td>
+        <td>{{asesoria.estudiante}}</td>
+        <td>{{asesoria.fecha}}</td>
+        <td>{{asesoria.hora}}</td>
+        <td *ngIf="asesoria.estado == true; else elseBlock">Activo</td>
+        <td *ngIf="asesoria.estado == false; else elseBlock">Inactivo</td>
       </tr>
     </tbody>
   </table>
+</form>

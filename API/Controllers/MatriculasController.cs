@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Data;
@@ -34,6 +35,8 @@ namespace API.Controllers
         [HttpPost("registrar")]
         public async Task<ActionResult<Matricula>> RegistrarMatricula(MatriculaDTO matriculaDTO)
         {
+            if(await MatriculaExiste(matriculaDTO)) return BadRequest("Matricula ya existe");
+
             var matricula = new Matricula
             {
                 id_estudiante = matriculaDTO.id_estudiante,
@@ -66,6 +69,16 @@ namespace API.Controllers
             return await _matriculaRepository.GetMatriculaByDNI(dni);
         }
 
+        [HttpGet("dnimatriculas/{dni}")]
+        public async Task<ActionResult<Matricula>> GetMatriculasByDni(string dni)
+        {
+            var matriculas = await _matriculaRepository.GetMatriculasByDNI(dni);
+
+            if(matriculas == null) return NotFound("No existen Matriculas");
+
+            return Ok(matriculas);
+        }
+
         [HttpGet("idmatricula/{id_matricula}")]
         public async Task<ActionResult<Matricula>> GetMatriculaById(short id_matricula)
         {
@@ -91,6 +104,24 @@ namespace API.Controllers
             var matriculaToReturn = mapper.Map<MatriculaDTO>(enrollment);
 
             return Ok(matriculaToReturn);
+        }
+
+        [HttpGet("autorizar/{id_matricula}")]
+        public async Task<ActionResult<string>> Autorizar(short id_matricula)
+        {
+            return await _matriculaRepository.Autorizar(id_matricula);
+        }
+
+        private async Task<bool> MatriculaExiste(MatriculaDTO matriculadto)
+        {
+            return await _matriculaRepository.MatriculaExist(matriculadto);
+        }
+
+        [HttpGet("matriculastable")]
+        public async Task<ActionResult<IEnumerable>> GetMatriculasTable()
+        {
+            var matriculas = await _matriculaRepository.GetMatriculasTable();
+            return Ok(matriculas);
         }
     }
 }

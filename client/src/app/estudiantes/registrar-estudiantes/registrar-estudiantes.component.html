@@ -3,8 +3,8 @@
         <h1>Registrar Estudiante</h1>
     </div>
     <form #registerForm="ngForm" (ngSubmit)="register()">
-        <div class="form-row">
-            <div class="form-column">
+        <div class="row">
+            <div class="column">
                 <div class="ml-3">
                     <h2>Datos Personales</h2>
                 </div>
@@ -12,45 +12,30 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre</mat-label>
                         <input matInput type="text" name="nombre" [(ngModel)]="model1.nombre">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Paterno</mat-label>
                         <input matInput type="text" name="ape_paterno" [(ngModel)]="model1.ape_paterno">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Materno</mat-label>
                         <input matInput type="text" name="ape_materno" [(ngModel)]="model1.ape_materno">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>DNI</mat-label>
-                        <input matInput type="text" name="dni" [(ngModel)]="model1.dni">
-                        <mat-icon matSuffix>eco</mat-icon>
+                        <input matInput type="text" name="dni" [(ngModel)]="model1.dni" [(ngModel)]="model1.usuario">
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
-                        <mat-label>Correo electrónico</mat-label>
+                        <mat-label>Correo Electrónico</mat-label>
                         <input matInput type="text" name="email" [(ngModel)]="model1.email">
-                        <mat-icon matSuffix>eco</mat-icon>
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-2">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Rol</mat-label>
-                        <mat-select name="rol" [(ngModel)]="model1.rol">
-                            <mat-option *ngFor="let rol of roles" [value]="rol.value">
-                                {{rol.value}}
-                            </mat-option>
-                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
@@ -62,61 +47,58 @@
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Fecha de Nacimiento</mat-label>
-                        <input matInput type="date" name="fecha_nacimiento" [(ngModel)]="model2.fecha_nacimiento">
+                        <input matInput type="date" name="fecha_nacimiento" [(ngModel)]="model2.fecha_nacimiento"
+                            [(ngModel)]="model1.password">
                     </mat-form-field>
                 </div>
             </div>
-            <div class="form-column">
+            <div class="column">
                 <div class="ml-3">
                     <h2>Datos del Apoderado</h2>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
-                        <mat-label>Nombre del apoderado</mat-label>
+                        <mat-label>Nombre</mat-label>
                         <input matInput type="text" name="nombre_apod" [(ngModel)]="model2.nombre_apod">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
-                        <mat-label>Apellido Paterno del apoderado</mat-label>
+                        <mat-label>Apellido Paterno</mat-label>
                         <input matInput type="text" name="ape_paterno_apod" [(ngModel)]="model2.ape_paterno_apod">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
-                        <mat-label>Apellido Materno del apoderado</mat-label>
+                        <mat-label>Apellido Materno</mat-label>
                         <input matInput type="text" name="ape_materno_apod" [(ngModel)]="model2.ape_materno_apod">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
-                        <mat-label>DNI del apoderado</mat-label>
+                        <mat-label>DNI</mat-label>
                         <input matInput type="text" name="dni_apod" [(ngModel)]="model2.dni_apod">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
-                        <mat-label>Celular del apoderado</mat-label>
+                        <mat-label>Número Móvil</mat-label>
                         <input matInput type="text" name="celular_apod" [(ngModel)]="model2.celular_apod">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
-                        <mat-label>Correo electrónico del apoderado</mat-label>
+                        <mat-label>Correo Electrónico</mat-label>
                         <input matInput type="text" name="email_apod" [(ngModel)]="model2.email_apod">
-                        <mat-icon matSuffix>eco</mat-icon>
                     </mat-form-field>
                 </div>
             </div>
         </div>
-        <div class="form-group ml-2">
-            <button type="submit" class="btn btn-dark mr-2">Guardar</button>
-            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        <div class="form-group options">
+            <button mat-stroked-button type="submit" class="btn">Guardar <mat-icon>check
+                </mat-icon></button>
+            <button mat-stroked-button type="button" class="btn cancel" (click)="cancel()">Cancelar <mat-icon>close
+                </mat-icon></button>
         </div>
     </form>
 </div>

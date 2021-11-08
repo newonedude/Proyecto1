@@ -1,0 +1,14 @@
+.salir {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.salir {
+  cursor: pointer
+}
+
+.mat-toolbar.mat-primary {
+  background: transparent;
+  color: #111;
+  box-shadow: 0 4px 12px #00000014, 0 0 1px #0100001a
+}

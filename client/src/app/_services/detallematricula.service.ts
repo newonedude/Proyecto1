@@ -1,16 +1,21 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DetallematriculaService {
-  baseUrl = 'https://localhost:5001/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private accountService: AccountService) { }
 
   registrarDetalleMatricula(model:any):Observable<any>{
-    return this.http.post<any>(this.baseUrl+'detallematriculas/registrar', model)
+    return this.http.post<any>(this.accountService.baseUrl+'detallematriculas/registrar', model)
+  }
+
+  obtenerDetalleMatricula(id_matricula: string):Observable<any>{
+    return this.http.get<any>(this.accountService.baseUrl+'detallematriculas/'+id_matricula);
   }
 }

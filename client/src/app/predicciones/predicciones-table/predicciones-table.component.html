@@ -1,0 +1,87 @@
+<form novalidate #form="ngForm">
+  <div style="border: 1px solid #d1d1d1; border-radius: 5px" class="mb-4">
+    <div class="m-1">
+      <button class="collapsible">Filtros de Búsqueda</button>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>DNI</mat-label>
+              <input matInput type="text" name="dni" [(ngModel)]="dni">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" name="nombre" [(ngModel)]="nombre">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Sección</mat-label>
+              <input matInput type="text" name="seccion" [(ngModel)]="seccion">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Año</mat-label>
+              <input matInput type="text" name="anio" [(ngModel)]="anio">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Predicción</mat-label>
+              <mat-select name="resultado" [(ngModel)]="resultado">
+                <mat-option value="Aprobado">Aprobado</mat-option>
+                <mat-option value="Desaprobado">Desaprobado</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="buscar">
+            <button mat-button type="reset" class="btn btn-light">
+              <mat-label>Limpiar Filtros</mat-label>
+              <mat-icon matSuffix>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagecontrol">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+  </div>
+  <table class="table table-hover" id="MyTable">
+    <thead>
+      <tr>
+        <th scope="col">DNI</th>
+        <th scope="col">Estudiante</th>
+        <th scope="col">Sección</th>
+        <th scope="col">Año</th>
+        <th scope="col">P1</th>
+        <th scope="col">P2</th>
+        <th scope="col">P3</th>
+        <th scope="col">CF</th>
+        <th scope="col">Predicción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let prediccion of prediccionesPage | tableFilter: form.value | paginate: { itemsPerPage: 10, currentPage: page }">
+        <td>{{prediccion.dni}}</td>
+        <td>{{prediccion.nombre}}</td>
+        <td>{{prediccion.seccion}}</td>
+        <td>{{prediccion.anio}}</td>
+        <td>{{prediccion.p1}}</td>
+        <td>{{prediccion.p2}}</td>
+        <td>{{prediccion.p3}}</td>
+        <td>{{prediccion.cf}}</td>
+        <td [ngClass]="{'aprobado': prediccion.resultado == 'Aprobado', 
+        'desaprobado': prediccion.resultado == 'Desaprobado'}">
+          {{prediccion.resultado}}</td>
+      </tr>
+    </tbody>
+  </table>
+</form>

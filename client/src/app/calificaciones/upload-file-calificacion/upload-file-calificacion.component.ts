@@ -58,6 +58,7 @@ export class UploadFileCalificacionComponent implements OnInit {
         });
         return obj;
       });
+
       this.registerToServices();
     }
   }
@@ -104,8 +105,8 @@ export class UploadFileCalificacionComponent implements OnInit {
 
       const resp5 = await this.notaService.actualizar(this.nota).toPromise();
     }
-    this.refresh();
     this.input = document.getElementById("inputSubir");
     this.input.value = '';
+    this.refresh();
   }
 }

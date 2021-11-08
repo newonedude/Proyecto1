@@ -6,72 +6,54 @@
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Nombre</mat-label>
-                <input matInput type="text" name="nombre"
-                [(ngModel)]="model.nombre">
-                <mat-icon matSuffix>eco</mat-icon>
+                <input matInput type="text" name="nombre" [(ngModel)]="model.nombre">
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Apellido Paterno</mat-label>
-                <input matInput type="text" name="ape_paterno"
-                [(ngModel)]="model.ape_paterno">
-                <mat-icon matSuffix>eco</mat-icon>
+                <input matInput type="text" name="ape_paterno" [(ngModel)]="model.ape_paterno">
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Apellido Materno</mat-label>
-                <input matInput type="text" name="ape_materno"
-                [(ngModel)]="model.ape_materno">
-                <mat-icon matSuffix>eco</mat-icon>
+                <input matInput type="text" name="ape_materno" [(ngModel)]="model.ape_materno">
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>DNI</mat-label>
-                <input matInput type="text" name="dni"
-                [(ngModel)]="model.dni">
-                <mat-icon matSuffix>eco</mat-icon>
+                <input matInput type="text" name="dni" [(ngModel)]="model.dni" [(ngModel)]="model.usuario">
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Rol</mat-label>
                 <mat-select name="rol" [(ngModel)]="model.rol">
-                  <mat-option *ngFor="let rol of roles" [value]="rol.value">
-                    {{rol.value}}
-                  </mat-option>
+                    <mat-option *ngFor="let rol of roles" [value]="rol.value">
+                        {{rol.value}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
-                <mat-label>Usuario</mat-label>
-                <input matInput type="text" name="usuario"
-                [(ngModel)]="model.usuario">
-                <mat-icon matSuffix>eco</mat-icon>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput type="text" name="password"
-                [(ngModel)]="model.password">
-                <mat-icon matSuffix>eco</mat-icon>
+                <input matInput type="password" name="password" [(ngModel)]="model.password">
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Correo electrónico</mat-label>
-                <input matInput type="text" name="email"
-                [(ngModel)]="model.email">
-                <mat-icon matSuffix>eco</mat-icon>
+                <input matInput type="email" name="email" [(ngModel)]="model.email">
             </mat-form-field>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-dark mr-2">Guardar</button>
-            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        <div class="form-group options">
+            <button mat-stroked-button type="submit" class="btn">Guardar <mat-icon>check
+                </mat-icon></button>
+            <button mat-stroked-button type="button" class="btn cancel" (click)="cancel()">Cancelar <mat-icon>close
+                </mat-icon></button>
         </div>
     </form>
 </div>

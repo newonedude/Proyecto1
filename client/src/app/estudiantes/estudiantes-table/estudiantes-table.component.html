@@ -1,4 +1,50 @@
-<table class="table table-hover">
+<form novalidate #form="ngForm">
+  <div style="border: 1px solid #d1d1d1; border-radius: 5px" class="mb-4">
+    <div class="m-1">
+      <button class="collapsible">Filtros de Búsqueda</button>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" name="nombre" [(ngModel)]="nombre">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido P.</mat-label>
+              <input matInput type="text" name="ape_paterno" [(ngModel)]="ape_paterno">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido M.</mat-label>
+              <input matInput type="text" name="ape_materno" [(ngModel)]="ape_materno">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>DNI</mat-label>
+              <input matInput type="text" name="dni" [(ngModel)]="dni">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="buscar">
+            <button mat-button type="reset" class="btn btn-light">
+              <mat-label>Limpiar Filtros</mat-label>
+              <mat-icon matSuffix>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagecontrol">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+  </div>
+  <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">Nombre</th>
@@ -9,7 +55,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let estudiante of estudiantesPage">
+      <tr
+        *ngFor="let estudiante of estudiantesPage | tableFilter: form.value | paginate: { itemsPerPage: 10, currentPage: page }">
         <td>{{estudiante.nombre}}</td>
         <td>{{estudiante.ape_paterno}}</td>
         <td>{{estudiante.ape_materno}}</td>
@@ -18,3 +65,4 @@
       </tr>
     </tbody>
   </table>
+</form>

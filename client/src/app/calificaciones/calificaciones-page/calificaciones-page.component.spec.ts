@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CalificacionesPageComponent } from './calificaciones-page.component';
 
 describe('CalificacionesPageComponent', () => {
@@ -8,9 +8,13 @@ describe('CalificacionesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CalificacionesPageComponent ]
-    })
-    .compileComponents();
+      imports: [
+        HttpClientTestingModule
+      ],
+      declarations: [
+        CalificacionesPageComponent
+      ]
+    }).compileComponents();
   });
 
   beforeEach(() => {

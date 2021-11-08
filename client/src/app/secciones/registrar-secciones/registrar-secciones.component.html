@@ -7,9 +7,9 @@
             <mat-form-field appearance="outline">
                 <mat-label>Nivel</mat-label>
                 <mat-select name="nivel" [(ngModel)]="model.nivel">
-                  <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
-                    {{nivel.value}}
-                  </mat-option>
+                    <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
+                        {{nivel.value}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -17,9 +17,9 @@
             <mat-form-field appearance="outline">
                 <mat-label>Grado</mat-label>
                 <mat-select name="grado" [(ngModel)]="model.grado">
-                  <mat-option *ngFor="let grado of grados" [value]="grado.value">
-                    {{grado.value}}
-                  </mat-option>
+                    <mat-option *ngFor="let grado of grados" [value]="grado.value">
+                        {{grado.value}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -27,7 +27,6 @@
             <mat-form-field appearance="outline">
                 <mat-label>Sección</mat-label>
                 <input matInput type="text" name="seccion" [(ngModel)]="model.seccion">
-                <mat-icon matSuffix>eco</mat-icon>
                 <mat-hint>Ejemplo: A</mat-hint>
             </mat-form-field>
         </div>
@@ -35,7 +34,6 @@
             <mat-form-field appearance="outline">
                 <mat-label>Año</mat-label>
                 <input matInput type="number" name="anio" [(ngModel)]="model.anio">
-                <mat-icon matSuffix>eco</mat-icon>
                 <mat-hint>Formato: yyyy</mat-hint>
             </mat-form-field>
         </div>
@@ -43,12 +41,13 @@
             <mat-form-field appearance="outline">
                 <mat-label>Capacidad</mat-label>
                 <input matInput type="number" name="capacidad" [(ngModel)]="model.capacidad">
-                <mat-icon matSuffix>eco</mat-icon>
             </mat-form-field>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-dark mr-2">Guardar</button>
-            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        <div class="form-group options">
+            <button mat-stroked-button type="submit" class="btn">Guardar <mat-icon>check
+                </mat-icon></button>
+            <button mat-stroked-button type="button" class="btn cancel" (click)="cancel()">Cancelar <mat-icon>close
+                </mat-icon></button>
         </div>
     </form>
 </div>

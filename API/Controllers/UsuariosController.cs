@@ -1,16 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using API.DTO;
 using API.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using API.Services;
 
 namespace API.Controllers
 {
@@ -54,7 +50,8 @@ namespace API.Controllers
         }
 
         [HttpGet("dni/{dni}")]
-        public async Task<ActionResult<Usuario>> GetUsuarioDni(string dni){
+        public async Task<ActionResult<Usuario>> GetUsuarioDni(string dni)
+        {
             return await _userRepository.GetUserByDniAsync(dni);
         }
 
@@ -83,25 +80,31 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserTokenDTO>> Login(LoginDTO loginDTO)
+        public async Task<ActionResult<object>> Login(LoginDTO loginDTO)
         {
             var user = await _userRepository.Log(loginDTO);
 
-            if (user == null) return Unauthorized("Usuario inválido");
-
-            if (loginDTO.password != user.password) return Unauthorized("Contraseña inválida");
-
-            return new UserTokenDTO
+            if (user == null || loginDTO.password != user.password)
             {
-                id_usuario = user.id_usuario,
-                dni = user.dni,
-                nombre = user.nombre,
-                ape_paterno = user.ape_paterno,
-                ape_materno = user.ape_materno,
-                usuario = user.usuario,
-                token = _tokenService.CreateToken(user),
-                rol = user.rol
-            };
+                return new HttpStatusCodeException(System.Net.HttpStatusCode.Unauthorized, "Invalid User", null);
+            }
+            else
+            {
+                var usuario = new UserTokenDTO
+                {
+                    id_usuario = user.id_usuario,
+                    dni = user.dni,
+                    nombre = user.nombre,
+                    ape_paterno = user.ape_paterno,
+                    ape_materno = user.ape_materno,
+                    usuario = user.usuario,
+                    token = _tokenService.CreateToken(user),
+                    rol = user.rol
+                };
+
+                return new HttpStatusCodeException(System.Net.HttpStatusCode.OK, "Bienvenido", usuario);
+            }
+
         }
 
         private async Task<bool> UsuarioExiste(string usuario)

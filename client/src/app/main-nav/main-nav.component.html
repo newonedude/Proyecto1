@@ -1,22 +1,11 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+<app-top-nav class="fixed-topnav" fxHide.gt-xs></app-top-nav>
+<mat-sidenav-container>
+  <mat-sidenav #appDrawer mode="over" opened="false">
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard">Dashboard</a>
-      <a mat-list-item routerLink="/usuarios">Usuarios</a>
-      <a mat-list-item routerLink="/estudiantes">Estudiantes</a>
-      <a mat-list-item routerLink="/secciones">Secciones</a>
-      <a mat-list-item routerLink="/matriculas">Matricula</a>
-      <a mat-list-item routerLink="/calificaciones">Calificaciones</a>
-      <a mat-list-item routerLink="/predicciones">Predicciones</a>
-      <a mat-list-item routerLink="/asesorias">Asesorias</a>
-      <a class="nav-link active underlineHover" href="#" (click)="salir()">Salir</a>
+      <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <div>
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
+  <app-top-nav fxHide.xs></app-top-nav>
+  <router-outlet></router-outlet>
+  <div fxFlex></div>
 </mat-sidenav-container>

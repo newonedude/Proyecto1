@@ -2,6 +2,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
+import {NgxPaginationModule} from 'ngx-pagination';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,9 +53,30 @@ import { UploadFileCalificacionComponent } from './calificaciones/upload-file-ca
 import { ModificarCalificacionComponent } from './calificaciones/modificar-calificacion/modificar-calificacion.component';
 import {NumberPickerModule} from 'ng-number-picker';
 import { PreEncuestaComponent } from './encuesta/pre-encuesta/pre-encuesta.component';
+import { PrediccionesPageComponent } from './predicciones/predicciones-page/predicciones-page.component';
+import { PrediccionesTableComponent } from './predicciones/predicciones-table/predicciones-table.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ModalAutorizacionComponent } from './modals/modal-autorizacion/modal-autorizacion.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatStepperModule} from '@angular/material/stepper';
+import { ReactiveFormsModule} from '@angular/forms';
+import { RegistrarAsignacionesComponent } from './asignaciones/registrar-asignaciones/registrar-asignaciones.component';
+import { AsignacionesPageComponent } from './asignaciones/asignaciones-page/asignaciones-page.component';
+import { AsignacionesTableComponent } from './asignaciones/asignaciones-table/asignaciones-table.component';
+import { TableFilterPipe } from './table-filter.pipe';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
+import { MenuListItemComponent } from './menu-list-item/menu-list-item.component';
+import { TopNavComponent } from './top-nav/top-nav.component';
+import { NavService } from './_services/nav.service';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { DashboardPageDosComponent } from './dashboard-page-dos/dashboard-page-dos.component';
+import { ModalPrediccionComponent } from './modals/modal-prediccion/modal-prediccion.component';
+
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
       MainNavComponent,
@@ -79,9 +103,31 @@ import { PreEncuestaComponent } from './encuesta/pre-encuesta/pre-encuesta.compo
       CalificacionesTableComponent,
       UploadFileCalificacionComponent,
       ModificarCalificacionComponent,
-      PreEncuestaComponent
+      PreEncuestaComponent,
+      PrediccionesPageComponent,
+      PrediccionesTableComponent,
+      ModalAutorizacionComponent,
+      RegistrarAsignacionesComponent,
+      AsignacionesPageComponent,
+      AsignacionesTableComponent,
+      TableFilterPipe,
+      DashboardPageComponent,
+      DashboardTabComponent,
+      MenuListItemComponent,
+      TopNavComponent,
+      DashboardPageDosComponent,
+      ModalPrediccionComponent
    ],
   imports: [
+    FlexLayoutModule,
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatCheckboxModule,
     NumberPickerModule,
     BrowserModule,
     AppRoutingModule,
@@ -107,6 +153,7 @@ import { PreEncuestaComponent } from './encuesta/pre-encuesta/pre-encuesta.compo
   ],
   providers: [
     DatePipe,
+    NavService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,17 +1,25 @@
-<div class="m-5">
-    <div *ngIf="!registerMode">
-        <div>
-            <h1>Mantenimiento de Secciones</h1>
-            <button (click)="registerToggle()" type="button" class="btn btn-dark">Agregar</button>
+<div *ngIf="DOMready == false" class="spinner-grow loading" role="status"></div>
+<div *ngIf="DOMready" class="m-5">
+    <div>
+        <div *ngIf="!registerMode">
+            <h1 class="title">Mantenimiento de Secciones</h1>
+            <div div class="mt-4 mb-4">
+                <button mat-stroked-button type="button" class="btn" (click)="registerToggle()">
+                    Nuevo Registro <mat-icon>add</mat-icon>
+                </button>
+            </div>
         </div>
-        <div class="pt-5">
-            <app-secciones-table [seccionesPage]="secciones"></app-secciones-table>
-        </div>
-    </div>
-    <div *ngIf="registerMode">
-        <div>
+        <div *ngIf="!registerMode">
             <div>
-                <app-registrar-secciones (cancelRegister)="cancelRegisterMode($event)"></app-registrar-secciones>
+                <app-secciones-table [seccionesPage]="secciones"></app-secciones-table>
+                <div class="msjEmpty" *ngIf="secciones.length < 1">- No se encontraron resultados -</div>
+            </div>
+        </div>
+        <div *ngIf="registerMode">
+            <div>
+                <div>
+                    <app-registrar-secciones (cancelRegister)="cancelRegisterMode($event)"></app-registrar-secciones>
+                </div>
             </div>
         </div>
     </div>

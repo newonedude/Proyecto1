@@ -6,5 +6,6 @@ namespace API.Interfaces
     public interface IDetalleMatriculaRepository
     {
         Task<DetalleMatricula> Insertar(DetalleMatricula detalleMatricula);
+        Task<DetalleMatricula> GetDetMatriculaBtIdMatricula(short id_matricula);
     }
 }

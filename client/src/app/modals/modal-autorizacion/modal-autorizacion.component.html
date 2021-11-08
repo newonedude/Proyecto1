@@ -1,0 +1,15 @@
+<h1 mat-dialog-title class="title">Solicitar Autorización</h1>
+<div>
+    <hr>
+</div>
+<p class="row parrafo">¿Estás seguro de que deseas enviar el SMS solicitando la autorización de tu apoderado?</p>
+<div class="icon">
+    <mat-icon
+        matTooltip="Al enviar el SMS tu sesión actual expirará. Deberás volver a ingresar luego de que tu apoderado haya dado su autorización."
+        matTooltipHideDelay="0" [matTooltipPosition]="'right'">help</mat-icon>
+</div>
+<div mat-dialog-actions class="options">
+    <button mat-stroked-button (click)="onClick()">Sí, enviar <mat-icon>send</mat-icon></button>
+    <button mat-stroked-button (click)="onNoClick()">Cancelar <mat-icon>close
+        </mat-icon></button>
+</div>

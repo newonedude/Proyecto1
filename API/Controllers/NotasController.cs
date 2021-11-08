@@ -73,5 +73,11 @@ namespace API.Controllers
 
             return Ok(notaToReturn);
         }
+
+        [HttpGet("bymatricula/{idmatricula}")]
+        public async Task<ActionResult<Nota>> GetNotaByDNI(short idmatricula)
+        {
+            return await _notaRepository.GetNotaByDNI(idmatricula);
+        }
     }
 }

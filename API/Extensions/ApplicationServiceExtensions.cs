@@ -23,6 +23,8 @@ namespace API.Extensions
             services.AddScoped<IEncuestaRepository, EncuestaRepository>();
             services.AddScoped<INotaRepository, NotaRepository>();
             services.AddScoped<IAsignacionRepository, AsignacionRepository>();
+            services.AddScoped<IPrediccionRepository, PrediccionRepository>();
+            services.AddScoped<IChart1Repository, Chart1Repository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {

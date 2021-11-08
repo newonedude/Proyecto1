@@ -8,11 +8,33 @@ import { transform } from 'typescript';
 })
 
 export class MatriculasTableComponent implements OnInit {
-  @Input() usuariosPage: any;
-  @Input() seccionesPage: any;
+  @Input() matriculasPage: any;
+  public page: number;
+  nivel:string;
+  nombre:string;
+  ape_paterno:string;
+  ape_materno:string;
+  dni:string;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    var acc = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    }
   }
 }

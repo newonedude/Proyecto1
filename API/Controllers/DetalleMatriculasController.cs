@@ -33,5 +33,11 @@ namespace API.Controllers
 
             return Ok(detmatriculaToReturn);
         }
+
+        [HttpGet("{id_matricula}")]
+        public async Task<ActionResult<DetalleMatricula>> GetDetalleMatricula(short id_matricula)
+        {
+            return await _detalleMatricula.GetDetMatriculaBtIdMatricula(id_matricula);
+        }
     }
 }

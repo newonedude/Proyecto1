@@ -1,9 +1,11 @@
+import { MatriculaService } from 'src/app/_services/matricula.service';
 import { AccountService } from './../../_services/account.service';
 import { switchMap } from 'rxjs/operators';
 import { EstudianteService } from './../../_services/estudiante.service';
 import { SeccionService } from './../../_services/seccion.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-matriculas-page',
@@ -11,13 +13,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./matriculas-page.component.css']
 })
 export class MatriculasPageComponent implements OnInit {
-  matriculas: any;
-  registerMode = false;
-  secciones: any = [];
-  estudiantes: any = [];
-  usuarios: any = [];
+  matriculas: any = []
+  registerMode = false
+  DOMready = false
 
-  constructor(private http: HttpClient, private seccionService: SeccionService, private estudianteService: EstudianteService, private usuarioService: AccountService) { }
+  constructor(private matriculaService: MatriculaService) { }
 
   ngOnInit(): void {
     this.getMatriculas();
@@ -27,42 +27,16 @@ export class MatriculasPageComponent implements OnInit {
     this.registerMode = !this.registerMode;
   }
 
-  getMatriculas() {
-    this.http.get('https://localhost:5001/api/matriculas').subscribe(response => {
-      this.matriculas = response;
-      this.getSeccionesMatriculas();
-      this.getAlumnosMatriculas();
-    }
-    );
-  }
+  async getMatriculas() {
+    const r = await lastValueFrom(this.matriculaService.obtenerMatriculasTable())
+    this.matriculas = r
 
-  async getSeccionesMatriculas() {
-    for (const matricula of this.matriculas) {
-      const resp = await this.seccionService.obtenerSeccion(matricula.id_seccion).toPromise()
-      this.secciones.push(resp)
-    }
-  }
-
-  async getAlumnosMatriculas() {
-    for (const matricula of this.matriculas) {
-      const resp = await this.estudianteService.obtenerEstudiante(matricula.id_estudiante).toPromise()
-      this.estudiantes.push(resp)
-    }
-
-    this.getUsuarios();
-  }
-
-  async getUsuarios() {
-    for (const estudiante of this.estudiantes) {
-      const resp = await this.usuarioService.obtenerUsuario(estudiante.id_usuario).toPromise()
-      this.usuarios.push(resp)
-    }
+    this.DOMready = true
   }
 
   cancelRegisterMode(event: boolean) {
-    this.secciones.length = 0;
-    this.estudiantes.length = 0;
-    this.usuarios.length = 0;
+    this.matriculas.length = 0;
+    this.DOMready = false
     this.registerMode = event;
     if (event == false) {
       this.ngOnInit();
@@ -70,9 +44,8 @@ export class MatriculasPageComponent implements OnInit {
   }
 
   refreshPageMode(event: any) {
-    this.secciones.length = 0;
-    this.estudiantes.length = 0;
-    this.usuarios.length = 0;
+    this.DOMready = false
+    this.matriculas.length = 0;
     if (event == true) {
       this.ngOnInit();
     }

@@ -1,0 +1,64 @@
+<div class="main" *ngIf="!authorizedMode && !nonauthorizedMode">
+    <header class="pt-5">
+        <h1 class="title">Autorización para recopilar información del alumno</h1>
+        <h2 class="subtitle">Sistema de Predicción del rendimiento académico</h2>
+    </header>
+    <hr>
+    <div class="contparrafo">
+        <p class="parrafo">Estimado Padre de familia, mediante esta página web usted podrá dar la autorización para que
+            su menor hijo pueda brindarnos su información personal por medio de una encuesta que le permitirá
+            conocer la predicción de su rendimiento académico del presente año.
+            <br>
+            <br>
+            Por favor, lea atentamentee las políticas de privacidad y Manejo de datos.
+        </p>
+    </div>
+    <p class="subtitle2">Políticas de Privacidad y Manejo de Datos</p>
+    <div class="scroll">De conformidad con la Ley N° 29733, Ley de Protección de Datos Personales y su norma
+        reglamentaria D.S. y N° 003-2013-JUS en los términos vigentes de ambas, desde el momento que el usuario y/o
+        visitante de la encuesta haya declarado la aceptación expresa del tratamiento de sus datos personales mediante
+        la confirmación o elección dispuesta para ello, Ud. autoriza a la Institución educativa que todos sus datos
+        personales, que se faciliten a través de su ingreso a la encuesta, sean recolectados y tratados.
+
+        Asimismo, el usuario acepta expresamente que la Institución educativa pueda ceder los datos personales a
+        terceros. Los datos se eliminarán una vez terminado el procesamiento cuando la Institución educativa lo
+        considere pertinente.
+
+        En cuanto entre en vigencia las disposiciones pertinentes de la Ley N°29733, al Usuario le asiste de ejercer los
+        derechos de acceso, rectificación, oposición y cancelación de los datos personales. El usuario responde de la
+        veracidad de los datos facilitados por él.
+    </div>
+    <div class="form-check form-switch mt-3">
+        <mat-checkbox class="check" #terminos>He leído y estoy de acuerdo con las políticas de privacidad y manejo de
+            datos
+        </mat-checkbox>
+    </div>
+    <div class="options mt-3">
+        <button type="button" [disabled]="!terminos.checked" class="btn btn-dark"
+            (click)="autorizar()">AUTORIZAR</button>
+        <button type="button" class="btn btn-outline-danger ml-2" (click)="nonauthorizedToggle()">NO AUTORIZAR</button>
+    </div>
+</div>
+<div *ngIf="authorizedMode">
+    <h1 class="title pt-5">¡Su autorización se ha registrado con éxito!</h1>
+    <div class="icons">
+        <mat-icon>favorite</mat-icon>
+    </div>
+    <div class="contparrafo2">
+        <h2 class="parrafo">Ahora su menor hijo podrá hacer uso de nuestra herramientra que le permitirá conocer su
+            rendimiento académico del presente año.
+            Gracias por dejarnos recopilar su información.</h2>
+        <p class="parrafo2 mt-3">Ya puede cerrar esta página.</p>
+    </div>
+</div>
+<div *ngIf="nonauthorizedMode">
+    <h1 class="title pt-5">No ha dado su autorización</h1>
+    <div class="icons">
+        <mat-icon>error</mat-icon>
+    </div>
+    <div class="contparrafo2">
+        <h2 class="parrafo">Lamentamos que haya decidido no dar la autorización. De cualquier manera siempre podrá
+            volver a ingresar a esta página si llega a cambiar de opinión. Gracias por su participación.</h2>
+        <p class="parrafo2 mt-3">Ya puede cerrar esta página.</p>
+    </div>
+</div>

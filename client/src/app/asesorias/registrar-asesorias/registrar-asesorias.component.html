@@ -13,16 +13,17 @@
             <mat-form-field appearance="outline">
                 <mat-label>Hora</mat-label>
                 <mat-select name="hora" [(ngModel)]="hora2">
-                  <mat-option *ngFor="let hora of horas" [value]="hora.value">
-                    {{hora.value}}
-                  </mat-option>
+                    <mat-option *ngFor="let hora of horas" [value]="hora.value">
+                        {{hora.value}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="form-row ml-1">
             <div class="form-group">
                 <p>Seleccionar Estudiante</p>
-                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedStudentOptions" [ngModelOptions]="{standalone: true}">
+                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedStudentOptions"
+                    [ngModelOptions]="{standalone: true}">
                     <mat-list-option *ngFor="let usuario of usuarios" role="option" [value]="usuario">
                         {{usuario.nombre}}
                     </mat-list-option>
@@ -31,7 +32,8 @@
             <p class="m-2"></p>
             <div class="form-group">
                 <p>Seleccionar Sección</p>
-                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedSectionOptions" [ngModelOptions]="{standalone: true}">
+                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedSectionOptions"
+                    [ngModelOptions]="{standalone: true}">
                     <mat-list-option *ngFor="let seccion of secciones" role="option" [value]="seccion">
                         {{seccion.seccion}}
                     </mat-list-option>
@@ -40,16 +42,19 @@
             <p class="m-2"></p>
             <div class="form-group">
                 <p>Seleccionar Docente</p>
-                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedTeacherOptions" [ngModelOptions]="{standalone: true}">
+                <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedTeacherOptions"
+                    [ngModelOptions]="{standalone: true}">
                     <mat-list-option *ngFor="let docente of docentes" role="option" [value]="docente">
                         {{docente.nombre}}
                     </mat-list-option>
                 </mat-selection-list>
             </div>
         </div>
-        <div class="form-group mt-3 ml-1">
-            <button type="submit" class="btn btn-dark mr-2" (click)="onclick()">Guardar</button>
-            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        <div class="form-group options">
+            <button mat-stroked-button type="submit" class="btn" (click)="onclick()">Guardar <mat-icon>check
+                </mat-icon></button>
+            <button mat-stroked-button type="button" class="btn cancel" (click)="cancel()">Cancelar <mat-icon>close
+                </mat-icon></button>
         </div>
     </form>
 </div>

@@ -9,6 +9,6 @@ namespace API.DTO
         public short id_seccion { get; set; }
         public short id_curso { get; set; }
         public DateTime fecha { get; set; }
-        public string estado { get; set; }
+        public bool? estado { get; set; }
     }
 }

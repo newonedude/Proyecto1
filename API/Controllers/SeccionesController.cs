@@ -46,6 +46,8 @@ namespace API.Controllers
         [HttpPost("registrar")]
         public async Task<ActionResult<SeccionDTO>> RegistrarSeccion(SeccionDTO secciondto)
         {
+            if(await SeccionExiste(secciondto)) return BadRequest("Sección ya existe");
+
             var seccion = new Seccion
             {
                 nivel = secciondto.nivel,
@@ -60,6 +62,11 @@ namespace API.Controllers
             var seccionToReturn = mapper.Map<SeccionDTO>(seccion);
 
             return Ok(seccionToReturn);
+        }
+
+        private async Task<bool> SeccionExiste(SeccionDTO seccion)
+        {
+            return await _seccionRepository.SeccionExist(seccion);
         }
     }
 }
