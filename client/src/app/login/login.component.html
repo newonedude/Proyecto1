@@ -15,13 +15,16 @@
           [(ngModel)]="model.usuario">
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña"
           [(ngModel)]="model.password">
-        <div *ngIf="status != 200" class="error">
-          Los datos ingresados son incorrectos.
+        <div class="error">
+          <a *ngIf="status != 200">Los datos ingresados son incorrectos.</a>
         </div>
-        <input type="submit" class="fadeIn fourth mt-3" value="Login">
+        <span *ngIf="usuarioReady == false">
+          <input type="submit" class="fourth mt-3" value="Login">
+        </span>
+        <button disabled *ngIf="usuarioReady == true" type="submit" class="fourth btn mt-3">
+          <span class="spinner-grow spinner-grow-sm text-light" role="status" aria-hidden="true"></span>
+        </button>
       </form>
-      <div id="formFooter">
-      </div>
     </div>
   </div>
 </div>

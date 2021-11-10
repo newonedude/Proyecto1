@@ -25,29 +25,55 @@ namespace API.Controllers
                 nombreAlumno = sms.nombreAlumno,
                 fecha_asesoria = sms.fecha_asesoria,
                 hora_asesoria = sms.hora_asesoria,
-                typeSMS = sms.typeSMS
+                typeSMS = sms.typeSMS,
+                scored_labels = sms.scored_labels,
+                scored_probabilities = sms.scored_probabilities
             };
 
-            var accountSid = "AC6d346530225ed568307016c3536f6ad9";
-            var authToken = "5603a6c7e16d38c99239384330ec2b9c";
+            var accountSid = "AC84eab1496a029dfbcfaa4fbc4391e636";
+            var authToken = "a325508c017451e1c06611d09f96407a";
             TwilioClient.Init(accountSid, authToken);
 
             var messageOptions = new CreateMessageOptions(
                 new PhoneNumber(newsms.receiverPhoneNumber));
-            messageOptions.MessagingServiceSid = "MGcbc38a893dd699757cd31dbea5a8c645";
+            messageOptions.MessagingServiceSid = "MGdba1fbda003fe9d4c2f9d4e687a2d805";
 
-            if (sms.typeSMS == "asesoria")
+            if (newsms.typeSMS == "asesoria")
             {
                 messageOptions.Body = "Se ha registrado una Asesoría a su menor hijo "
-                + sms.nombreAlumno
+                + newsms.nombreAlumno
                 + " para el día "
-                + sms.fecha_asesoria
+                + newsms.fecha_asesoria
                 + " a las "
-                + sms.hora_asesoria;
+                + newsms.hora_asesoria;
             }
-            else if (sms.typeSMS == "autorizacion")
+            else if (newsms.typeSMS == "autorizacion")
             {
-                messageOptions.Body = "ingresa a http://localhost:4200/?id_matricula=" + sms.id_matricula;
+                messageOptions.Body = "Su menor hijo está solicitando su autorización para responder un cuestionario en línea para conocer la predicción de su rendimiento académico en Matemáticas. Para leer las políticas de privacidad y dar su autorización ingrese a http://localhost:4200/?id_matricula=" + newsms.id_matricula;
+            }
+            else if (newsms.typeSMS == "notificacionPadre")
+            {
+                if (newsms.scored_labels == "Si")
+                {
+                    if (newsms.scored_probabilities >= 70)
+                    {
+                        messageOptions.Body = "Su menor hijo "
+                        + newsms.nombreAlumno
+                        + " ha llenado nuestra encuesta para conocer su predicción del rendimiento académico en Matemáticas. De acuerdo al récord histórico de notas y a los factores extra académicos, hay un " + newsms.scored_probabilities + "% de probabilidades de que APRUEBE el curso.";
+                    }
+                    else if (newsms.scored_probabilities >= 50)
+                    {
+                        messageOptions.Body = "Su menor hijo "
+                        + newsms.nombreAlumno
+                        + " ha llenado nuestra encuesta para conocer su predicción del rendimiento académico en Matemáticas. De acuerdo al récord histórico de notas y a los factores extra académicos, hay un " + newsms.scored_probabilities + "% de probabilidades de que APRUEBE el curso. Le recomendamos estar atento a la progresión de sus notas";
+                    }
+                }
+                else
+                {
+                    messageOptions.Body = "Su menor hijo "
+                        + newsms.nombreAlumno
+                        + " ha llenado nuestra encuesta para conocer su predicción del rendimiento académico en Matemáticas. De acuerdo al récord histórico de notas y a los factores extra académicos, hay un " + newsms.scored_probabilities + "% de probabilidades de que DESAPRUEBE el curso. Le recomendamos que el alumno asista a las asesorías de reforzamiento";
+                }
             }
 
 

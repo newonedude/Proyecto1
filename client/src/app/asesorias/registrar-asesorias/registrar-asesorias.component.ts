@@ -32,6 +32,7 @@ export class RegistrarAsesoriasComponent implements OnInit {
   hora2: string;
   fecha1: string;
   sms: any = {}
+  DOMready = false
 
   @Output() cancelRegister = new EventEmitter();
 
@@ -68,6 +69,8 @@ export class RegistrarAsesoriasComponent implements OnInit {
           customobj.nombre = user.nombre + " " + user.ape_paterno + " " + user.ape_materno
           this.usuarios.push(customobj)
         });
+
+        this.DOMready = true
       }
     )
   }
@@ -110,7 +113,6 @@ export class RegistrarAsesoriasComponent implements OnInit {
 
     //sms
     this.sms.receiverPhoneNumber = '+51' + resp.celular_apod
-    this.sms.id_matricula = 0
     this.sms.nombreAlumno = resp3.body.nombre + " " + resp3.body.ape_paterno + " " + resp3.body.ape_materno
     this.sms.typeSMS = "asesoria"
 
@@ -121,7 +123,8 @@ export class RegistrarAsesoriasComponent implements OnInit {
     this.asesoriaService.registrarAsesoria(this.asesoria).subscribe(
       r => {
         this.sms.fecha_asesoria = this.datepipe.transform(r.fecha, 'dd-MM-yyyy')
-        this.sms.hora_asesoria = this.datepipe.transform(r.fecha, 'h-mm')
+        this.sms.hora_asesoria = this.datepipe.transform(r.fecha, 'h:mm a')
+        console.log(this.sms)
         this.smsService.enviarSMS(this.sms).subscribe()
         this.cancel()
       }

@@ -52,6 +52,10 @@ pagination-controls {
   background-color: transparent;
 }
 
+.pagecontrol{
+  padding-top: 30px;
+}
+
 .demo-table {
   width: 100%;
 }

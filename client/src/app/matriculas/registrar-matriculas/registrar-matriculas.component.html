@@ -1,4 +1,5 @@
-<div class="m-5">
+<div *ngIf="DOMready == false" class="spinner-grow loading" role="status"></div>
+<div *ngIf="DOMready" class="m-5">
     <div>
         <h1>Registrar Matricula</h1>
     </div>
@@ -9,8 +10,8 @@
                 <input matInput type="date" name="fecha_matricula" [(ngModel)]="matricula.fecha_matricula">
             </mat-form-field>
         </div>
-        <div class="form-row ml-1">
-            <div class="form-group">
+        <div class="row ml-1">
+            <div class="form-group select">
                 <p>Seleccionar estudiante</p>
                 <mat-selection-list role="listbox" [multiple]="true" [(ngModel)]="selectedStudentOptions"
                     [ngModelOptions]="{standalone: true}">
@@ -19,8 +20,7 @@
                     </mat-list-option>
                 </mat-selection-list>
             </div>
-            <p class="m-5"></p>
-            <div class="form-group">
+            <div class="form-group select">
                 <p>Seleccionar sección</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedSectionOptions"
                     [ngModelOptions]="{standalone: true}">

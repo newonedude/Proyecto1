@@ -24,7 +24,15 @@ namespace API.Extensions
             services.AddScoped<INotaRepository, NotaRepository>();
             services.AddScoped<IAsignacionRepository, AsignacionRepository>();
             services.AddScoped<IPrediccionRepository, PrediccionRepository>();
-            services.AddScoped<IChart1Repository, Chart1Repository>();
+            services.AddScoped<IPrediccionSeccionRepository, PrediccionSeccionRepository>();
+            services.AddScoped<IHistorialGradoRepository, HistorialGradoRepository>();
+            services.AddScoped<IHistorialSeccionRepository, HistorialSeccionRepository>();
+            services.AddScoped<IPrediccionGradoRepository, PrediccionGradoRepository>();
+            services.AddScoped<ICursoNivelInteresRepository, CursoNivelInteresRepository>();
+            services.AddScoped<ICursoCalMaterialesRepository, CursoCalMaterialesRepository>();
+            services.AddScoped<ICursoRelDocenteRepository, CursoRelDocenteRepository>();
+            services.AddScoped<ICursoMotInteresRepository, CursoMotInteresRepository>();
+            services.AddScoped<ICursoHorasEstudioRepository, CursoHorasEstudioRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {

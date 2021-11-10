@@ -1,9 +1,14 @@
 mat-selection-list {
-  position: relative;
   margin-top: 2px;
   height: 300px;
   overflow-y: scroll;
   outline: auto;
+  outline-color: #d1d1d1;
+  outline-width: 1px;
+}
+
+.select {
+  width: 30%;
 }
 
 .cancel {
@@ -11,11 +16,20 @@ mat-selection-list {
 }
 
 .options {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 h1 {
   font-size: 35px;
   line-height: 1.2;
   font-weight: 700;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }

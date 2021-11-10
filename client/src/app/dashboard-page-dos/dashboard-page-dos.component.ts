@@ -1,7 +1,9 @@
+import { lastValueFrom } from 'rxjs';
+import { ChartInfoService } from './../_services/chartInfo.service';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { registerables, Chart } from 'chart.js';
-import { Chart1Service } from '../_services/chart1.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-page-dos',
@@ -9,9 +11,36 @@ import { Chart1Service } from '../_services/chart1.service';
   styleUrls: ['./dashboard-page-dos.component.css']
 })
 export class DashboardPageDosComponent implements OnInit {
-  chart: any = []
+  alldata: any = {}
+  alldata2: any = {}
 
-  constructor(private chart1Service: Chart1Service) {
+  xChartData = []
+  yChartData1 = []
+  yChartData2 = []
+
+  xChartDataB = []
+  yChartData1B = []
+  yChartData2B = []
+
+  date: any
+  olddate: any
+
+  resultado1: any = []
+  resultado2: any = []
+
+  anios: any = []
+  newanios: any = []
+
+  secciones = []
+  newsecciones = []
+
+  chart: any = []
+  chart2: any = []
+
+  selectedAnios: any = []
+  selectedSeccion: any
+
+  constructor(private chartInfoService: ChartInfoService) {
     Chart.register(...registerables)
   }
 
@@ -26,128 +55,295 @@ export class DashboardPageDosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var yChartData1 = []
-    var yChartData2 = []
-    var xChartData = []
+    this.date = formatDate(new Date, 'yyyy', 'en-US')
+    this.olddate = this.date - 1
 
-    this.chart1Service.obtenerChart1().subscribe(
-      r => {
-        r.sort(function (a, b) {
-          if (a.anio === b.anio) {
-            // Price is only important when cities are the same
-            return a.grado - b.grado;
-          }
-          return a.anio > b.anio ? 1 : -1;
-        });
+    this.loadChartInfo1()
+    this.loadChartInfo2()
+  }
 
-        var anio = r[0].anio
-        var grado = r[0].grado
-        var suma1 = 0.0
-        var suma2 = 0.0
-        var count = 0
+  async loadChartInfo1() {
+    let r = await lastValueFrom(this.chartInfoService.obtenerHistorialGrado())
 
-        xChartData.push(r[0].grado + "° - " + r[0].anio)
+    this.alldata = r
 
-        for (let index = 0; index < r.length; index++) {
-          if (anio == r[index].anio && grado == r[index].grado) {
-            suma1 = suma1 + r[index].porcentajeDes
-            suma2 = suma2 + r[index].porcentajeAprob
-            count++
-          } else {
-            anio = r[index].anio
-            grado = r[index].grado
+    //set año dropdown
+    for (let item of r) {
+      this.anios.push(item.anio)
+    }
 
-            yChartData1.push((suma1 / count) * 100)
-            yChartData2.push((suma2 / count) * 100)
-            xChartData.push(r[index].grado + "° - " + r[index].anio)
+    this.newanios = this.anios.filter(this.onlyUnique)
+    this.newanios.sort((a, b) => 0 - (a > b ? -1 : 1))
 
-            suma1 = 0.0
-            suma2 = 0.0
-            count = 0
+    const result = r.filter(r => r.anio == this.date || r.anio == this.olddate)
 
-            suma1 = suma1 + r[index].porcentajeDes
-            suma2 = suma2 + r[index].porcentajeAprob
-            count++
-          }
-        }
-        yChartData1.push((suma1 / count) * 100)
-        yChartData2.push((suma2 / count) * 100)
+    for (let item of result) {
+      this.xChartData.push(item.grado + "° " + item.anio)
+      this.yChartData1.push((item.porcentaje_aprob * 100).toFixed(1))
+      this.yChartData2.push((item.porcentaje_desa * 100).toFixed(1))
+    }
 
-        const newDataset1 = {
-          label: '% Desaprobados',
-          backgroundColor: this.addAlpha('#FF6384', 0.4),
-          borderWidth: 3,
-          borderColor: '#FF6384',
-          data: yChartData1,
-          pointRadius: 7,
-          pointHoverRadius: 13,
-        };
-        const newDataset2 = {
-          label: '% Aprobados',
-          backgroundColor: this.addAlpha('#36A2EB', 0.4),
-          borderColor: '#36A2EB',
-          borderWidth: 3,
-          data: yChartData2,
-          pointRadius: 7,
-          pointHoverRadius: 13,
-        };
-
-        this.chart = new Chart('canvas2', {
-          type: 'line',
-          data: {
-            labels: xChartData,
-            datasets: [
-              newDataset1, newDataset2
-            ]
+    this.chart = new Chart('canvas', {
+      type: 'bar',
+      data: {
+        labels: this.xChartData,
+        datasets: [
+          {
+            label: '% Aprobados',
+            backgroundColor: this.addAlpha('#36A2EB', 0.4),
+            borderColor: '#36A2EB',
+            borderWidth: 1,
+            data: this.yChartData1,
           },
-          options: {
-            responsive: true,
-            scales: {
-              y: {
-                min: 0,
-                max: 100,
-                grid: {
-                  display: true
-                },
-                ticks: {
-                  // Include a % sign in the ticks
-                  callback: function (value, index, values) {
-                    return value + '%';
-                  }
-                }
-              },
-              x: {
-                ticks:{
-                  font: {
-                    size: 18
-                  }
-                },
-                grid: {
-                  display: true
-                },
-              }
+          {
+            label: '% Desaprobados',
+            backgroundColor: this.addAlpha('#FF6384', 0.4),
+            borderWidth: 1,
+            borderColor: '#FF6384',
+            data: this.yChartData2,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            grid: {
+              display: true
             },
-            plugins: {
-              tooltip: {
-                mode: 'point',
-                enabled: true,
-                displayColors: false,
-                callbacks: {
-                  title: () => null,
-                  label: function (tooltipItem) {
-                    return tooltipItem.formattedValue + "%";
-                  }
-                }
-              },
-              legend: {
-                position: 'bottom'
-              },
-              title: {
-                display: false
+            ticks: {
+              // Include a % sign in the ticks
+              callback: function (value, index, values) {
+                return value + '%';
               }
             }
           },
-        })
-      })
+          x: {
+            ticks: {
+              font: {
+                size: 13
+              }
+            },
+            grid: {
+              display: true
+            },
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Historial de Aprobados y Desaprobados por Grado',
+            position: 'top',
+            font: { weight: 'bold' }
+          },
+          datalabels: {
+            display: true,
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          },
+          tooltip: {
+            mode: 'point',
+            enabled: true,
+            displayColors: false,
+            callbacks: {
+              title: () => null,
+              label: function (tooltipItem) {
+                return tooltipItem.formattedValue + "%";
+              }
+            }
+          },
+          legend: {
+            position: 'bottom',
+            display: true,
+          }
+        }
+      },
+    })
+  }
+
+  async loadChartInfo2() {
+    let r = await lastValueFrom(this.chartInfoService.obtenerPrediccionGrado())
+
+    this.alldata2 = r
+
+    //set año dropdown
+    for (let item of r) {
+      this.anios.push(item.anio)
+    }
+
+    this.newanios = this.anios.filter(this.onlyUnique)
+    this.newanios.sort((a, b) => 0 - (a > b ? -1 : 1))
+
+    const result = r.filter(r => r.anio == this.date || r.anio == this.olddate)
+
+    for (let item of result) {
+      this.xChartDataB.push(item.grado + "° " + item.anio + " " + item.periodo)
+      this.yChartData1B.push((item.porcentaje_aprob * 100).toFixed(1))
+      this.yChartData2B.push((item.porcentaje_desa * 100).toFixed(1))
+    }
+
+    this.chart2 = new Chart('canvas2', {
+      type: 'bar',
+      data: {
+        labels: this.xChartDataB,
+        datasets: [
+          {
+            label: '% Aprobados',
+            backgroundColor: this.addAlpha('#36A2EB', 0.4),
+            borderColor: '#36A2EB',
+            borderWidth: 1,
+            data: this.yChartData1B,
+          },
+          {
+            label: '% Desaprobados',
+            backgroundColor: this.addAlpha('#FF6384', 0.4),
+            borderWidth: 1,
+            borderColor: '#FF6384',
+            data: this.yChartData2B,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            grid: {
+              display: true
+            },
+            ticks: {
+              // Include a % sign in the ticks
+              callback: function (value, index, values) {
+                return value + '%';
+              }
+            }
+          },
+          x: {
+            ticks: {
+              font: {
+                size: 13
+              }
+            },
+            grid: {
+              display: true
+            },
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Predicción de Aprobados y Desaprobados por Grado',
+            position: 'top',
+            font: { weight: 'bold' }
+          },
+          datalabels: {
+            display: true,
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          },
+          tooltip: {
+            mode: 'point',
+            enabled: true,
+            displayColors: false,
+            callbacks: {
+              title: () => null,
+              label: function (tooltipItem) {
+                return tooltipItem.formattedValue + "%";
+              }
+            }
+          },
+          legend: {
+            position: 'bottom',
+            display: true,
+          }
+        }
+      },
+    })
+  }
+
+  change() {
+    this.xChartData = []
+    this.yChartData1 = []
+    this.yChartData2 = []
+
+    this.xChartDataB = []
+    this.yChartData1B = []
+    this.yChartData2B = []
+
+    this.chart.data.datasets = []
+    this.chart2.data.datasets = []
+
+    this.resultado1 = []
+    this.resultado2 = []
+
+    this.resultado1 = this.alldata.filter(r => this.selectedAnios.includes(r.anio))
+    this.resultado2 = this.alldata2.filter(r => this.selectedAnios.includes(r.anio))
+
+    for (let item of this.resultado1) {
+      this.xChartData.push(item.grado + "° " + item.anio)
+      this.yChartData1.push((item.porcentaje_aprob * 100).toFixed(1))
+      this.yChartData2.push((item.porcentaje_desa * 100).toFixed(1))
+    }
+
+    for (let item of this.resultado2) {
+      this.xChartDataB.push(item.grado + "° " + item.anio + " " + item.periodo)
+      this.yChartData1B.push((item.porcentaje_aprob * 100).toFixed(1))
+      this.yChartData2B.push((item.porcentaje_desa * 100).toFixed(1))
+    }
+
+    const newDataset1 = {
+      label: '% Aprobados',
+      backgroundColor: this.addAlpha('#36A2EB', 0.4),
+      borderColor: '#36A2EB',
+      borderWidth: 1,
+      data: this.yChartData1,
+    }
+
+    const newDataset2 = {
+      label: '% Desaprobados',
+      backgroundColor: this.addAlpha('#FF6384', 0.4),
+      borderWidth: 1,
+      borderColor: '#FF6384',
+      data: this.yChartData2,
+    }
+
+    const newDataset1B = {
+      label: '% Aprobados',
+      backgroundColor: this.addAlpha('#36A2EB', 0.4),
+      borderColor: '#36A2EB',
+      borderWidth: 1,
+      data: this.yChartData1B,
+    }
+
+    const newDataset2B = {
+      label: '% Desaprobados',
+      backgroundColor: this.addAlpha('#FF6384', 0.4),
+      borderWidth: 1,
+      borderColor: '#FF6384',
+      data: this.yChartData2B,
+    }
+
+    this.chart.data.labels = this.xChartData
+    this.chart2.data.labels = this.xChartDataB
+
+    this.chart.data.datasets.push(newDataset1);
+    this.chart.data.datasets.push(newDataset2);
+
+    this.chart2.data.datasets.push(newDataset1B);
+    this.chart2.data.datasets.push(newDataset2B);
+
+    this.chart.update()
+    this.chart2.update()
   }
 }

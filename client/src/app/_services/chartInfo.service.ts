@@ -6,14 +6,29 @@ import { AccountService } from './account.service';
 @Injectable({
   providedIn: 'root'
 })
-export class Chart1Service {
+export class ChartInfoService {
 
   constructor(private http: HttpClient,
     private accountService: AccountService) { }
 
-    obtenerChart1():Observable<any>{
-      return this.http.get<any>(this.accountService.baseUrl+'chart1');
+    obtenerHistorialSeccion():Observable<any>{
+      return this.http.get<any>(this.accountService.baseUrl+'historialseccion');
     }
+
+    obtenerPrediccionSeccion():Observable<any>{
+      return this.http.get<any>(this.accountService.baseUrl+'prediccionseccion');
+    }
+
+    obtenerHistorialGrado():Observable<any>{
+      return this.http.get<any>(this.accountService.baseUrl+'historialgrado');
+    }
+
+    obtenerPrediccionGrado():Observable<any>{
+      return this.http.get<any>(this.accountService.baseUrl+'predicciongrado');
+    }
+
+
+
 
     obtenerChartbySeccion(seccion:string):Observable<any>{
       return this.http.get<any>(this.accountService.baseUrl+'chart1/seccion/'+seccion)

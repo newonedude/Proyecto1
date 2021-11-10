@@ -47,6 +47,9 @@ namespace API.Controllers
                 horas_estudio = prediccion.horas_estudio,
                 mot_interes = prediccion.mot_interes,
                 nivel_interes = prediccion.nivel_interes,
+                CF_anterior = prediccion.CF_anterior,
+                P1 = prediccion.P1,
+                P2 = prediccion.P2,
                 estado = prediccion.estado
             };
 

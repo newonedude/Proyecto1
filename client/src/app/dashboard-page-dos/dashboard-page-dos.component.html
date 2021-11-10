@@ -1,10 +1,24 @@
-<div class="container">
-    <div class="child">
-        <div class="mt-3">
-            <h1>Porcentaje de Estudiantes Aprobados y Desaprobados por Grado</h1>
+<div class="child">
+    <div class="mt-3">
+        <h1>Dashboard: Historial de Notas y Predicciones</h1>
+        <h2> - por Grado - </h2>
+    </div>
+    <div class="buttons mt-5">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Año</mat-label>
+                <mat-select name="anio" multiple [(ngModel)]="selectedAnios" (selectionChange)="change()">
+                    <mat-option *ngFor="let anio of newanios" [value]="anio">{{anio}}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <div class="chartbox mt-5">
-            <canvas id="canvas2"></canvas>
+    </div>
+    <div class="graphs">
+        <div class="form-group chart">
+            <canvas class="canvas" id="canvas"></canvas>
+        </div>
+        <div class="form-group chart">
+            <canvas class="canvas" id="canvas2"></canvas>
         </div>
     </div>
 </div>

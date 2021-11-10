@@ -26,6 +26,7 @@ export class RegistrarMatriculasComponent implements OnInit {
   selectedStudentOptions: any = [];
   selectedSectionOptions: any = [];
   nota:any = {};
+  DOMready = false
 
   @Output() cancelRegister = new EventEmitter();
 
@@ -52,7 +53,8 @@ export class RegistrarMatriculasComponent implements OnInit {
           customobj.id_usuario = user.id_usuario;
           customobj.nombre = user.nombre + " " + user.ape_paterno + " " + user.ape_materno
           this.usuarios.push(customobj)
-        });
+        })
+        this.DOMready = true
       }
     )
   }

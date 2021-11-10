@@ -1,3 +1,4 @@
+import { SmsService } from './../../_services/sms.service';
 import { PrediccionService } from './../../_services/prediccion.service';
 import { DetallematriculaService } from 'src/app/_services/detallematricula.service';
 import { AccountService } from './../../_services/account.service';
@@ -31,8 +32,9 @@ export class PreguntasEncuestaComponent implements OnInit {
   @Input() idmatricula: any
   @Input() encuestaExistente: Encuesta
   @Input() info_forecasting: any
+  @Input() sms: any;
   date: any
-  prediccionReady:any
+  prediccionReady: any
   encuestaNueva: boolean
   @Output() finishSurvey = new EventEmitter();
   forescasting_results: any
@@ -71,9 +73,11 @@ export class PreguntasEncuestaComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private dialog: MatDialog,
     private detalleMatricula: DetallematriculaService,
-    private prediccionService: PrediccionService) { }
+    private prediccionService: PrediccionService,
+    private smsService: SmsService) { }
 
   ngOnInit(): void {
+    console.log(this.info_forecasting)
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -204,13 +208,22 @@ export class PreguntasEncuestaComponent implements OnInit {
 
           this.forescasting_results = resp.data
           this.forecastStatus = resp.status
+
+          //sms
+          this.sms.scored_labels = this.forescasting_results.results.webServiceOutput0[0].scored_Labels
+          this.sms.scored_probabilities = Math.round(this.forescasting_results.results.webServiceOutput0[0].scored_Probabilities * 100)
         }
       } else {
         this.prediccion.modelo = "4"
+        console.log(this.info_forecasting)
         let resp = await lastValueFrom(this.forecastingService.forecastingExecution(this.info_forecasting, this.prediccion.modelo))
 
         this.forescasting_results = resp.data
         this.forecastStatus = resp.status
+
+        //sms
+        this.sms.scored_labels = this.forescasting_results.results.webServiceOutput0[0].scored_Labels
+        this.sms.scored_probabilities = Math.round(this.forescasting_results.results.webServiceOutput0[0].scored_Probabilities * 100)
       }
     } else {
       this.prediccion.modelo = "5"
@@ -218,28 +231,18 @@ export class PreguntasEncuestaComponent implements OnInit {
 
       this.forescasting_results = resp.data
       this.forecastStatus = resp.status
+
+      //sms
+      this.sms.scored_labels = this.forescasting_results.results.webServiceOutput0[0].scored_Labels
+      this.sms.scored_probabilities = Math.round(this.forescasting_results.results.webServiceOutput0[0].scored_Probabilities * 100)
     }
 
     if (this.forecastStatus == 200) {
 
       //Envío de SMS
-      if (this.forescasting_results.results.webServiceOutput0[0].scored_Labels == "Si") {
-        if (Math.round(this.forescasting_results.results.webServiceOutput0[0].scored_Probabilities * 100) >= 70) {
-          //enviar sms 1
-        } else if (Math.round(this.forescasting_results.results.webServiceOutput0[0].scored_Probabilities * 100) >= 50) {
-          //enviar sms 2
-        } else {
-          //no enviar sms
-        }
-      } else {
-        if (Math.round(this.forescasting_results.results.webServiceOutput0[0].scored_Probabilities * 100) >= 70) {
-          //enviar sms 1
-        } else if (Math.round(this.forescasting_results.results.webServiceOutput0[0].scored_Probabilities * 100) >= 50) {
-          //enviar sms 2
-        } else {
-          //no enviar sms
-        }
-      }
+      /*if (this.sms.scored_probabilities >= 50) {
+        this.smsService.enviarSMS(this.sms).subscribe()
+      }*/
 
       //Encuesta
       if (this.encuestaNueva) {
@@ -277,7 +280,12 @@ export class PreguntasEncuestaComponent implements OnInit {
       this.prediccion.horas_estudio = this.info_forecasting.horas_estudio
       this.prediccion.mot_interes = this.info_forecasting.mot_interes
       this.prediccion.nivel_interes = this.info_forecasting.nivel_interes
+      this.prediccion.CF_anterior = this.info_forecasting.C_Final_Primero
+      this.prediccion['P1'] = this.info_forecasting.T1_Segundo
+      this.prediccion['P2'] = this.info_forecasting.T2_segundo
       this.prediccion.estado = true
+
+      console.log(this.prediccion)
 
       let resp3 = await lastValueFrom(this.prediccionService.registrarPrediccion(this.prediccion))
       this.prediccionReady = true

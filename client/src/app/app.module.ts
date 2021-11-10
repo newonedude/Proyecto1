@@ -73,6 +73,7 @@ import { NavService } from './_services/nav.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { DashboardPageDosComponent } from './dashboard-page-dos/dashboard-page-dos.component';
 import { ModalPrediccionComponent } from './modals/modal-prediccion/modal-prediccion.component';
+import { ModalDocenteInfoComponent } from './modals/modal-docente-info/modal-docente-info.component';
 
 
 @NgModule({
@@ -116,7 +117,8 @@ import { ModalPrediccionComponent } from './modals/modal-prediccion/modal-predic
       MenuListItemComponent,
       TopNavComponent,
       DashboardPageDosComponent,
-      ModalPrediccionComponent
+      ModalPrediccionComponent,
+      ModalDocenteInfoComponent
    ],
   imports: [
     FlexLayoutModule,

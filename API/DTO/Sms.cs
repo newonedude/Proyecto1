@@ -9,5 +9,7 @@ namespace API.DTO
         public string nombreAlumno { get; set; }
         public string fecha_asesoria { get; set; }
         public string hora_asesoria { get; set; }
+        public string scored_labels { get; set; }
+        public decimal scored_probabilities { get; set; }
     }
 }

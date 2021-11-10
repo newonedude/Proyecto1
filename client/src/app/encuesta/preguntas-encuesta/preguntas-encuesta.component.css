@@ -9,7 +9,9 @@
 .title {
   text-align: center;
   padding: 10px;
-  font-size: 30px;
+  font-size: 35px;
+  line-height: 1.2;
+  font-weight: 700;
 }
 
 .preguntas {

@@ -1,0 +1,70 @@
+<h1 mat-dialog-title class="title">
+    Informe de Predicción
+</h1>
+<div>
+    <hr>
+</div>
+<div class="icon">
+    <mat-icon *ngIf="data.scored_label == 'Aprobado' && data.scored_probabilities >= 70">supervisor_account</mat-icon>
+    <mat-icon *ngIf="data.scored_label == 'Aprobado' && data.scored_probabilities < 70 && data.scored_probabilities >= 50">
+        warning</mat-icon>
+    <mat-icon *ngIf="data.scored_label == 'Aprobado' && data.scored_probabilities < 50">error</mat-icon>
+    <mat-icon *ngIf="data.scored_label == 'Desaprobado'">error</mat-icon>
+</div>
+<br>
+<p *ngIf="data.scored_label == 'Aprobado' && data.scored_probabilities >= 70" class="row parrafo">
+    <span>{{data.nombre}}</span> ha obtenido resultados favorables.
+    <br>
+    <br>
+    De acuerdo con el récord histórico de notas y a los factores extra académicos, hay un
+    <span>{{data.scored_probabilities}}%</span> de probabilidades de que el estudiante <span>apruebe</span> el curso.
+</p>
+<p *ngIf="data.scored_label == 'Aprobado' && data.scored_probabilities < 70 && data.scored_probabilities >= 50"
+    class="row parrafo">
+    <span>{{data.nombre}}</span> ha obtenido resultados favorables.
+    <br>
+    <br>
+    De acuerdo con el récord histórico de notas y a los factores extra académicos, hay un
+    <span>{{data.scored_probabilities}}%</span> de probabilidades de que el estudiante <span>apruebe</span> el curso.
+    <br>
+    <br>
+    De igual forma, te recomendamos estar atento a la progresión de las notas del estudiante durante el próximo
+    trimestre.
+</p>
+<p *ngIf="data.scored_label == 'Aprobado' && data.scored_probabilities < 50" class="row parrafo">
+    Este resultado puede mejorar.
+    <br>
+    <br>
+    Actualmente el estudiante no cuenta con las suficientes notas cargadas para emitir un cálculo acertado, es decir,
+    existen pocas probabilidades de que el estudiante <span>apruebe</span> el curso según el record histórico de notas y
+    los factores
+    extra académicos.
+    <br>
+    <br>
+    Le recomendamos actualizar las notas faltantes en el sistema.
+</p>
+<p *ngIf="data.scored_label == 'Desaprobado' && data.scored_probabilities >= 50" class="row parrafo">
+    Los resultados de <span>{{data.nombre}}</span> no son favorables.
+    <br>
+    <br>
+    De acuerdo con el récord histórico de notas y a los factores extra académicos, hay un
+    <span>{{data.scored_probabilities}}%</span> de probabilidades de que el estudiante <span>desapruebe</span> el curso.
+    <br>
+    <br>
+    Le recomendamos agendar asesorías de reforzamiento para el estudiante y conversar con su apoderado.
+</p>
+<p *ngIf="data.scored_label == 'Desaprobado' && data.scored_probabilities < 50" class="row parrafo">
+    Este resultado puede mejorar.
+    <br>
+    <br>
+    Actualmente el estudiante no cuenta con las suficientes notas cargadas para emitir un cálculo acertado, es decir,
+    existen pocas probabilidades de que el estudiante <span>desapruebe</span> el curso según el record histórico de notas y
+    los factores
+    extra académicos.
+    <br>
+    <br>
+    Le recomendamos actualizar las notas faltantes en el sistema.
+</p>
+<div mat-dialog-actions class="options">
+    <button mat-stroked-button (click)="onClick()">Aceptar</button>
+</div>

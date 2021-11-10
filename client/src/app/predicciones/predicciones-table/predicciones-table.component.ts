@@ -1,5 +1,13 @@
+import { ModalDocenteInfoComponent } from './../../modals/modal-docente-info/modal-docente-info.component';
 import { AccountService } from 'src/app/_services/account.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
+export interface Forecastingdata {
+  scored_label: any,
+  scored_probabilities: any,
+  nombre: any
+};
 
 @Component({
   selector: 'app-predicciones-table',
@@ -8,15 +16,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PrediccionesTableComponent implements OnInit {
   @Input() prediccionesPage: any
-  public page: number;
-  dni: string;
-  nombre: string;
-  seccion: string;
-  anio: string;
-  resultado: string;
-  records: boolean;
+  public page: number
+  dni: string
+  nombre: string
+  seccion: string
+  anio: string
+  scored_labels: string
+  records: boolean
+  fecha_prediccion: string
 
-  constructor(public usuariosService: AccountService) { }
+  constructor(public usuariosService: AccountService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -36,5 +46,16 @@ export class PrediccionesTableComponent implements OnInit {
         }
       });
     }
+  }
+
+  openDialog(prediccion: any): void {
+    const dialogRef = this.dialog.open(ModalDocenteInfoComponent,
+      {
+        data: {
+          scored_label: prediccion.scored_labels,
+          scored_probabilities: prediccion.scored_probabilities,
+          nombre: prediccion.nombre
+        }
+      })
   }
 }

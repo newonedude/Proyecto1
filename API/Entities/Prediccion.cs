@@ -21,6 +21,9 @@ namespace API.Entities
         public string horas_estudio { get; set; }
         public string mot_interes { get; set; }
         public int nivel_interes { get; set; }
+        public string CF_anterior { get; set; }
+        public string P1 { get; set; }
+        public string P2 { get; set; }
         public bool? estado { get; set; }
     }
 }

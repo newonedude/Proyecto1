@@ -8,9 +8,13 @@ pagination-controls {
   margin-right: 15px;
 }
 
-.btn{
+.btn {
   border: 1px solid grey;
   border-radius: 5px;
+}
+
+.pagecontrol {
+  padding-top: 30px;
 }
 
 .collapsible {
@@ -48,6 +52,6 @@ pagination-controls {
   background-color: transparent;
 }
 
-.form-control{
+.form-control {
   background-color: transparent;
 }

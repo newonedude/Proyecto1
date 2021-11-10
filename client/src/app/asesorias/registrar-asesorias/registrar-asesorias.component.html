@@ -1,4 +1,5 @@
-<div class="m-5">
+<div *ngIf="DOMready == false" class="spinner-grow loading" role="status"></div>
+<div *ngIf="DOMready" class="m-5">
     <div class="ml-2">
         <h1>Registrar Asesoría</h1>
     </div>
@@ -19,8 +20,8 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="form-row ml-1">
-            <div class="form-group">
+        <div class="row ml-1">
+            <div class="form-group select">
                 <p>Seleccionar Estudiante</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedStudentOptions"
                     [ngModelOptions]="{standalone: true}">
@@ -29,8 +30,7 @@
                     </mat-list-option>
                 </mat-selection-list>
             </div>
-            <p class="m-2"></p>
-            <div class="form-group">
+            <div class="form-group select">
                 <p>Seleccionar Sección</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedSectionOptions"
                     [ngModelOptions]="{standalone: true}">
@@ -39,8 +39,7 @@
                     </mat-list-option>
                 </mat-selection-list>
             </div>
-            <p class="m-2"></p>
-            <div class="form-group">
+            <div class="form-group select">
                 <p>Seleccionar Docente</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedTeacherOptions"
                     [ngModelOptions]="{standalone: true}">

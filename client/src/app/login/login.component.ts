@@ -14,25 +14,27 @@ export class LoginComponent implements OnInit {
   model: any = {}
   headers: any
   status = 200
-  autorizacion:any
+  autorizacion: any
+  usuarioReady = false
 
   constructor(public accountService: AccountService,
-    private matriculaService:MatriculaService) { }
+    private matriculaService: MatriculaService) { }
 
   ngOnInit(): void {
   }
 
   async login() {
-    /*this.accountService.login(this.model)
-    .subscribe(r =>{
-      this.status = r.body.status
-    })*/
+    this.usuarioReady = true
 
     let resp = await lastValueFrom(this.accountService.login(this.model))
     this.status = resp.body.status
 
-    let resp1 = await lastValueFrom(this.matriculaService.obtenerMatriculaByDNI(resp.body.data.dni))
-    this.autorizacion = resp1.permiso_apoderado
+    if (this.status == 200) {
+      let resp1 = await lastValueFrom(this.matriculaService.obtenerMatriculaByDNI(resp.body.data.dni))
+      this.autorizacion = resp1.permiso_apoderado
+    }
+
+    this.usuarioReady = false
   }
 
   logout() {

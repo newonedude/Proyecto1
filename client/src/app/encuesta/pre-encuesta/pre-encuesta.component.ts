@@ -26,6 +26,7 @@ export class PreEncuestaComponent implements OnInit {
   surveyMode = false;
   id_matricula: any;
   cel_apoderado: any;
+  sms:any = {}
   encuesta: Encuesta = new Encuesta();
   info_forecasting: any = {
     "edad": "",
@@ -60,6 +61,11 @@ export class PreEncuestaComponent implements OnInit {
 
     const resp2 = await lastValueFrom(this.estudianteService.obtenerEstudianteByUserId(this.usuario.id_usuario));
     this.cel_apoderado = resp2.celular_apod;
+
+    //sms
+    this.sms.receiverPhoneNumber = '+51' + this.cel_apoderado
+    this.sms.nombreAlumno = this.usuario.nombre+" "+this.usuario.ape_paterno+" "+this.usuario.ape_materno
+    this.sms.typeSMS = 'notificacionPadre'
 
     if (resp.encuesta_realizada) {
       this.encuesta = await lastValueFrom(this.encuestaService.obtenerEncuestaByIdMatricula(this.id_matricula));

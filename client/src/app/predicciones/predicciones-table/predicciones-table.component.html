@@ -31,10 +31,16 @@
           <div class="col-md-2 form-group">
             <mat-form-field appearance="outline">
               <mat-label>Predicción</mat-label>
-              <mat-select name="resultado" [(ngModel)]="resultado">
+              <mat-select name="scored_labels" [(ngModel)]="scored_labels">
                 <mat-option value="Aprobado">Aprobado</mat-option>
                 <mat-option value="Desaprobado">Desaprobado</mat-option>
               </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha de Predicción</mat-label>
+              <input matInput type="date" name="fecha_prediccion" [(ngModel)]="fecha_prediccion">
             </mat-form-field>
           </div>
         </div>
@@ -53,18 +59,19 @@
     <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
     </pagination-controls>
   </div>
-  <table class="table table-hover" id="MyTable">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th scope="col">DNI</th>
         <th scope="col">Estudiante</th>
         <th scope="col">Sección</th>
         <th scope="col">Año</th>
+        <th scope="col">CF Anterior</th>
         <th scope="col">P1</th>
         <th scope="col">P2</th>
-        <th scope="col">P3</th>
-        <th scope="col">CF</th>
         <th scope="col">Predicción</th>
+        <th scope="col">Probabilidad</th>
+        <th scope="col">Fecha de Predicción</th>
       </tr>
     </thead>
     <tbody>
@@ -74,13 +81,19 @@
         <td>{{prediccion.nombre}}</td>
         <td>{{prediccion.seccion}}</td>
         <td>{{prediccion.anio}}</td>
+        <td>{{prediccion.cf_anterior}}</td>
         <td>{{prediccion.p1}}</td>
         <td>{{prediccion.p2}}</td>
-        <td>{{prediccion.p3}}</td>
-        <td>{{prediccion.cf}}</td>
-        <td [ngClass]="{'aprobado': prediccion.resultado == 'Aprobado', 
-        'desaprobado': prediccion.resultado == 'Desaprobado'}">
-          {{prediccion.resultado}}</td>
+        <td
+          [ngClass]="{'aprobado': prediccion.scored_labels == 'Aprobado', 'desaprobado': prediccion.scored_labels == 'Desaprobado'}">
+          {{prediccion.scored_labels}}</td>
+        <td>{{prediccion.scored_probabilities}}%</td>
+        <td>{{prediccion.fecha_prediccion}}</td>
+        <td>
+          <span (click)="openDialog(prediccion)" class="info">
+            <mat-icon>info</mat-icon>
+          </span>
+        </td>
       </tr>
     </tbody>
   </table>

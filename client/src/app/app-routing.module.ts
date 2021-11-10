@@ -15,20 +15,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { AsignacionesPageComponent } from './asignaciones/asignaciones-page/asignaciones-page.component';
 
 const routes: Routes = [
-  {path:'', component: UsuariosPageComponent},
-  {path:'dashboard', component: DashboardPageComponent},
-  {path:'dashboard2', component: DashboardPageDosComponent},
-  {path:'usuarios', component: UsuariosPageComponent},
-  {path:'estudiantes', component: EstudiantesPageComponent},
-  {path:'secciones', component: SeccionesPageComponent},
-  {path:'matriculas', component: MatriculasPageComponent},
-  {path:'asesorias', component: AsesoriasPageComponent},
-  {path:'encuesta-preguntas', component: PreguntasEncuestaComponent},
-  {path:'calificaciones', component: CalificacionesPageComponent},
-  {path:'predicciones', component:PrediccionesPageComponent},
-  {path:'login', component:LoginComponent},
-  {path:'asignaciones', component:AsignacionesPageComponent}
-  //{path:'**', component: DashboardPageComponent, pathMatch:'full'}
+  { path: '', component: UsuariosPageComponent },
+  { path: 'dashboard', component: DashboardPageComponent },
+  { path: 'dashboard2', component: DashboardPageDosComponent },
+  { path: 'usuarios', component: UsuariosPageComponent },
+  { path: 'estudiantes', component: EstudiantesPageComponent },
+  { path: 'secciones', component: SeccionesPageComponent },
+  { path: 'matriculas', component: MatriculasPageComponent },
+  { path: 'asesorias', component: AsesoriasPageComponent },
+  { path: 'encuesta-preguntas', component: PreguntasEncuestaComponent },
+  { path: 'calificaciones', component: CalificacionesPageComponent },
+  { path: 'predicciones', component: PrediccionesPageComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'asignaciones', component: AsignacionesPageComponent },
+  { path: '*', component: LoginComponent }
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using API.Interfaces;
@@ -33,11 +34,12 @@ namespace API.Data
                              nombre = a.nombre + " " + a.ape_paterno + " " + a.ape_materno,
                              seccion = g.grado+" "+g.seccion+" "+g.nivel,
                              anio = g.anio,
-                             p1 = e.p1,
-                             p2 = e.p2,
-                             p3 = e.p3,
-                             cf = e.cf,
-                             resultado = i.horas_estudio
+                             fecha_prediccion = i.fecha_prediccion,
+                             cf_anterior = i.CF_anterior,
+                             p1 = i.P1,
+                             p2 = i.P2,
+                             scored_labels = i.scored_labels,
+                             scored_probabilities = Math.Round(i.scored_probabilities * 100)
                          };
 
             return await result.ToListAsync();
