@@ -31,7 +31,7 @@ namespace API.Controllers
             };
 
             var accountSid = "AC84eab1496a029dfbcfaa4fbc4391e636";
-            var authToken = "a325508c017451e1c06611d09f96407a";
+            var authToken = "27577d3e56d5935bf731a60a8babdf84";
             TwilioClient.Init(accountSid, authToken);
 
             var messageOptions = new CreateMessageOptions(

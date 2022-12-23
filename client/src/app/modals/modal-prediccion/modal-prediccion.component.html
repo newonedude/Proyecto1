@@ -9,7 +9,7 @@
     <h1 *ngIf="data.scored_label == 'No' && data.scored_probabilities >= 70" mat-dialog-title class="title">¡No te
         desanimes!</h1>
     <h1 *ngIf="data.scored_label == 'No' && data.scored_probabilities < 70 && data.scored_probabilities >= 50"
-        mat-dialog-title class="title">¡Aún tienes posibilidades de aprobar!</h1>
+        mat-dialog-title class="title">Aún tienes posibilidades de aprobar</h1>
     <div>
         <hr>
     </div>
@@ -62,7 +62,7 @@
     </div>
 </div>
 
-<div *ngIf="data.status != 200">
+<div *ngIf="data.status != 200 && data.status != 0">
     <h1 mat-dialog-title class="title">Lo sentimos u.u</h1>
     <div>
         <hr>
@@ -76,6 +76,26 @@
         <br>
         <br>
         Te recomendamos que vuelvas a intentarlo dentro de unos minutos. Gracias.
+    </p>
+    <div mat-dialog-actions class="options">
+        <button mat-stroked-button (click)="onClick()">Cerrar</button>
+    </div>
+</div>
+
+<div *ngIf="data.status == 0">
+    <h1 mat-dialog-title class="title">Lo sentimos u.u</h1>
+    <div>
+        <hr>
+    </div>
+    <div class="icon">
+        <mat-icon>bug_report</mat-icon>
+    </div>
+    <br>
+    <p class="row parrafo">
+        No cuentas con información histórica de notas suficiente para realizar la predicción.
+        <br>
+        <br>
+        Te recomendamos que te comuniques con tu profesor para que pueda actualizar tus notas en el sistema.
     </p>
     <div mat-dialog-actions class="options">
         <button mat-stroked-button (click)="onClick()">Cerrar</button>

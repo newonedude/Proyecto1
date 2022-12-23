@@ -58,7 +58,7 @@ namespace API.Controllers
         [HttpPost("registrar")]
         public async Task<ActionResult<UsuarioDTO>> RegistrarUsuario(UsuarioDTO usuariodto)
         {
-            if (await UsuarioExiste(usuariodto.usuario)) return BadRequest("Usuario ya existe");
+            if (await UsuarioExiste(usuariodto.dni)) return BadRequest("Usuario ya existe");
 
             var usuario = new Usuario
             {
@@ -107,9 +107,9 @@ namespace API.Controllers
 
         }
 
-        private async Task<bool> UsuarioExiste(string usuario)
+        private async Task<bool> UsuarioExiste(string dni)
         {
-            return await _userRepository.UsuarioExist(usuario);
+            return await _userRepository.UsuarioExist(dni);
         }
     }
 }

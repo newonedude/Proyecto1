@@ -11,44 +11,50 @@
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre</mat-label>
-                        <input matInput type="text" name="nombre" [(ngModel)]="model1.nombre">
+                        <input matInput type="text" name="nombre" [(ngModel)]="model1.nombre" [formControl]="nombre" required>
+                        <mat-error *ngIf="nombre.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Paterno</mat-label>
-                        <input matInput type="text" name="ape_paterno" [(ngModel)]="model1.ape_paterno">
+                        <input matInput type="text" name="ape_paterno" [(ngModel)]="model1.ape_paterno" [formControl]="ape_paterno" required>
+                        <mat-error *ngIf="ape_paterno.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Materno</mat-label>
-                        <input matInput type="text" name="ape_materno" [(ngModel)]="model1.ape_materno">
+                        <input matInput type="text" name="ape_materno" [(ngModel)]="model1.ape_materno" [formControl]="ape_materno" required>
+                        <mat-error *ngIf="ape_materno.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>DNI</mat-label>
-                        <input matInput type="text" name="dni" [(ngModel)]="model1.dni" [(ngModel)]="model1.usuario">
+                        <input matInput type="text" name="dni" [(ngModel)]="model1.dni" [(ngModel)]="model1.usuario" [formControl]="dni" required>
+                        <mat-error *ngIf="dni.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Correo Electrónico</mat-label>
-                        <input matInput type="text" name="email" [(ngModel)]="model1.email">
+                        <input matInput placeholder="email@example.com" [(ngModel)]="model1.email" [formControl]="email" required>
+                        <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Fecha de Ingreso</mat-label>
-                        <input matInput type="date" name="fecha_ingreso" [(ngModel)]="model2.fecha_ingreso">
+                        <input matInput type="date" name="fecha_ingreso" [(ngModel)]="model2.fecha_ingreso" [formControl]="fecha_ingreso" required>
+                        <mat-error *ngIf="fecha_ingreso.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Fecha de Nacimiento</mat-label>
-                        <input matInput type="date" name="fecha_nacimiento" [(ngModel)]="model2.fecha_nacimiento"
-                            [(ngModel)]="model1.password">
+                        <input matInput type="date" name="fecha_nacimiento" [(ngModel)]="model2.fecha_nacimiento" [(ngModel)]="model1.password" [formControl]="fecha_nacimiento" required>
+                        <mat-error *ngIf="fecha_nacimiento.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -59,37 +65,43 @@
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre</mat-label>
-                        <input matInput type="text" name="nombre_apod" [(ngModel)]="model2.nombre_apod">
+                        <input matInput type="text" name="nombre_apod" [(ngModel)]="model2.nombre_apod" [formControl]="nombre_apod" required>
+                        <mat-error *ngIf="nombre_apod.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Paterno</mat-label>
-                        <input matInput type="text" name="ape_paterno_apod" [(ngModel)]="model2.ape_paterno_apod">
+                        <input matInput type="text" name="ape_paterno_apod" [(ngModel)]="model2.ape_paterno_apod" [formControl]="ape_paterno_apod" required>
+                        <mat-error *ngIf="ape_paterno_apod.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido Materno</mat-label>
-                        <input matInput type="text" name="ape_materno_apod" [(ngModel)]="model2.ape_materno_apod">
+                        <input matInput type="text" name="ape_materno_apod" [(ngModel)]="model2.ape_materno_apod" [formControl]="ape_materno_apod" required>
+                        <mat-error *ngIf="ape_materno_apod.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>DNI</mat-label>
-                        <input matInput type="text" name="dni_apod" [(ngModel)]="model2.dni_apod">
+                        <input matInput type="text" name="dni_apod" [(ngModel)]="model2.dni_apod" [formControl]="dni_apod" required>
+                        <mat-error *ngIf="dni_apod.invalid">{{getErrorMessageDNIApod()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Número Móvil</mat-label>
-                        <input matInput type="text" name="celular_apod" [(ngModel)]="model2.celular_apod">
+                        <input matInput type="text" name="celular_apod" [(ngModel)]="model2.celular_apod" [formControl]="celular_apod" required>
+                        <mat-error *ngIf="celular_apod.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-md-2">
                     <mat-form-field appearance="outline">
                         <mat-label>Correo Electrónico</mat-label>
-                        <input matInput type="text" name="email_apod" [(ngModel)]="model2.email_apod">
+                        <input matInput type="text" name="email_apod" [(ngModel)]="model2.email_apod" [formControl]="email_apod" required>
+                        <mat-error *ngIf="email_apod.invalid">{{getErrorMessageEmailApod()}}</mat-error>
                     </mat-form-field>
                 </div>
             </div>

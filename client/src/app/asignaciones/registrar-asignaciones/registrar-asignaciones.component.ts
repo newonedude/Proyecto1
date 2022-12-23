@@ -1,3 +1,4 @@
+import { FormControl, Validators } from '@angular/forms';
 import { AsignacionService } from './../../_services/asignacion.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Seccion } from 'src/app/_models/seccion';
@@ -14,10 +15,11 @@ import { SeccionService } from 'src/app/_services/seccion.service';
 export class RegistrarAsignacionesComponent implements OnInit {
   docentes: Array<User> = [];
   secciones: Array<Seccion> = [];
-  selectedDocenteOptions: any = [];
-  selectedSectionOption: any = {};
   curso: any = {};
   asignacion: any = {};
+  docente = new FormControl('', [Validators.required]);
+  course = new FormControl('', [Validators.required]);
+  section = new FormControl('', [Validators.required]);
 
   @Output() cancelRegister = new EventEmitter();
 
@@ -30,6 +32,13 @@ export class RegistrarAsignacionesComponent implements OnInit {
     this.getUsuariosByRole()
     this.getCursos();
     this.getSecciones();
+  }
+
+  getErrorMessageInput() {
+    return this.docente.hasError('required') ? 'Ingrese un valor.' :
+      this.course.hasError('required') ? 'Ingrese un valor.' :
+        this.section.hasError('required') ? 'Ingrese un valor.' :
+          ''
   }
 
   getUsuariosByRole() {
@@ -65,17 +74,25 @@ export class RegistrarAsignacionesComponent implements OnInit {
     )
   }
 
-  register(){
-    this.asignacion.id_curso = this.curso.id_curso
-    this.asignacion.id_seccion = this.selectedSectionOption.id
-    this.asignacion.anio = this.selectedSectionOption.anio
-    this.asignacion.estado = true
-    console.log(this.selectedSectionOption)
-    console.log(this.asignacion)
+  register() {
+    if (this.docente.invalid || this.course.invalid) {
+      console.log("debe llenar todos los campos.")
+    }
+    else {
+      for (let sec of this.secciones) {
+        if (sec.id == this.asignacion.id_seccion) {
+          this.asignacion.anio = sec.anio
+        }
+      }
 
-    this.asignacionService.registrarAsignacion(this.asignacion).subscribe(
-      r => this.cancel()
-    )
+      this.asignacion.id_curso = this.curso.id_curso
+      this.asignacion.estado = true
+      console.log(this.asignacion)
+
+      this.asignacionService.registrarAsignacion(this.asignacion).subscribe(
+        r => this.cancel()
+      )
+    }
   }
 
   cancel() {

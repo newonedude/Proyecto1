@@ -34,6 +34,7 @@
                             <mat-option [value]="16">16</mat-option>
                             <mat-option [value]="'Otros'">Otro</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="secondCtrl.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                     <div class="botones mt-2">
                         <button mat-raised-button matStepperPrevious>Anterior</button>
@@ -56,6 +57,7 @@
                             <mat-option class="radio" [value]="'Abuelo(a)'">Abuelo(a)</mat-option>
                             <mat-option class="radio" [value]="'Otro'">Otro</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="thirdCtrl.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                     <div class="botones mt-2">
                         <button mat-raised-button matStepperPrevious>Anterior</button>
@@ -90,6 +92,7 @@
                             <mat-option class="radio" [value]="'Ninguno'">Ninguno</mat-option>
                             <mat-option class="radio" [value]="'Desconozco'">Desconozco</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="fifthCtrl.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                     <div class="botones mt-2">
                         <button mat-raised-button matStepperPrevious>Anterior</button>
@@ -108,6 +111,7 @@
                             <mat-option value="Pequeña">Mediana</mat-option>
                             <mat-option value="Grande">Grande</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="seventhCtrl.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                     <div class="botones mt-2">
                         <button mat-raised-button matStepperPrevious>Anterior</button>
@@ -127,6 +131,7 @@
                             <mat-option class="radio" [value]="'Entre 2 y 5 horas'">Entre 2 y 5 horas</mat-option>
                             <mat-option class="radio" [value]="'Más de 5 horas'">Más de 5 horas</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="nineteenthCtrl.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                     <div class="botones mt-2">
                         <button mat-raised-button matStepperPrevious>Anterior</button>
@@ -195,6 +200,7 @@
                             <mat-option class="radio" [value]="'Por el curso'">El Curso</mat-option>
                             <mat-option class="radio" [value]="'Otros'">Otros</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="twentytwoCtrl.invalid">{{getErrorMessageInput()}}</mat-error>
                     </mat-form-field>
                     <div class="botones mt-2">
                         <button mat-raised-button matStepperPrevious>Anterior</button>
@@ -211,6 +217,9 @@
                         <mat-radio-button #radio1 class="radio" value="si" required>Sí</mat-radio-button>
                         <mat-radio-button #radio2 class="radio ml-2" value="no" required>No</mat-radio-button>
                     </mat-radio-group>
+                    <div class="botones mt-2">
+                        <button mat-raised-button matStepperPrevious>Anterior</button>
+                    </div>
                 </form>
             </mat-step>
         </mat-vertical-stepper>

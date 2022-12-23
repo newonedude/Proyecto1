@@ -7,34 +7,36 @@
             <div class="form-group">
                 <mat-form-field appearance="outline">
                     <mat-label>Docente</mat-label>
-                    <mat-select name="docente" [(ngModel)]="asignacion.id_docente">
+                    <mat-select name="docente" [(ngModel)]="asignacion.id_docente" [formControl]="docente" required>
                         <mat-option *ngFor="let docente of docentes" [value]="docente.id_usuario">
                             {{docente.nombre}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="docente.invalid">{{getErrorMessageInput()}}</mat-error>
                 </mat-form-field>
             </div>
             <div class="ml-5"></div>
             <div class="form-group">
                 <mat-form-field appearance="outline">
                     <mat-label>Curso</mat-label>
-                    <mat-select name="curso" [(ngModel)]="asignacion.id_curso">
+                    <mat-select name="curso" [(ngModel)]="asignacion.id_curso" [formControl]="course" required>
                         <mat-option [value]="curso.id_curso">
                             {{curso.descripcion}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="course.invalid">{{getErrorMessageInput()}}</mat-error>
                 </mat-form-field>
             </div>
             <div class="ml-5"></div>
             <div class="form-group">
                 <mat-form-field appearance="outline">
-                    <mat-label>Sección</mat-label>
-                    <mat-select name="seccion" [(ngModel)]="selectedSectionOption"
-                        [ngModelOptions]="{standalone: true}">
-                        <mat-option *ngFor="let seccion of secciones" [value]="seccion" role="option">
+                    <mat-label>Seccion</mat-label>
+                    <mat-select name="seccion" [(ngModel)]="asignacion.id_seccion" [formControl]="section" required>
+                        <mat-option *ngFor="let seccion of secciones" [value]="seccion.id">
                             {{seccion.seccion}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="section.invalid">{{getErrorMessageInput()}}</mat-error>
                 </mat-form-field>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <div *ngIf="DOMready == false" class="spinner-grow loading" role="status"></div>
 <div *ngIf="!surveyMode && DOMready" class="main">
     <div class="pt-5">
-        <h1 class="title">Sistema de predicción del rendimiento académico</h1>
+        <h1 class="title">Sistema de Predicción del Rendimiento Académico</h1>
         <h2 class="subtitle">Bienvenido, {{usuario.nombre}} {{usuario.ape_paterno}} {{usuario.ape_materno}}</h2>
 
         <hr>
@@ -12,16 +12,14 @@
     </div>
     <div class="contparrafo">
         <p *ngIf="autorizacion == false" class="parrafo">¡Hola!, para que puedas hacer uso del cuestionario es necesario
-            contar
-            con el permiso de tu apoderado, para ello debes utilizar la primera opción <b>'Solicitar Autorización'</b>.
+            contar con el permiso de tu apoderado, para ello debes utilizar la primera opción <b>'Solicitar
+                Autorización'</b>.
             Esto enviará un SMS a su celular. Él deberá ingresar al enlace y aceptar las políticas de privacidad para
             dar su autorización.
             Luego de ello deberás volver a ingresar a esta página para responder el cuestionario. ¡Gracias!
         </p>
         <p *ngIf="autorizacion == true" class="parrafo">¡Hola!, ya cuentas con el permiso de tu apoderado para poder
-            responder
-            el cuestionario. Por favor, selecciona la opción <b>Responder Cuestionario</b> para que puedas conocer la
-            predicción de tu rendimiento en el curso de Matemática.
+            responder el cuestionario. Por favor, selecciona la opción <b>Responder Cuestionario</b> para continuar.
         </p>
     </div>
     <div class="options">

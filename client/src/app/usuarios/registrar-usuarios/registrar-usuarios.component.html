@@ -6,47 +6,54 @@
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Nombre</mat-label>
-                <input matInput type="text" name="nombre" [(ngModel)]="model.nombre">
+                <input matInput type="text" name="nombre" [(ngModel)]="model.nombre" [formControl]="nombre" required>
+                <mat-error *ngIf="nombre.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Apellido Paterno</mat-label>
-                <input matInput type="text" name="ape_paterno" [(ngModel)]="model.ape_paterno">
+                <input matInput type="text" name="ape_paterno" [(ngModel)]="model.ape_paterno" [formControl]="ape_paterno" required>
+                <mat-error *ngIf="ape_paterno.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Apellido Materno</mat-label>
-                <input matInput type="text" name="ape_materno" [(ngModel)]="model.ape_materno">
+                <input matInput type="text" name="ape_materno" [(ngModel)]="model.ape_materno" [formControl]="ape_materno" required>
+                <mat-error *ngIf="ape_materno.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>DNI</mat-label>
-                <input matInput type="text" name="dni" [(ngModel)]="model.dni" [(ngModel)]="model.usuario">
+                <input matInput type="text" name="dni" [(ngModel)]="model.dni" [(ngModel)]="model.usuario" [formControl]="dni" required>
+                <mat-error *ngIf="dni.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Rol</mat-label>
-                <mat-select name="rol" [(ngModel)]="model.rol">
+                <mat-select name="rol" [(ngModel)]="model.rol" [formControl]="rol" required>
                     <mat-option *ngFor="let rol of roles" [value]="rol.value">
                         {{rol.value}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="rol.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" name="password" [(ngModel)]="model.password">
+                <input matInput type="password" name="password" [(ngModel)]="model.password" [formControl]="password" required>
+                <mat-error *ngIf="password.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Correo electrónico</mat-label>
-                <input matInput type="email" name="email" [(ngModel)]="model.email">
+                <input matInput type="email" name="email" [(ngModel)]="model.email" [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group options">

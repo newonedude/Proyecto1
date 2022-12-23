@@ -57,9 +57,9 @@ namespace API.Data
             context.Entry(usuario).State = EntityState.Modified;
         }
 
-        public async Task<bool> UsuarioExist(string usuario)
+        public async Task<bool> UsuarioExist(string dni)
         {
-            return await context.tb_usuario.AnyAsync(x => x.usuario == usuario.ToLower());
+            return await context.tb_usuario.AnyAsync(x => x.dni == dni.ToLower());
         }
 
         public async Task<Usuario> Log(LoginDTO logindto)

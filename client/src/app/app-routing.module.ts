@@ -1,3 +1,4 @@
+import { DashboardPageTresComponent } from './dashboard-page-tres/dashboard-page-tres.component';
 import { DashboardPageDosComponent } from './dashboard-page-dos/dashboard-page-dos.component';
 import { DashboardTabComponent } from './dashboard-tab/dashboard-tab.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: '', component: UsuariosPageComponent },
   { path: 'dashboard', component: DashboardPageComponent },
   { path: 'dashboard2', component: DashboardPageDosComponent },
+  { path: 'dashboard3', component: DashboardPageTresComponent },
   { path: 'usuarios', component: UsuariosPageComponent },
   { path: 'estudiantes', component: EstudiantesPageComponent },
   { path: 'secciones', component: SeccionesPageComponent },

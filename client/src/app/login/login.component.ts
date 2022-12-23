@@ -29,15 +29,11 @@ export class LoginComponent implements OnInit {
     let resp = await lastValueFrom(this.accountService.login(this.model))
     this.status = resp.body.status
 
-    if (this.status == 200) {
+    if (this.status == 200 && resp.body.data.rol == "estudiante") {
       let resp1 = await lastValueFrom(this.matriculaService.obtenerMatriculaByDNI(resp.body.data.dni))
       this.autorizacion = resp1.permiso_apoderado
     }
-
+    this.model = {}
     this.usuarioReady = false
-  }
-
-  logout() {
-    this.accountService.logout();
   }
 }

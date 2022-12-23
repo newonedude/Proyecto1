@@ -1,13 +1,9 @@
-import { switchMap } from 'rxjs/operators';
 import { EstudianteService } from './../../_services/estudiante.service';
-import { Seccion } from './../../_models/seccion';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { SeccionService } from 'src/app/_services/seccion.service';
 import { DatePipe } from '@angular/common';
-import { CdkNoDataRow } from '@angular/cdk/table';
 import { lastValueFrom } from 'rxjs';
 
 @Component({
@@ -69,10 +65,12 @@ export class AsesoriasPageComponent implements OnInit {
   }
 
   cancelRegisterMode(event: boolean) {
-    this.docentes.length = 0;
-    this.secciones.length = 0;
-    this.estudiantes.length = 0;
-    this.registerMode = event;
+    this.docentes.length = 0
+    this.secciones.length = 0
+    this.estudiantes.length = 0
+    this.asesorias.length = 0
+    this.asesoriasfull.length = 0
+    this.registerMode = event
     if (event == false) {
       this.DOMready = false
       this.ngOnInit();

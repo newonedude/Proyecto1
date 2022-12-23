@@ -37,6 +37,7 @@ namespace API.Data
                          join f in context.tb_asignacion_docente on d.id_asignacion equals f.id_asignacion
                          join g in context.tb_seccion on f.id_seccion equals g.id_seccion
                          join h in context.tb_curso on f.id_curso equals h.id_curso
+                         where c.estado == true
                          select new
                          {
                              nombre = a.nombre + " " + a.ape_paterno + " " + a.ape_materno,

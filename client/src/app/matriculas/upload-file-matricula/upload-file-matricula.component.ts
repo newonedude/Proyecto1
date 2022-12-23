@@ -8,6 +8,7 @@ import { EstudianteService } from './../../_services/estudiante.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AccountService } from 'src/app/_services/account.service';
 import * as XLSX from 'xlsx';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-upload-file-matricula',
@@ -56,6 +57,8 @@ export class UploadFileMatriculaComponent implements OnInit {
   }
 
   async uploadfile() {
+    this.input = document.getElementById("inputSubir");
+    this.input.value = '';
     let keys = this.data.shift();
     this.resArray = this.data.map((e) => {
       let obj = {};
@@ -69,28 +72,27 @@ export class UploadFileMatriculaComponent implements OnInit {
 
   async registerToServices() {
     for (const registro of this.resArray) {
-      const resp6 = await this.cursoService.obtenerCursos().toPromise();
-      const resp = await this.accountService.obtenerUsuarioDni(registro.dni).toPromise();
+      const resp6 = await lastValueFrom(this.cursoService.obtenerCursos())
+      const resp = await lastValueFrom(this.accountService.obtenerUsuarioDni(registro.dni))
 
-      const resp2 = await this.estudianteService.obtenerEstudianteByUserId(resp.id_usuario).toPromise();
+      const resp2 = await lastValueFrom(this.estudianteService.obtenerEstudianteByUserId(resp.id_usuario))
       this.matricula.id_estudiante = resp2.id_estudiante;
       this.matricula.fecha_matricula = registro.fecha_matricula
 
-      const resp3 = await this.seccionService.obtenerSeccionesDetail(registro.nivel, registro.grado, registro.seccion, registro.anio).toPromise();
+      const resp3 = await lastValueFrom(this.seccionService.obtenerSeccionesDetail(registro.nivel, registro.grado, registro.seccion, registro.anio))
       this.matricula.id_seccion = resp3.id_seccion;
       this.matricula.anio = resp3.anio;
       this.matricula.estado = true;
 
-      const resp4 = await this.matriculaService.registrarMatricula(this.matricula).toPromise();
+      const resp4 = await lastValueFrom(this.matriculaService.registrarMatricula(this.matricula))
       this.detmatricula.id_matricula = resp4.id_matricula;
 
-      const resp7 = await this.asignacionService.obtenerAsignacionByDetail(resp3.id_seccion, resp6[0].id_curso, resp3.anio, true).toPromise();
+      const resp7 = await lastValueFrom(this.asignacionService.obtenerAsignacionByDetail(resp3.id_seccion, resp6[0].id_curso, resp3.anio, true))
       this.detmatricula.id_asignacion = resp7.id_asignacion
+      this.detmatricula.estado = true
 
-      await this.detalleMatriculaService.registrarDetalleMatricula(this.detmatricula).toPromise();
+      await lastValueFrom(this.detalleMatriculaService.registrarDetalleMatricula(this.detmatricula))
     }
     this.refresh();
-    this.input = document.getElementById("inputSubir");
-    this.input.value = '';
   }
 }

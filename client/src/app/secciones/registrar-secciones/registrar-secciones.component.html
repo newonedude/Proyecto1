@@ -6,41 +6,46 @@
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Nivel</mat-label>
-                <mat-select name="nivel" [(ngModel)]="model.nivel">
+                <mat-select name="nivel" [(ngModel)]="model.nivel" [formControl]="nivel" required>
                     <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
                         {{nivel.value}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="nivel.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Grado</mat-label>
-                <mat-select name="grado" [(ngModel)]="model.grado">
+                <mat-select name="grado" [(ngModel)]="model.grado" [formControl]="grado" required>
                     <mat-option *ngFor="let grado of grados" [value]="grado.value">
                         {{grado.value}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="grado.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Sección</mat-label>
-                <input matInput type="text" name="seccion" [(ngModel)]="model.seccion">
+                <input matInput type="text" name="seccion" [(ngModel)]="model.seccion" [formControl]="seccion" required>
                 <mat-hint>Ejemplo: A</mat-hint>
+                <mat-error *ngIf="seccion.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Año</mat-label>
-                <input matInput type="number" name="anio" [(ngModel)]="model.anio">
+                <input matInput type="number" name="anio" [(ngModel)]="model.anio" [formControl]="anio" required>
                 <mat-hint>Formato: yyyy</mat-hint>
+                <mat-error *ngIf="anio.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Capacidad</mat-label>
-                <input matInput type="number" name="capacidad" [(ngModel)]="model.capacidad">
+                <input matInput type="number" name="capacidad" [(ngModel)]="model.capacidad" [formControl]="capacidad" required>
+                <mat-error *ngIf="capacidad.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group options">

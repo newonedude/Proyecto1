@@ -16,24 +16,24 @@ export class MainNavComponent {
   @ViewChild('appDrawer') appDrawer: ElementRef;
   navItems: NavItem[] = [
     {
-      displayName: 'Dashboard',
+      displayName: 'Dashboards',
       iconName: 'dashboard',
       route: 'dashboard',
       children: [
         {
-          displayName: 'Gráfico 1',
+          displayName: 'Dashboard 1',
           iconName: 'bar_chart',
           route: 'dashboard'
         },
         {
-          displayName: 'Gráfico 2',
+          displayName: 'Dashboard 2',
           iconName: 'timeline',
           route: 'dashboard2'
         },
         {
-          displayName: 'Gráfico 3',
-          iconName: 'bar_chart',
-          route: ''
+          displayName: 'Dashboard 3',
+          iconName: 'insert_chart_outlined',
+          route: 'dashboard3'
         }
       ]
     },

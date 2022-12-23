@@ -44,7 +44,7 @@ export class MatriculasPageComponent implements OnInit {
   }
 
   refreshPageMode(event: any) {
-    this.DOMready = false
+    this.DOMready = true
     this.matriculas.length = 0;
     if (event == true) {
       this.ngOnInit();

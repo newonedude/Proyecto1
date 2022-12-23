@@ -1,0 +1,35 @@
+<div class="child">
+    <div class="mt-3">
+        <h1>Dashboard: Aspectos del Curso y del Docente</h1>
+        <h2></h2>
+    </div>
+    <div class="buttons mt-5">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Año</mat-label>
+                <mat-select name="anio" [(ngModel)]="selectedAnio" (selectionChange)="change()">
+                    <mat-option *ngFor="let anio of newanios" [value]="anio">{{anio}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="graphs">
+        <div class="form-group chart">
+            <canvas class="canvas" id="canvas"></canvas>
+        </div>
+        <div class="form-group chart">
+            <canvas class="canvas" id="canvas2"></canvas>
+        </div>
+        <div class="form-group chart">
+            <canvas class="canvas" id="canvas3"></canvas>
+        </div>
+    </div>
+    <div class="graphs">
+        <div class="form-group chart2">
+            <canvas class="canvas" id="canvas4"></canvas>
+        </div>
+        <div class="form-group chart2">
+            <canvas class="canvas" id="canvas5"></canvas>
+        </div>
+    </div>
+</div>

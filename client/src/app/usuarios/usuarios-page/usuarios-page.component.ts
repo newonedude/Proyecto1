@@ -1,3 +1,4 @@
+import { lastValueFrom } from 'rxjs';
 import { AccountService } from 'src/app/_services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +21,7 @@ export class UsuariosPageComponent implements OnInit {
   }
 
   async getUsuarios() {
-    const resp = await this.http.get(this.usuariosService.baseUrl + 'usuarios').toPromise();
+    const resp = await lastValueFrom(this.http.get(this.usuariosService.baseUrl + 'usuarios'));
     this.usuarios = resp
 
     this.DOMready = true

@@ -1,3 +1,4 @@
+import { lastValueFrom } from 'rxjs';
 import { NotaService } from './../../_services/nota.service';
 import { CursoService } from 'src/app/_services/curso.service';
 import { SeccionService } from 'src/app/_services/seccion.service';
@@ -64,49 +65,45 @@ export class UploadFileCalificacionComponent implements OnInit {
   }
 
   async registerToServices() {
+    this.input = document.getElementById("inputSubir");
+    this.input.value = '';
     for (const registro of this.resArray) {
-      const resp = await this.matriculaService.obtenerMatriculaByDNI(registro.dni).toPromise();
-      this.nota.id_matricula = resp.id_matricula;
+      const resp = await lastValueFrom(this.matriculaService.obtenerMatriculaByDNI(registro.dni))
+      this.nota.id_matricula = resp.id_matricula
 
-      const resp3 = await this.seccionService.obtenerSeccionesDetail(registro.nivel, registro.grado, registro.seccion, registro.anio).toPromise();
+      const resp3 = await lastValueFrom(this.seccionService.obtenerSeccionesDetail(registro.nivel, registro.grado, registro.seccion, registro.anio))
 
-      const resp4 = await this.cursoService.obtenerCursoByDesc(registro.curso).toPromise();
+      const resp4 = await lastValueFrom(this.cursoService.obtenerCursoByDesc(registro.curso))
 
-      const resp2 = await this.asignacionService.obtenerAsignacionByDetail(resp3.id_seccion, resp4.id_curso, registro.anio, true).toPromise();
+      const resp2 = await lastValueFrom(this.asignacionService.obtenerAsignacionByDetail(resp3.id_seccion, resp4.id_curso, registro.anio, true))
       this.nota.id_asignacion = resp2.id_asignacion;
 
       if (registro.p1 == null) {
         this.nota.p1 = ""
-      } else 
-      {
+      } else {
         this.nota.p1 = registro.p1.toString();
       }
 
       if (registro.p2 == null) {
         this.nota.p2 = ""
-      } else 
-      {
+      } else {
         this.nota.p2 = registro.p2.toString();
       }
 
       if (registro.p3 == null) {
         this.nota.p3 = ""
-      } else 
-      {
+      } else {
         this.nota.p3 = registro.p3.toString();
       }
 
       if (registro.cf == null) {
         this.nota.cf = ""
-      } else 
-      {
+      } else {
         this.nota.cf = registro.cf.toString();
       }
 
-      const resp5 = await this.notaService.actualizar(this.nota).toPromise();
+      const resp5 = await lastValueFrom(this.notaService.actualizar(this.nota));
     }
-    this.input = document.getElementById("inputSubir");
-    this.input.value = '';
     this.refresh();
   }
 }

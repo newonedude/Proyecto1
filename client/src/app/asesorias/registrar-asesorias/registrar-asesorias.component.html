@@ -7,46 +7,51 @@
         <div class="form-group mt-4">
             <mat-form-field appearance="outline">
                 <mat-label>Fecha de Asesoría</mat-label>
-                <input matInput type="date" name="fecha_matricula" [(ngModel)]="fecha1">
+                <input matInput type="date" name="fecha_matricula" [(ngModel)]="fecha1" [formControl]="fecha_matricula" required>
+                <mat-error *ngIf="fecha_matricula.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group mt-4">
             <mat-form-field appearance="outline">
                 <mat-label>Hora</mat-label>
-                <mat-select name="hora" [(ngModel)]="hora2">
+                <mat-select name="hora" [(ngModel)]="hora2" [formControl]="hora" required>
                     <mat-option *ngFor="let hora of horas" [value]="hora.value">
                         {{hora.value}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="hora.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="row ml-1">
             <div class="form-group select">
                 <p>Seleccionar Estudiante</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedStudentOptions"
-                    [ngModelOptions]="{standalone: true}">
+                    [ngModelOptions]="{standalone: true}" [formControl]="estudiante" required>
                     <mat-list-option *ngFor="let usuario of usuarios" role="option" [value]="usuario">
                         {{usuario.nombre}}
                     </mat-list-option>
                 </mat-selection-list>
+                <mat-error *ngIf="estudiante.invalid">{{getErrorMessageEstudiante()}}</mat-error>
             </div>
             <div class="form-group select">
                 <p>Seleccionar Sección</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedSectionOptions"
-                    [ngModelOptions]="{standalone: true}">
+                    [ngModelOptions]="{standalone: true}" [formControl]="seccion" required>
                     <mat-list-option *ngFor="let seccion of secciones" role="option" [value]="seccion">
                         {{seccion.seccion}}
                     </mat-list-option>
                 </mat-selection-list>
+                <mat-error *ngIf="seccion.invalid">{{getErrorMessageSeccion()}}</mat-error>
             </div>
             <div class="form-group select">
                 <p>Seleccionar Docente</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedTeacherOptions"
-                    [ngModelOptions]="{standalone: true}">
+                    [ngModelOptions]="{standalone: true}" [formControl]="docente" required>
                     <mat-list-option *ngFor="let docente of docentes" role="option" [value]="docente">
                         {{docente.nombre}}
                     </mat-list-option>
                 </mat-selection-list>
+                <mat-error *ngIf="docente.invalid">{{getErrorMessageDocente()}}</mat-error>
             </div>
         </div>
         <div class="form-group options">

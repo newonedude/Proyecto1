@@ -84,9 +84,9 @@ namespace API.Controllers
                     }
                 };
 
-                const string apiKey = "Y5CDSPmLqcKjY2mtZror6ebMfomqpqEk";
+                const string apiKey = "PW86cg9A8afpRgtfIS6j7pq7ReyRsS8s";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-                client.BaseAddress = new Uri("http://e48a60c1-d9fa-422b-b14e-ccfa8efbf302.eastus.azurecontainer.io/score");
+                client.BaseAddress = new Uri("http://5b32150c-2ad2-4e41-b895-44a9722f4991.eastus.azurecontainer.io/score");
 
                 var requestString = JsonConvert.SerializeObject(scoreRequest);
                 var content = new StringContent(requestString);
@@ -179,9 +179,9 @@ namespace API.Controllers
                     }
                 };
 
-                const string apiKey = "mATcHM2Sd5j9mo9s7s5LuhmZhXCBulkR";
+                const string apiKey = "u0mdgFg6ibaCc8p7P58ZpQFq40Ng4mYV";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-                client.BaseAddress = new Uri("http://e627d7b0-979a-410b-b363-15e01cafa25f.eastus.azurecontainer.io/score");
+                client.BaseAddress = new Uri("http://c81059cb-e40c-4d74-bb65-dfda04bb89b6.eastus.azurecontainer.io/score");
 
                 var requestString = JsonConvert.SerializeObject(scoreRequest);
                 var content = new StringContent(requestString);
@@ -276,9 +276,9 @@ namespace API.Controllers
                     }
                 };
 
-                const string apiKey = "CG7dcqMobB7sdCj0gWGSnefC2yYgW2b7";
+                const string apiKey = "65YMYnEwNFauSTj8nEaTajrMvz8p2cDh";
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-                client.BaseAddress = new Uri("http://5fd0fea6-fe39-494d-a0b8-11e8a0d2179f.eastus.azurecontainer.io/score");
+                client.BaseAddress = new Uri("http://bd2161ca-e943-4c60-b343-9d18028eb24d.eastus.azurecontainer.io/score");
 
                 var requestString = JsonConvert.SerializeObject(scoreRequest);
                 var content = new StringContent(requestString);

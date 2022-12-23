@@ -15,7 +15,7 @@ namespace API.Interfaces
         Task<Usuario> GetUsersByIdAsync(short id_usuario);
         void Update(Usuario usuario);
         Task<Usuario> Insertar(Usuario usuario);
-        Task<bool> UsuarioExist(string usuario);
+        Task<bool> UsuarioExist(string dni);
         Task<Usuario> Log(LoginDTO logindto);
         Task<Usuario> GetUserByDniAsync(string dni);
     }

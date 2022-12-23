@@ -7,27 +7,30 @@
         <div class="form-group mt-4">
             <mat-form-field appearance="outline">
                 <mat-label>Fecha de Matricula</mat-label>
-                <input matInput type="date" name="fecha_matricula" [(ngModel)]="matricula.fecha_matricula">
+                <input matInput type="date" name="fecha_matricula" [(ngModel)]="matricula.fecha_matricula" [formControl]="fecha_matricula" required>
+                <mat-error *ngIf="fecha_matricula.invalid">{{getErrorMessageInput()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="row ml-1">
             <div class="form-group select">
                 <p>Seleccionar estudiante</p>
                 <mat-selection-list role="listbox" [multiple]="true" [(ngModel)]="selectedStudentOptions"
-                    [ngModelOptions]="{standalone: true}">
+                    [ngModelOptions]="{standalone: true}" [formControl]="estudiante_selected" required>
                     <mat-list-option *ngFor="let usuario of usuarios" role="option" [value]="usuario">
                         {{usuario.nombre}}
                     </mat-list-option>
                 </mat-selection-list>
+                <mat-error *ngIf="estudiante_selected.invalid">{{getErrorMessageStudents()}}</mat-error>
             </div>
             <div class="form-group select">
                 <p>Seleccionar sección</p>
                 <mat-selection-list role="listbox" [multiple]="false" [(ngModel)]="selectedSectionOptions"
-                    [ngModelOptions]="{standalone: true}">
+                    [ngModelOptions]="{standalone: true}" [formControl]="seccion_selected" required>
                     <mat-list-option *ngFor="let seccion of secciones" role="option" [value]="seccion">
                         {{seccion.seccion}}
                     </mat-list-option>
                 </mat-selection-list>
+                <mat-error *ngIf="seccion_selected.invalid">{{getErrorMessageSeccion()}}</mat-error>
             </div>
         </div>
         <div class="form-group options">
